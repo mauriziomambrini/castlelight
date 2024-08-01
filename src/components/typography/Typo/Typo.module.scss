@@ -1,0 +1,8 @@
+.typo {
+  font-family: var(--lffyarn);
+  font-weight: var(--lfw);
+  font-size: var(--lfs);
+  line-height: calc(1em + var(--llh));
+  color: var(--lc);
+  transition: var(--transition-025);
+}

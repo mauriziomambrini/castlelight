@@ -1,0 +1,8 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  flex-flow: var(--l-direction) var(--l-wrap);
+  justify-content: var(--l-justify);
+  align-items: var(--l-align);
+  gap: calc(var(--l-row-gap) * 1rem) calc(var(--l-column-gap) * 1rem);
+}

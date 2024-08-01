@@ -1,0 +1,45 @@
+@font-face {
+  font-family: ShantellSans;
+  src:
+    url('@/assets/fonts/ShantellSansVF.woff2') format('woff2');
+  font-weight: 1 1000;
+  font-stretch: 1 100%;
+}
+
+:root {
+  // Font family
+  --ff-one: 'ShantellSans';
+  --ff-main: var(--ff-one), system-ui, sans-serif;
+
+  // Font weight
+  --fw-black: 900;
+  --fw-bold: 700;
+  --fw-semi: 600;
+  --fw-medium: 500;
+  --fw-regular: 400;
+  --fw-light: 300;
+
+  // Font stretch
+  --fst-ultra-condensed: 50%;
+  --fst-extra-condensed: 62.5%;
+  --fst-condensed: 75%;
+  --fs-semi-condensed: 87.5%;
+  --fst-normal: 100%;
+  --fst-expanded: 112.5%;
+  --fst-extra-expanded: 125%;
+  --fst-ultra-expanded: 150%;
+
+  // Font size - base 16px
+  --fs-qr: 4rem;
+  --fs-tr: 3rem;
+  --fs-big: 2.5rem;
+  --fs-db: 2rem;
+  --fs-xxl: 1.5rem;
+  --fs-xl: 1.25rem;
+  --fs-lg: 1.125rem;
+  --fs-df: 1rem;
+  --fs-md: 0.875rem;
+  --fs-sm: 0.75rem;
+  --fs-xs: 0.625rem;
+  --fs-xxs: 0.5rem;
+}

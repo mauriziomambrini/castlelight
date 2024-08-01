@@ -1,0 +1,30 @@
+$breakpoints_map: (
+  sm: 768px,
+  md: 1024px,
+  lg: 1280px,
+  xl: 1440px,
+  xxl: 1920px,
+);
+
+$breakpoints: sm, md, lg, xl, xxl;
+
+$sizes: qr, tr, big, db, xxl, xl, lg, df, md, sm, xs, xxs, us, uxs, uxxs;
+
+$weights: light, regular, medium, semi, bold, black;
+
+$columns: 1, 2, 3, 4, 5, 6, 7, 8;
+
+$directions: row, column, row-reverse, column-reverse;
+
+$justify: start, end, center, stretch, space-between, space-around;
+
+$align: start, end, center, stretch, baseline;
+
+$positions: (
+  t: 'top',
+  r: 'right',
+  b: 'bottom',
+  l: 'left',
+  v: 'block',
+  h: 'inline'
+);

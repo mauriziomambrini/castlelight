@@ -1,0 +1,20 @@
+// Overflow X
+@mixin overflow-x {
+  overflow-x: auto;
+  overflow-x: overlay;
+  -webkit-overflow-scrolling: touch;
+}
+
+// Overflow Y
+@mixin overflow-y {
+  overflow-y: auto;
+  overflow-y: overlay;
+  -webkit-overflow-scrolling: touch;
+}
+
+// Text overflow
+@mixin overflow-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

@@ -1,0 +1,39 @@
+:root {
+  // Layout
+  --w-max-df: 70rem;
+  --w-max-sm: 61rem;
+  --w-max-xs: 45rem;
+  --w-max-xxs: 35rem;
+
+  // Size - base 16px
+  --s-qr: 4rem;
+  --s-tr: 3rem;
+  --s-big: 2.5rem;
+  --s-db: 2rem;
+  --s-xxl: 1.5rem;
+  --s-xl: 1.25rem;
+  --s-lg: 1.125rem;
+  --s-df: 1rem;
+  --s-md: 0.875rem;
+  --s-sm: 0.75rem;
+  --s-xs: 0.625rem;
+  --s-xxs: 0.5rem;
+  --s-us: 0.375rem;
+  --s-uxs: 0.25rem;
+  --s-uxxs: 0.125rem;
+  --s-inset: 1.5rem;
+
+  // Z-index
+  --z-index-0: 0;
+  --z-index-1: 100;
+  --z-index-2: 200;
+  --z-index-3: 300;
+  --z-index-4: 400;
+  --z-index-5: 500;
+  --z-index-6: 600;
+  --z-index-7: 700;
+  --z-index-8: 800;
+  --z-index-9: 900;
+  --z-index-10: 1000;
+  --z-index-top: 9999;
+}

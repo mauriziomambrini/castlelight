@@ -1,0 +1,24 @@
+@use 'sass:math';
+@import '../types';
+
+@mixin media($breakpoint) {
+  @if map-has-key($breakpoints_map, $breakpoint) {
+    $breakpoint-value: map-get($breakpoints_map, $breakpoint);
+
+    @media (min-width: $breakpoint-value) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == touch {
+    @media (hover: none) and (pointer: coarse) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == noTouch {
+    @media (hover: hover) and (pointer: fine) {
+      @content;
+    }
+  }
+}

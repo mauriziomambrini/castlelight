@@ -1,0 +1,15 @@
+:root {
+  // Transitions
+  --transition-025: all 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
+  --transition-035: all 0.35s cubic-bezier(0.215, 0.61, 0.355, 1);
+  --transition-05: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+  // Unicode characters
+  --unicode-arrow-angle-right: '\203A';
+  --unicode-arrow-right: '\2192';
+  --unicode-bullet: '\2022';
+  --unicode-colon: '\003A';
+  --unicode-asterisk: '\002A';
+  --unicode-comma: '\002C';
+  --unicode-slash: '\2215';
+}

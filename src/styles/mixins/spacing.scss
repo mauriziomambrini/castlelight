@@ -1,0 +1,5 @@
+// Inset spacing
+@mixin inset-spacing($inset) {
+  padding-inline: $inset;
+  margin-inline: calc(#{$inset} * -1);
+}

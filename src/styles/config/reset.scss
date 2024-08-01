@@ -1,0 +1,116 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--c-body);
+  font-family: var(--ff-main);
+  font-weight: var(--fw-regular);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-stretch: var(--fst-normal);
+  line-height: 1;
+  color: var(--c-grey);
+}
+
+body {
+  overflow: hidden auto;
+
+  // overflow-y: overlay;
+  -webkit-overflow-scrolling: touch;
+}
+
+main {
+  min-height: 100dvh;
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img {
+  border-style: none;
+}
+
+a {
+  cursor: pointer;
+  background-color: transparent;
+  text-decoration: none;
+  color: inherit;
+}
+
+a:focus {
+  outline: none;
+}
+
+p a {
+  font-weight: var(--fw-bold);
+  color: var(--c-accent);
+  transition: var(--transition-025);
+}
+
+p a:hover {
+  text-decoration: underline;
+}
+
+b,
+strong {
+  font-weight: var(--fw-bold);
+}
+
+hr {
+  box-sizing: content-box;
+  overflow: visible;
+  height: 0;
+}
+
+pre,
+code,
+kbd,
+samp {
+  font-family: monospace;
+}
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  appearance: button;
+}
+
+// iOS
+* {
+  -webkit-tap-highlight-color: transparent;
+}

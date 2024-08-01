@@ -1,0 +1,13 @@
+.wrapper {
+  width: fit-content;
+  max-height: var(--lh-max);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 100%;
+  height: var(--lh-max);
+  max-height: var(--lh-max);
+}
