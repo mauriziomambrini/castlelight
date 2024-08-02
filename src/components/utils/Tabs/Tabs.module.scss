@@ -1,0 +1,80 @@
+@import "@/styles/mixins/overflow";
+
+// Wrapper
+.wrapper {
+  --lw-indicator: var(--lw-tab);
+  --lx-indicator: var(--lleft-tab);
+  --ly-indicator: var(--ltop-tab);
+  --lh-tab: 2rem;
+  --lp-tab: 0rem;
+  
+  width: 100%;
+  height: calc(var(--lh-tab) + (var(--lp-tab) * 2));
+  min-height: calc(var(--lh-tab) + (var(--lp-tab) * 2));
+  display: flex;
+  position: relative;
+  align-items: flex-end;
+  padding: var(--lp-tab);
+}
+
+// Indicator
+.wrapper::after {
+  content: "";
+  width: var(--lw-indicator);
+  display: block;
+  position: absolute;
+  top: var(--lp-tab);
+  bottom: var(--lp-tab);
+  left: 0;
+  z-index: var(--z-index-1);
+  border-radius: var(--s-uxxs);
+  background-color: var(--c-accent);
+  transform: translateX(var(--lx-indicator));
+  transition: var(--transition-025);
+}
+
+// Tab
+.tab {
+  --lc-tab: var(--c-text);
+
+  cursor: pointer;
+  min-width: fit-content;
+  height: var(--lh-tab);
+  min-height: var(--lh-tab);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+
+.label {
+  pointer-events: none;
+  position: relative;
+  z-index: var(--z-index-2);
+  color: var(--lc-tab);
+  transition: var(--transition-025);
+}
+
+// If tab active
+.active {
+  --lc-tab: var(--c-invert);
+  --lc-bg-hint: var(--c-primary);
+}
+
+// If tab disabled
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+// If theme switch
+.switch {
+  --lp-tab: var(--s-uxs);
+
+  display: grid;
+  grid-template-columns: repeat(var(--l-item-number), 1fr);
+  grid-template-rows: 1fr;
+  border: 1px solid var(--c-grey-4);
+  border-radius: var(--s-uxs);
+}

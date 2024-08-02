@@ -8,7 +8,7 @@
   --c-grey-4: #c3c3c9;
   --c-grey-5: #e4e4e5;
   --c-grey-6: #f5f5f7;
-  --c-accent: #6c47ff;
+  --c-accent: #101012;
   --c-accent-light: #efeaff;
   --c-error: #f44336;
   --c-info: #0065ff;
@@ -18,23 +18,7 @@
   --c-invert: var(--c-white);
   --c-invert-light: var(--c-white);
   --c-hover: var(--c-black);
-
-  // Background
-  //--c-bg: var(--c-grey-3);
-  //--c-bg-2: var(--c-grey-4);
-  //--c-bg-3: var(--c-grey-5);
-  //--c-bg-4: var(--c-grey-6);
-  //--c-bg-5: var(--c-white);
-
-  // Text
-  //--c-tx-default: var(--c-grey);
-  //--c-tx-light: var(--c-grey-2);
-  //--c-tx-invert: var(--c-white);
-  //--c-tx-invert-light: var(--c-white);
-  //--c-tx-accent: var(--c-accent);
-  //--c-tx-error: var(--c-error);
-  //--c-tx-hover: var(--c-black);
-
+  
   // Button
   --c-btn-default: var(--c-grey);
   --c-btn-light: var(--c-grey-5);

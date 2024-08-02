@@ -6,7 +6,7 @@ import type {
   TypoTagType,
   TypoWeightType,
 } from '@/types/compoentsTypes';
-import { type FC, type ReactElement, createElement, useMemo } from 'react';
+import { createElement, useMemo } from 'react';
 import Balancer from 'react-wrap-balancer';
 
 import s from './Typo.module.scss';
@@ -25,7 +25,7 @@ export interface ITypo {
   className?: string;
 }
 
-const Typo: FC<ITypo> = (props: ITypo): ReactElement => {
+const Typo = (props: ITypo) => {
   const {
     text,
     tag = 'span',

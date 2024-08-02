@@ -4,7 +4,7 @@ import type {
   TypoSizeType,
 } from '@/types/compoentsTypes';
 import cx from 'classnames';
-import type { CSSProperties, FC, ReactElement } from 'react';
+import type { CSSProperties } from 'react';
 import ReactMarkdown from 'react-markdown';
 import s from './MarkdownText.module.scss';
 
@@ -32,7 +32,7 @@ export interface IMarkdown {
   >;
 }
 
-const MarkdownText: FC<IMarkdown> = (props: IMarkdown): ReactElement | null => {
+const MarkdownText = (props: IMarkdown) => {
   const { text, baseSize = 'df', color = 'default', classNames } = props;
 
   const renderComponents = (

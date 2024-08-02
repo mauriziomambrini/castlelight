@@ -1,4 +1,4 @@
-import type { CSSProperties, FC, ReactElement } from 'react';
+import type { CSSProperties } from 'react';
 
 import s from './Divider.module.scss';
 
@@ -16,7 +16,7 @@ export interface IDivider {
   classNames?: Classnames<'wrapper'>;
 }
 
-const Divider: FC<IDivider> = (props: IDivider): ReactElement => {
+const Divider = (props: IDivider) => {
   const {
     theme = 'line',
     spacing = [1.5],

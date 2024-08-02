@@ -8,3 +8,5 @@ export type QuestionType = {
   answer: string;
   options: OptionType[];
 };
+
+export type DifficultyTypes = 'easy' | 'medium' | 'hard';

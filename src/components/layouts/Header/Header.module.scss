@@ -1,1 +1,40 @@
+.wrapper {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 6rem 1fr 6rem;
+  grid-template-areas: 'lang info countdown';
+  align-items: center;
+  padding-inline: var(--s-inset);
+  gap: var(--s-df);
+}
+
+.lang {
+  grid-area: lang;
+  width: 5rem;
+}
+
+.info {
+  grid-area: info;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.countdown {
+  grid-area: countdown;
+}
+
+.pulse {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
 

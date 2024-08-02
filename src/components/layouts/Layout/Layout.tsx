@@ -7,16 +7,15 @@ import type { FC, ReactElement, ReactNode } from 'react';
 import s from './Layout.module.scss';
 
 export interface ILayout {
-  countDown?: string;
   children: ReactNode;
   classNames?: Classnames<'main' | 'content'>;
 }
 
 const Layout: FC<ILayout> = (props: ILayout): ReactElement => {
-  const { countDown, children, classNames } = props;
+  const { children, classNames } = props;
 
   const renderHeader = () => {
-    return <Header classNames={{ wrapper: s.header }} countDown={countDown} />;
+    return <Header classNames={{ wrapper: s.header }} />;
   };
 
   const renderFooter = () => {
