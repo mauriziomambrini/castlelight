@@ -7,7 +7,6 @@ import s from './Radio.module.scss';
 
 export interface IRadio {
   label?: string | ReactNode;
-  hint?: string;
   id?: string;
   name: string;
   value: string;
@@ -23,7 +22,6 @@ export interface IRadio {
 const Radio = (props: IRadio) => {
   const {
     label,
-    hint,
     value,
     name,
     checked,
@@ -48,7 +46,7 @@ const Radio = (props: IRadio) => {
         <Typo
           className={classNames?.label}
           text={label}
-          size={'df'}
+          size={'lg'}
           weight={'regular'}
           color={'grey'}
         />
@@ -56,26 +54,10 @@ const Radio = (props: IRadio) => {
     return label;
   };
 
-  const renderHint = () => {
-    if (!hint) return null;
-    return (
-      <Typo
-        className={classNames?.hint}
-        text={hint}
-        size={'sm'}
-        weight={'regular'}
-        color={'grey-2'}
-      />
-    );
-  };
-
   const renderContent = () => {
     if (!label && !hint) return null;
     return (
-      <div className={cx(s.content, classNames?.content)}>
-        {renderLabel()}
-        {renderHint()}
-      </div>
+      <div className={cx(s.content, classNames?.content)}>{renderLabel()}</div>
     );
   };
 
