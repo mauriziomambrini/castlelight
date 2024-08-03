@@ -1,0 +1,9 @@
+@import "@/styles/mixins/media";
+
+.tinyTable {
+  align-items: center;
+  row-gap: var(--s-uxs);
+  @include media(sm) {
+    flex-direction: row;
+  }
+}

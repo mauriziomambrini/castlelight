@@ -4,6 +4,7 @@ import useFormat from '@/hooks/useFormat.ts';
 import { useQuizContext } from '@/hooks/useQuizContext.ts';
 import type { Classnames } from '@/types/compoentsTypes.ts';
 import cx from 'classnames';
+
 import { Link } from 'react-router-dom';
 import s from './Header.module.scss';
 
@@ -14,7 +15,7 @@ export interface IHeader {
 
 const Header = (props: IHeader) => {
   const { classNames } = props;
-  const { question, difficulty, showImage, countdown } = useQuizContext();
+  const { showImage, countdown } = useQuizContext();
   const formattedTime = useFormat(countdown || 0); // Passa il countdown a useFormat
 
   const renderLangSwitch = () => {
@@ -25,15 +26,9 @@ const Header = (props: IHeader) => {
     return (
       <Link className={s.logo} to={'/'}>
         <Typo text={'LOGO'} />
-        {difficulty && <Typo text={difficulty} />}
-        {question && <Typo text={question.image} />}
         {/*<Logo name={logo} maxHeight={1.5} />*/}
       </Link>
     );
-  };
-
-  const renderInfo = () => {
-    return <div className={s.info}>{renderLogo()}</div>;
   };
 
   const renderCountDown = () => {
@@ -53,7 +48,7 @@ const Header = (props: IHeader) => {
   return (
     <div className={cx(s.wrapper, classNames?.wrapper)}>
       {renderLangSwitch()}
-      {renderInfo()}
+      {renderLogo()}
       {renderCountDown()}
     </div>
   );

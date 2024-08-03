@@ -1,0 +1,76 @@
+@import "@/styles/mixins/media";
+
+.wrapper {
+  padding-inline: var(--s-inset);
+
+}
+
+.wrapText {
+  max-width: 40rem;
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(var(--fs-big), 3.25cqw, var(--fs-qr));
+  text-transform: uppercase;
+  animation: 0.5s linear 0.5s infinite flicker;
+}
+
+@keyframes flicker {
+  from {
+    font-variation-settings: 'INFM' 0, 'BNCE' -10;
+  }
+  33.33% {
+    font-variation-settings: 'INFM' 0, 'BNCE' -10;
+  }
+  33.34% {
+    font-variation-settings: 'INFM' 100, 'BNCE' 20;
+  }
+  66.66% {
+    font-variation-settings: 'INFM' 100, 'BNCE' 20;
+  }
+  66.67% {
+    font-variation-settings: 'INFM' 50, 'BNCE' 10;
+  }
+  to {
+    font-variation-settings: 'INFM' 50, 'BNCE' 10;
+  }
+}
+
+.mobileText {
+  display: none;
+  font-size: clamp(var(--fs-lg), 3.25cqw, var(--fs-xxl));
+  @include media(touch) {
+    display: inherit;
+  }
+}
+
+.desktopText {
+  display: none;
+  font-size: clamp(var(--fs-lg), 3.25cqw, var(--fs-xxl));
+  @include media(noTouch) {
+    display: inherit;
+  }
+}
+
+.wrapBtn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--s-df);
+  
+  @include media(sm) {
+    flex-direction: row;
+  }
+}
+
+
+.btn {
+  min-width: 100%;
+  
+  @include media(sm) {
+    min-width: 10rem;
+  }
+}

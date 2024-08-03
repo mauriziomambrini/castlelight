@@ -5,7 +5,7 @@ import { RouterProvider } from 'react-router-dom';
 import i18n from './i18n';
 import router from './routes.tsx';
 import './styles/main.scss';
-import { QuizProvider } from '@/contexts/QuizContext.tsx';
+import QuizProvider from '@/contexts/QuizContext.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

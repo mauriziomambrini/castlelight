@@ -1,4 +1,18 @@
 {
+  "action.difficulty_easy": "Facile",
+  "action.difficulty_medium": "Medio",
+  "action.difficulty_hard": "Esperto",
+  "label.difficulty_easy": "Facile",
+  "label.difficulty_medium": "Medio",
+  "label.difficulty_hard": "Esperto",
+  "label.difficulty": "Difficoltà",
+  "label.level": "Livello",
+  "label.image": "Immagine",
+  "questions_list.title": "Qual è l'immagine?",
   "action.continue": "Continua",
-  "footer.label.powered_by": "Hand-sewn by"
+  "start.title": "Che l'avventura abbia inizio!",
+  "start.mobile_text": "Seleziona la difficoltà, tocca e muovi per scoprire l'immagine, indovina cosa rappresenta...",
+  "start.desktop_text": "Seleziona la difficoltà, passa il mouse sull'immagine per visualizzarla, indovina cosa rappresenta...",
+  "footer.label.powered_by": "Cucito a mano da",
+  "footer.label.github": "Vedi su"
 }

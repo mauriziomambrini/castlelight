@@ -1,4 +1,18 @@
 {
+  "action.difficulty_easy": "Easy",
+  "action.difficulty_medium": "Medium",
+  "action.difficulty_hard": "Expert",
+  "label.difficulty_easy": "Easy",
+  "label.difficulty_medium": "Medium",
+  "label.difficulty_hard": "Expert",
+  "label.difficulty": "Difficulty",
+  "label.image": "Image",
+  "label.level": "Level",
   "action.continue": "Continue",
-  "footer.label.powered_by": "Hand-sewn by"
+  "questions_list.title": "What's the image?",
+  "start.title": "Let the adventure begin!",
+  "start.mobile_text": "Select the difficulty level, touch and move to reveal the image, guess what it represents...",
+  "start.desktop_text": "Select the difficulty level, hover your mouse over the image to view it, guess what it represents...",
+  "footer.label.powered_by": "Hand-sewn by",
+  "footer.label.github": "View on"
 }

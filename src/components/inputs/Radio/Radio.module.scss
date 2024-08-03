@@ -1,0 +1,97 @@
+// Wrapper
+.wrapper {
+  --lw-border-input: 1px;
+  --lc-border-input: var(--c-input-default);
+  --lc-bg-input: transparent;
+  --lsw-input: inset 0 0 0 var(--lw-border-input) var(--lc-border-input);
+  
+  width: 100%;
+  min-width: fit-content;
+  display: flex;
+  flex-direction: var(--ldirection);
+  align-items: center;
+  gap: 1rem;
+  border-radius: var(--s-uxs);
+  box-shadow: var(--lsw-input);
+  background-color: var(--lc-bg-input);
+  padding: var(--s-df);
+  transition: var(--transition-025);
+  cursor: pointer;
+
+  *:not(input, button, a) {
+    pointer-events: none;
+  }
+
+  *:is(input, button, a) {
+    pointer-events: auto;
+  }
+}
+
+.wrapper:hover {
+  --lw-border-input: 2px;
+  --lc-border-input: var(--c-input-hover);
+}
+
+// Content
+.content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+}
+
+// Check
+.check {
+  --lw-border-input: 1px;
+  --lc-border-input: var(--c-input-default);
+  --lc-bg-input: var(--c-input-bg);
+  --lsw-input: inset 0 0 0 var(--lw-border-input) var(--lc-border-input);
+
+  appearance: none;
+  cursor: pointer;
+  width: var(--ls);
+  min-width: var(--ls);
+  height: var(--ls);
+  display: flex;
+  justify-content: center;
+  align-self: flex-start;
+  align-items: center;
+  padding: var(--s-uxs);
+  outline: none;
+  border: none;
+  border-radius: 50%;
+  background: var(--c-input-bg);
+  box-shadow: var(--lsw-input);
+  transition: var(--transition-025);
+}
+
+.check:hover {
+  --lw-border-input: 2px;
+  --lc-border-input: var(--c-input-hover);
+}
+
+// If checked
+.checked {
+  --lw-border-input: 2px;
+  --lc-border-input: var(--c-input-focus);
+  --lc-bg-input: color-mix(in srgb, var(--c-accent), white 90%);
+  
+  .check::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--c-accent);
+    animation: checking 0.15s linear;
+  }
+}
+
+@keyframes checking {
+  0% {
+    scale: 0;
+  }
+
+  100% {
+    scale: 1;
+  }
+}

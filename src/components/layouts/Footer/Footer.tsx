@@ -14,7 +14,7 @@ const Footer: FC<IFooter> = (props: IFooter): ReactElement => {
   const { className } = props;
   const { t } = useTranslation();
 
-  const renderSubFooter = () => {
+  const renderPoweredBy = () => {
     const copyrightSymbol = '\u{000A9}';
     const year = new Date().getFullYear();
     const copyright = copyrightSymbol + year;
@@ -22,15 +22,22 @@ const Footer: FC<IFooter> = (props: IFooter): ReactElement => {
     const linkPoweredBy = `[Pixelcutter.io](https://www.pixelcutter.io/)`;
     const text = [copyright, textPoweredBy, linkPoweredBy].join(' ');
 
-    return (
-      <div className={s.subFooter}>
-        <MarkdownText text={text} baseSize={'sm'} color={'grey-2'} />
-      </div>
-    );
+    return <MarkdownText text={text} baseSize={'sm'} color={'grey-2'} />;
+  };
+
+  const renderGithub = () => {
+    const textGithub = t('footer.label.github');
+    const linkGithub = `[Pixelcutter.io](https://www.pixelcutter.io/)`;
+    const text = [textGithub, linkGithub].join(' ');
+
+    return <MarkdownText text={text} baseSize={'sm'} color={'grey-2'} />;
   };
 
   return (
-    <footer className={cx(s.footer, className)}>{renderSubFooter()}</footer>
+    <footer className={cx(s.footer, className)}>
+      {renderGithub()}
+      {renderPoweredBy()}
+    </footer>
   );
 };
 

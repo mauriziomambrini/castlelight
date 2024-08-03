@@ -1,0 +1,116 @@
+.btn {
+  --lp-content: var(--s-uxs);
+  --l-radius: var(--s-uxs);
+  --lc-bg: var(--lc);
+  --lc-border: var(--lc);
+  --lc-label: var(--c-invert);
+  --lc-hover: var(--c-black);
+  --ls-icon: var(--s-lg);
+
+  appearance: none;
+  cursor: pointer;
+  width: fit-content;
+  min-width: var(--lh);
+  height: var(--lh);
+  display: flex;
+  padding-inline: var(--lp-inline);
+  flex-direction: var(--l-icon-position);
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--lc-border);
+  border-radius: var(--l-radius);
+  background: var(--lc-bg);
+  text-decoration: none;
+  color: var(--lc-label);
+  transition: var(--transition-025);
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn::-moz-focus-inner {
+  border: 0;
+}
+
+.btn:focus-visible {
+  outline: 0.125rem solid var(--lc-border);
+  outline-offset: 0.125rem;
+}
+
+.btn:not(.outline):hover {
+  --lc-border: var(--lc-hover);
+  --lc-bg: var(--lc-hover);
+}
+
+// Icon
+.icon {
+  width: var(--ls-icon);
+  min-width: var(--ls-icon);
+  height: var(--ls-icon);
+  min-height: var(--ls-icon);
+  fill: var(--lc-label);
+  transition: var(--transition-025);
+}
+
+// Label
+.label {
+  padding-inline: var(--lp-content);
+  font-size: var(--lfs-label);
+  letter-spacing: 0.05em;
+  color: var(--lc-label);
+  transition: var(--transition-025);
+}
+
+// If size tr
+.tr {
+  --lh: 3rem;
+  --lp-inline: var(--s-xl);
+  --lfs-label: var(--fs-df);
+}
+
+// If size db
+.db {
+  --lh: 2rem;
+  --lp-inline: var(--s-sm);
+  --lfs-label: var(--fs-md);
+}
+
+// If theme outline
+.outline {
+  --lc-hover: var(--lc);
+  --lc-bg: none;
+  --lc-label: var(--lc);
+}
+
+.outline:hover {
+  --lc-bg: var(--lc-hover);
+  --lc-label: var(--c-invert);
+}
+
+// If theme text
+.text {
+  --lc-label: var(--lc);
+
+  height: initial;
+  padding: 0;
+  gap: var(--lp-content);
+  border: none;
+  background: none;
+  text-decoration: underline;
+
+  .label {
+    padding: 0;
+  }
+}
+
+.text:hover {
+  --lc-label: var(--lc-hover);
+}
+
+// If disabled or loading
+.disabled,
+.loading {
+  pointer-events: none;
+  opacity: 0.5;
+}

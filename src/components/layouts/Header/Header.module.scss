@@ -1,8 +1,9 @@
+@import "@/styles/mixins/media";
 .wrapper {
   width: 100%;
   display: grid;
   grid-template-columns: 6rem 1fr 6rem;
-  grid-template-areas: 'lang info countdown';
+  grid-template-areas: 'lang logo countdown';
   align-items: center;
   padding-inline: var(--s-inset);
   gap: var(--s-df);
@@ -13,13 +14,11 @@
   width: 5rem;
 }
 
-.info {
-  grid-area: info;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.logo {
+  grid-area: logo;
+  place-self: center;
 }
+
 
 .countdown {
   grid-area: countdown;

@@ -1,40 +1,41 @@
 import { questions as allQuestions } from '@/data/questions'; // Importiamo tutte le domande
-import type { DifficultyTypes, QuestionType } from '@/types/quizTypes';
+import type {
+  DifficultyTypes,
+  QuestionTypes,
+  QuizContextTypes,
+} from '@/types/quizTypes';
 import { type ReactNode, createContext, useEffect, useState } from 'react';
 
-interface QuizContextType {
-  difficulty: DifficultyTypes | undefined;
-  countdown: number | undefined;
-  currentQuestion: number;
-  question: QuestionType | undefined;
-  showImage: boolean;
-  quizStarted: boolean;
-  userAnswers: string[];
-  startQuiz: () => void;
-  handleAnswer: (answer: string) => void;
-  setDifficulty: (level: DifficultyTypes) => void;
-  calculateScore: () => { score: number; successRate: number };
-}
+// Definizione delle variabili
+const totalImages = 2;
+const imageTrigger = 1;
+const difficultyTimes: Record<DifficultyTypes, number> = {
+  easy: 120, // 2 minuti
+  medium: 60, // 1 minuto
+  hard: 30, // 30 secondi
+};
 
 // Creiamo il contesto
-export const QuizContext = createContext<QuizContextType | undefined>(
+export const QuizContext = createContext<QuizContextTypes | undefined>(
   undefined,
 );
 
-interface QuizProviderProps {
+interface IQuizProvider {
   children: ReactNode;
 }
 
 // Funzione per randomizzare e limitare le domande
 const getRandomQuestions = (
-  questions: QuestionType[],
+  questions: QuestionTypes[],
   limit: number,
-): QuestionType[] => {
+): QuestionTypes[] => {
+  // Ordina le domande in modo casuale e le limita al numero desiderato
   const shuffled = [...questions].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, limit);
 };
 
-export function QuizProvider({ children }: QuizProviderProps) {
+const QuizProvider = (props: IQuizProvider) => {
+  const { children } = props;
   const [difficulty, setDifficulty] = useState<DifficultyTypes | undefined>(
     undefined,
   );
@@ -44,57 +45,62 @@ export function QuizProvider({ children }: QuizProviderProps) {
   const [showImage, setShowImage] = useState(true);
   const [quizStarted, setQuizStarted] = useState(false);
 
-  // Otteniamo 9 domande casuali
-  const [questions, setQuestions] = useState<QuestionType[]>([]);
+  // Variabili di stato per immagini e livello
+  const [currentImage, setCurrentImage] = useState(1);
+  const [level, setLevel] = useState(1);
 
-  useEffect(() => {
-    setQuestions(getRandomQuestions(allQuestions, 9));
-  }, []);
+  // Otteniamo domande casuali in base al numero totale di immagini configurate
+  const [questions, setQuestions] = useState<QuestionTypes[]>([]);
 
   const question = questions[currentQuestion];
 
-  const difficultyTimes: Record<DifficultyTypes, number> = {
-    easy: 120, // 2 minuti
-    medium: 60, // 1 minuto
-    hard: 30, // 30 secondi
-  };
+  useEffect(() => {
+    const selectedQuestions = getRandomQuestions(allQuestions, totalImages);
+    setQuestions(selectedQuestions);
+  }, []);
 
   useEffect(() => {
     if (difficulty) {
-      setCountdown(difficultyTimes[difficulty]);
+      setCountdown(difficultyTimes[difficulty] - (level - 1) * 10);
     }
-  }, [difficulty]);
+  }, [difficulty, level]);
 
+  // Effetto per gestire il timer del countdown
   useEffect(() => {
     if (countdown !== undefined && countdown > 0) {
       const interval = setInterval(() => {
-        setCountdown((prev) => (prev !== undefined ? prev - 1 : 0));
+        setCountdown((prev) => (prev !== undefined && prev > 0 ? prev - 1 : 0));
       }, 1000);
+
       return () => clearInterval(interval);
     }
   }, [countdown]);
-
-  const startQuiz = () => {
-    setShowImage(true);
-    setQuizStarted(false);
-    setCountdown(difficultyTimes[difficulty!]);
-  };
-
-  const handleAnswer = (answer: string) => {
-    setUserAnswers([...userAnswers, answer]);
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-      setCountdown(difficultyTimes[difficulty!]);
-      startQuiz();
-    } else {
-      setQuizStarted(false);
-    }
-  };
 
   if (countdown === 0 && showImage) {
     setShowImage(false);
     setQuizStarted(true);
   }
+
+  const startQuiz = () => {
+    setShowImage(true);
+    setQuizStarted(true);
+    setCountdown(difficultyTimes[difficulty!]);
+  };
+
+  const handleAnswer = (answer: string) => {
+    setUserAnswers([...userAnswers, answer]);
+
+    if (currentQuestion < questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+      setCurrentImage(currentImage + 1);
+
+      if ((currentImage + 1) % imageTrigger === 0) {
+        setLevel((prevLevel) => prevLevel + 1);
+      }
+    } else {
+      setQuizStarted(false);
+    }
+  };
 
   const calculateScore = () => {
     const correctAnswers = questions.map((q) => q.answer);
@@ -119,9 +125,14 @@ export function QuizProvider({ children }: QuizProviderProps) {
         handleAnswer,
         setDifficulty,
         calculateScore,
+        currentImage,
+        totalImages,
+        level,
       }}
     >
       {children}
     </QuizContext.Provider>
   );
-}
+};
+
+export default QuizProvider;

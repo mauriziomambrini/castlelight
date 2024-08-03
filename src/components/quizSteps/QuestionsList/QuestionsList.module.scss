@@ -1,0 +1,10 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  max-width: 40rem;
+}
+
+.title {
+  font-size: clamp(var(--fs-xxl), 3.25cqw, var(--fs-tr));
+  margin-bottom: var(--s-xxl);
+}
