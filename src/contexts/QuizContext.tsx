@@ -11,8 +11,8 @@ const totalImages = 2;
 const imageTrigger = 1;
 const difficultyTimes: Record<DifficultyTypes, number> = {
   easy: 120, // 2 minuti
-  medium: 60, // 1 minuto
-  hard: 30, // 30 secondi
+  medium: 90, // 1.5 minuto
+  hard: 10, // 1 minuto
 };
 
 // Creiamo il contesto
@@ -44,12 +44,8 @@ const QuizProvider = (props: IQuizProvider) => {
   const [userAnswers, setUserAnswers] = useState<string[]>([]);
   const [showImage, setShowImage] = useState(true);
   const [quizStarted, setQuizStarted] = useState(false);
-
-  // Variabili di stato per immagini e livello
   const [currentImage, setCurrentImage] = useState(1);
   const [level, setLevel] = useState(1);
-
-  // Otteniamo domande casuali in base al numero totale di immagini configurate
   const [questions, setQuestions] = useState<QuestionTypes[]>([]);
 
   const question = questions[currentQuestion];
@@ -65,7 +61,6 @@ const QuizProvider = (props: IQuizProvider) => {
     }
   }, [difficulty, level]);
 
-  // Effetto per gestire il timer del countdown
   useEffect(() => {
     if (countdown !== undefined && countdown > 0) {
       const interval = setInterval(() => {

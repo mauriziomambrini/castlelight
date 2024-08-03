@@ -1,5 +1,6 @@
 import Layout from '@/components/layouts/Layout';
 import Quiz from '@/components/quizSteps/Quiz';
+import Recap from '@/components/quizSteps/Recap';
 import Start from '@/components/quizSteps/Start';
 import TinyTable from '@/components/utils/TinyTable';
 import { useQuizContext } from '@/hooks/useQuizContext';
@@ -57,7 +58,7 @@ const Home = () => {
 
   const renderRecap = () => {
     if (userAnswers.length !== totalImages) return null;
-    return <div>{'RECAP'}</div>;
+    return <Recap />;
   };
 
   return (
