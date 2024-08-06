@@ -17,7 +17,7 @@ export const questions: QuestionTypes[] = [
   {
     key: 'minstrel_wall',
     image: IMAGES.minstrelWall,
-    answer: 'minstrel_walle_a',
+    answer: 'minstrel_wall_a',
     options: ['minstrel_wall_a', 'minstrel_wall_b', 'minstrel_wall_c'],
   },
   {
