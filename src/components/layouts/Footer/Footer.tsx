@@ -15,22 +15,26 @@ const Footer: FC<IFooter> = (props: IFooter): ReactElement => {
   const { t } = useTranslation();
 
   const renderPoweredBy = () => {
-    const copyrightSymbol = '\u{000A9}';
     const year = new Date().getFullYear();
-    const copyright = copyrightSymbol + year;
-    const textPoweredBy = t('footer.label.powered_by');
-    const linkPoweredBy = `[Pixelcutter.io](https://www.pixelcutter.io/)`;
-    const text = [copyright, textPoweredBy, linkPoweredBy].join(' ');
-
-    return <MarkdownText text={text} baseSize={'sm'} color={'grey-2'} />;
+    const link = '[Pixelcutter.io](https://www.pixelcutter.io/)';
+    return (
+      <MarkdownText
+        text={t('footer.label.powered_by', { year: year, link: link })}
+        baseSize={'sm'}
+        color={'grey-2'}
+      />
+    );
   };
 
   const renderGithub = () => {
-    const textGithub = t('footer.label.github');
-    const linkGithub = `[Pixelcutter.io](https://www.pixelcutter.io/)`;
-    const text = [textGithub, linkGithub].join(' ');
-
-    return <MarkdownText text={text} baseSize={'sm'} color={'grey-2'} />;
+    const link = '[Pixelcutter.io](https://www.pixelcutter.io/)';
+    return (
+      <MarkdownText
+        text={t('footer.label.github', { link: link })}
+        baseSize={'sm'}
+        color={'grey-2'}
+      />
+    );
   };
 
   return (

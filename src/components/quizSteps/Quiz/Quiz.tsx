@@ -4,15 +4,21 @@ import { useQuizContext } from '@/hooks/useQuizContext'; // Importa il nuovo hoo
 import { useEffect } from 'react';
 
 const Quiz = () => {
-  const { currentQuestion, question, showImage, quizStarted, startQuiz } =
-    useQuizContext();
+  const {
+    difficulty,
+    currentQuestion,
+    question,
+    showImage,
+    quizStarted,
+    startQuiz,
+  } = useQuizContext();
 
   useEffect(() => {
     startQuiz();
   }, [currentQuestion]);
 
   if (showImage && question?.image) {
-    return <HiddenImage image={question?.image} />;
+    return <HiddenImage image={question?.image} difficulty={difficulty} />;
   }
 
   if (quizStarted && question) {

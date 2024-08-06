@@ -37,21 +37,10 @@
   }
 }
 
-.mobileText {
-  display: none;
-  font-size: clamp(var(--fs-lg), 3.25cqw, var(--fs-xxl));
-  @include media(touch) {
-    display: inherit;
-  }
+.text {
+  --lfs: clamp(var(--fs-lg), 3.25cqw, var(--fs-xxl)) !important;
 }
 
-.desktopText {
-  display: none;
-  font-size: clamp(var(--fs-lg), 3.25cqw, var(--fs-xxl));
-  @include media(noTouch) {
-    display: inherit;
-  }
-}
 
 .wrapBtn {
   width: 100%;

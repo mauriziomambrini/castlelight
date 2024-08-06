@@ -14,6 +14,16 @@
   "start.title": "Che l'avventura abbia inizio!",
   "start.mobile_text": "Seleziona la difficoltà, tocca e muovi per scoprire l'immagine, indovina cosa rappresenta...",
   "start.desktop_text": "Seleziona la difficoltà, passa il mouse sull'immagine per visualizzarla, indovina cosa rappresenta...",
-  "footer.label.powered_by": "Cucito a mano da",
-  "footer.label.github": "Vedi su"
+  "footer.label.powered_by": "©{{year}} Cucito a mano da {{link}}",
+  "footer.label.github": "Vedi su {{link}}",
+  
+  "answer_archers_castle_a": "Un gruppo di arcieri che assalta un castello",
+  "answer_archers_castle_b": "Un gruppo di cavalieri che assalta un castello",
+  "answer_archers_castle_c": "Un gruppo di arcieri che esplora una foresta",
+  "answer_dragon_castle_a": "Un drago sputa fuoco che attacca un castello",
+  "answer_dragon_castle_b": "Un castello attaccato da un gruppo di arcieri",
+  "answer_dragon_castle_c": "Un drago che difende un castello",
+  "answer_minstrel_wall_a": "Un menestrello che canta per i soldati di guardia",
+  "answer_minstrel_wall_b": "Un menestrello che canta per la dama amata",
+  "answer_minstrel_wall_c": "Un menestrello che suona durante un banchetto reale"
 }

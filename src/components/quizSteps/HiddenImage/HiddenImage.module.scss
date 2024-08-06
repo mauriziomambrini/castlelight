@@ -1,4 +1,6 @@
 .wrapper {
+  --lsize-light: 5vw;
+  
   width: 100%;
   height: 100%;
   display: flex;
@@ -9,16 +11,17 @@
 }
 
 .img {
-  width: 100%;
-  height: calc(100dvh - 7.5rem);
+  width: auto;
+  height: 100%;
   fill: var(--c-body);
+  aspect-ratio: 3/2;
   position: relative;
   z-index: var(--z-index-1);
 }
 
 .cursor {
-  width: 15vw;
-  height: 15vw;
+  width: var(--lsize-light);
+  height: var(--lsize-light);
   visibility: hidden;
   pointer-events: none;
   position: absolute;
@@ -40,3 +43,14 @@
   visibility: visible;
 }
 
+.easy {
+  --lsize-light: 10vw;
+}
+
+.medium {
+  --lsize-light: 7.5vw;
+}
+
+.hard {
+  --lsize-light: 5vw;
+}

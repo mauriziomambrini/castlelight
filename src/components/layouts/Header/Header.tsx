@@ -1,3 +1,4 @@
+import * as IMAGES from '@/assets/images';
 import LangSwitch from '@/components/LangSwitch/LangSwitch.tsx';
 import Typo from '@/components/typography/Typo';
 import useFormat from '@/hooks/useFormat.ts';
@@ -5,7 +6,7 @@ import { useQuizContext } from '@/hooks/useQuizContext.ts';
 import type { Classnames } from '@/types/compoentsTypes.ts';
 import cx from 'classnames';
 
-import { Link } from 'react-router-dom';
+import Logo from '@/components/utils/Logo';
 import s from './Header.module.scss';
 
 export interface IHeader {
@@ -24,10 +25,9 @@ const Header = (props: IHeader) => {
 
   const renderLogo = () => {
     return (
-      <Link className={s.logo} to={'/'}>
-        <Typo text={'LOGO'} />
-        {/*<Logo name={logo} maxHeight={1.5} />*/}
-      </Link>
+      <div className={s.logo} onClick={() => window.location.reload()}>
+        <Logo name={IMAGES.logo} maxHeight={1.5} />
+      </div>
     );
   };
 

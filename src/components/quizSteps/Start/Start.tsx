@@ -1,7 +1,9 @@
 import Button from '@/components/buttons/Button';
+import MarkdownText from '@/components/typography/MarkdownText';
 import Typo from '@/components/typography/Typo';
 import Flex from '@/components/utils/Flex';
 import { useQuizContext } from '@/hooks/useQuizContext';
+import useTouchDevice from '@/hooks/useTouchDevice.ts';
 import type { DifficultyTypes } from '@/types/quizTypes.ts';
 import { useTranslation } from 'react-i18next';
 import s from './Start.module.scss';
@@ -9,6 +11,7 @@ import s from './Start.module.scss';
 const Start = () => {
   const { setDifficulty } = useQuizContext();
   const { t } = useTranslation();
+  const isTouch = useTouchDevice();
   const difficultyLevels: DifficultyTypes[] = ['easy', 'medium', 'hard'];
 
   return (
@@ -26,18 +29,10 @@ const Start = () => {
           weight={'bold'}
           balancer={true}
         />
-        <Typo
-          className={s.mobileText}
-          text={t('start.mobile_text')}
-          size={'lg'}
-          lineHeight={'paragraph'}
-          balancer={true}
-        />
-        <Typo
-          className={s.desktopText}
-          text={t('start.desktop_text')}
-          size={'lg'}
-          balancer={true}
+        <MarkdownText
+          classNames={{ text: s.text }}
+          text={isTouch ? t('start.mobile_text') : t('start.desktop_text')}
+          baseSize={'lg'}
         />
       </Flex>
       <div className={s.wrapBtn}>

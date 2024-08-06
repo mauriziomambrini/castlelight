@@ -14,6 +14,11 @@
   "start.title": "Let the adventure begin!",
   "start.mobile_text": "Select the difficulty level, touch and move to reveal the image, guess what it represents...",
   "start.desktop_text": "Select the difficulty level, hover your mouse over the image to view it, guess what it represents...",
-  "footer.label.powered_by": "Hand-sewn by",
-  "footer.label.github": "View on"
+  "footer.label.powered_by": "©{{year}} Hand-sewn by {{link}}",
+  "footer.label.github": "View on {{link}}",
+
+  "answer_archers_castle_a": "A group of archers attacking a castle",
+  "answer_archers_castle_b": "A group of knights attacking a castle",
+  "answer_archers_castle_c": "A group of archers exploring a forest"
+  
 }

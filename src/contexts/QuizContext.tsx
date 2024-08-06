@@ -1,27 +1,28 @@
-import { questions as allQuestions } from '@/data/questions'; // Importiamo tutte le domande
+import { questions as allQuestions } from '@/data/questions';
 import type {
   DifficultyTypes,
   QuestionTypes,
   QuizContextTypes,
 } from '@/types/quizTypes';
-import { type ReactNode, createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 // Definizione delle variabili
-const totalImages = 2;
-const imageTrigger = 1;
+const totalImages = 6;
+const imageTrigger = 2; // Must be a third of totalImages
+const timeReduction = 5;
 const difficultyTimes: Record<DifficultyTypes, number> = {
-  easy: 120, // 2 minuti
-  medium: 90, // 1.5 minuto
-  hard: 10, // 1 minuto
+  easy: 60, // secondi
+  medium: 45,
+  hard: 30,
 };
 
-// Creiamo il contesto
+// Creazione del contesto
 export const QuizContext = createContext<QuizContextTypes | undefined>(
   undefined,
 );
 
 interface IQuizProvider {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 // Funzione per randomizzare e limitare le domande
@@ -29,13 +30,11 @@ const getRandomQuestions = (
   questions: QuestionTypes[],
   limit: number,
 ): QuestionTypes[] => {
-  // Ordina le domande in modo casuale e le limita al numero desiderato
   const shuffled = [...questions].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, limit);
 };
 
-const QuizProvider = (props: IQuizProvider) => {
-  const { children } = props;
+const QuizProvider = ({ children }: IQuizProvider) => {
   const [difficulty, setDifficulty] = useState<DifficultyTypes | undefined>(
     undefined,
   );
@@ -45,7 +44,7 @@ const QuizProvider = (props: IQuizProvider) => {
   const [showImage, setShowImage] = useState(true);
   const [quizStarted, setQuizStarted] = useState(false);
   const [currentImage, setCurrentImage] = useState(1);
-  const [level, setLevel] = useState(1);
+  const [level, setLevel] = useState(0);
   const [questions, setQuestions] = useState<QuestionTypes[]>([]);
 
   const question = questions[currentQuestion];
@@ -57,7 +56,9 @@ const QuizProvider = (props: IQuizProvider) => {
 
   useEffect(() => {
     if (difficulty) {
-      setCountdown(difficultyTimes[difficulty] - (level - 1) * 10);
+      const reduction = level * timeReduction;
+      const newCountdown = difficultyTimes[difficulty] - reduction;
+      setCountdown(newCountdown > 0 ? newCountdown : 0);
     }
   }, [difficulty, level]);
 

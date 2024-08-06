@@ -30,7 +30,7 @@ const Home = () => {
       {
         key: 'level',
         label: t('label.level'),
-        value: level,
+        value: level + 1,
       },
       {
         key: 'image',
