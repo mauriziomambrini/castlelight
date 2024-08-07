@@ -34,7 +34,7 @@ const Radio = (props: IRadio) => {
     classNames,
   } = props;
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (disabled) return;
     onChange?.(event);
   };
@@ -84,7 +84,6 @@ const Radio = (props: IRadio) => {
         [s.required]: required,
         [s.disabled]: disabled,
       })}
-      onClick={handleChange}
       style={
         {
           '--ls': `${checkSize}rem`,
