@@ -31,6 +31,10 @@
   "label.image": "Immagine",
   "label.level": "Livello",
   "questions_list.title": "Qual è l'immagine?",
+  "recap.bad": "La tua mira è stata imprecisa! Riprova e affina le tue abilità.",
+  "recap.excellent": "Eccellente, valoroso campione! Hai conquistato la sfida con onore!",
+  "recap.good": "Ben fatto, nobile avventuriero! La tua saggezza cresce.",
+  "recap.normal": "Un tentativo valido, ma c'è ancora strada da fare per diventare cavaliere.",
   "start.desktop_text": "Seleziona la difficoltà, passa il mouse sull'immagine per visualizzarla, indovina cosa rappresenta...",
   "start.mobile_text": "Seleziona la difficoltà, tocca e muovi per scoprire l'immagine, indovina cosa rappresenta...",
   "start.title": "Che l'avventura abbia inizio!"

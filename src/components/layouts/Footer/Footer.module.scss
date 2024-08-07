@@ -1,8 +1,16 @@
+@import "@/styles/mixins/media";
+
 .footer {
   width: 100%;
-  height: 2.5rem;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  gap: var(--s-sm);
+  padding-block: var(--s-sm);
   padding-inline: var(--s-inset);
+  
+  @include media(sm) {
+    flex-direction: row;
+  }
 }

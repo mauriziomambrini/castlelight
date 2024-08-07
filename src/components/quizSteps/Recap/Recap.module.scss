@@ -18,8 +18,8 @@
 }
 
 .img {
-  width: 35%;
-  height: 35%;
+  width: 50%;
+  height: 50%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -60,6 +60,10 @@
   to {
     font-variation-settings: 'INFM' 50, 'BNCE' 10;
   }
+}
+
+.resultText {
+  text-align: center;
 }
 
 .btn {

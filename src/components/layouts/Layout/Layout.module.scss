@@ -2,11 +2,15 @@
 @import '@/styles/mixins/overflow';
 
 .main {
-  height: 100dvh;
+  height: 100vh;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 4rem 1fr 2.5rem;
+  grid-template-rows: 4rem 1fr auto;
   grid-template-areas: 'header' 'content' 'footer';
+  
+  @supports (height: 100dvh) {
+    height: 100dvh;
+  }
 }
 
 .header {

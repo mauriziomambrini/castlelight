@@ -17,35 +17,34 @@ const Recap = () => {
   const [dashOffset, setDashOffset] = useState(0);
   const [animatedSuccessRate, setAnimatedSuccessRate] = useState(0);
 
-  const pathRef = useRef(null);
+  const pathRef = useRef<SVGPathElement>(null);
 
   const resultData = useMemo(() => {
     switch (true) {
       case successRate >= 75:
         return {
           text: 'excellent',
-          image: IMAGES.castle,
+          image: IMAGES.characterKnightSword,
         };
       case successRate >= 50:
         return {
           text: 'good',
-          image: IMAGES.castle,
+          image: IMAGES.characterArcherArrow,
         };
       case successRate >= 25:
         return {
           text: 'normal',
-          image: IMAGES.dragon,
+          image: IMAGES.characterSoldierLance,
         };
       default:
         return {
           text: 'bad',
-          image: IMAGES.dragon,
-          color: 'var(--c-grey-4)',
+          image: IMAGES.characterFarmer,
         };
     }
   }, [successRate]);
 
-  const animate = (timestamp, startTimestamp) => {
+  const animate = (timestamp: number, startTimestamp: number) => {
     const elapsed = timestamp - startTimestamp;
     const progress = Math.min(elapsed / 2000, 1);
 
@@ -127,6 +126,7 @@ const Recap = () => {
         text={t(`recap.${resultData.text}`)}
         size='db'
         weight='semi'
+        balancer={true}
       />
       <Button
         classNames={{ button: s.btn }}

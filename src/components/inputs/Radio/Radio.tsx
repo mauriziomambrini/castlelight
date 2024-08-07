@@ -55,7 +55,7 @@ const Radio = (props: IRadio) => {
   };
 
   const renderContent = () => {
-    if (!label && !hint) return null;
+    if (!label) return null;
     return (
       <div className={cx(s.content, classNames?.content)}>{renderLabel()}</div>
     );

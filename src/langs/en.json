@@ -31,6 +31,10 @@
   "label.image": "Image",
   "label.level": "Level",
   "questions_list.title": "What's the image?",
+  "recap.bad": "Your aim was off! Try again and hone your skills.",
+  "recap.excellent": "Excellent, valiant champion! You have conquered the challenge with honor!",
+  "recap.good": "Well done, noble adventurer! Your wisdom grows.",
+  "recap.normal": "A valid attempt, but there's still a way to go to become a knight.",
   "start.desktop_text": "Select the difficulty level, hover your mouse over the image to view it, guess what it represents...",
   "start.mobile_text": "Select the difficulty level, touch and move to reveal the image, guess what it represents...",
   "start.title": "Let the adventure begin!"
