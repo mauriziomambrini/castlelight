@@ -6,12 +6,12 @@ import type {
 } from '@/types/quizTypes';
 import { createContext, useEffect, useState } from 'react';
 
-// Definizione delle variabili
-const totalImages = 6;
-const imageTrigger = 2; // Must be a third of totalImages
-const timeReduction = 5;
-const difficultyTimes: Record<DifficultyTypes, number> = {
-  easy: 60, // secondi
+// Constants
+const TOTAL_IMAGES = 6;
+const IMAGE_TRIGGER = 2; // Must be a third of TOTAL_IMAGES
+const TIME_REDUCTION = 5;
+const DIFFICULTY_TIMES: Record<DifficultyTypes, number> = {
+  easy: 60, // seconds
   medium: 45,
   hard: 30,
 };
@@ -50,14 +50,14 @@ const QuizProvider = ({ children }: IQuizProvider) => {
   const question = questions[currentQuestion];
 
   useEffect(() => {
-    const selectedQuestions = getRandomQuestions(allQuestions, totalImages);
+    const selectedQuestions = getRandomQuestions(allQuestions, TOTAL_IMAGES);
     setQuestions(selectedQuestions);
   }, []);
 
   useEffect(() => {
     if (difficulty) {
-      const reduction = level * timeReduction;
-      const newCountdown = difficultyTimes[difficulty] - reduction;
+      const reduction = level * TIME_REDUCTION;
+      const newCountdown = DIFFICULTY_TIMES[difficulty] - reduction;
       setCountdown(newCountdown > 0 ? newCountdown : 0);
     }
   }, [difficulty, level]);
@@ -80,7 +80,7 @@ const QuizProvider = ({ children }: IQuizProvider) => {
   const startQuiz = () => {
     setShowImage(true);
     setQuizStarted(true);
-    setCountdown(difficultyTimes[difficulty!]);
+    setCountdown(DIFFICULTY_TIMES[difficulty!]);
   };
 
   const handleAnswer = (answer: string) => {
@@ -90,7 +90,7 @@ const QuizProvider = ({ children }: IQuizProvider) => {
       setCurrentQuestion(currentQuestion + 1);
       setCurrentImage(currentImage + 1);
 
-      if ((currentImage + 1) % imageTrigger === 0) {
+      if ((currentImage + 1) % IMAGE_TRIGGER === 0) {
         setLevel((prevLevel) => prevLevel + 1);
       }
     } else {
@@ -122,7 +122,7 @@ const QuizProvider = ({ children }: IQuizProvider) => {
         setDifficulty,
         calculateScore,
         currentImage,
-        totalImages,
+        totalImages: TOTAL_IMAGES,
         level,
       }}
     >
