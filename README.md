@@ -1,30 +1,43 @@
-# React + TypeScript + Vite
+# Castle light
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Castle light is s an **image-based puzzle game** where players must illuminate fragments of hidden images to uncover the mystery.
 
-Currently, two official plugins are available:
+Developed with React and TypeScript for a robust and strongly-typed codebase, it uses Vite JS for an optimized development experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+View in action: [castlelight.net](https://www.castlelight.net)
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+After cloning the repository, move into the project directory:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```
+cd castlelight
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Install dependencies:
+
+```
+# npm
+npm install
+
+# yarn
+yarn install
+
+# bun
+bun install
+```
+
+Once all the dependencies are installed, you can start the local development server:
+
+```
+# npm
+npm run dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
+```
+
+Enjoy playing Castle -ight!
