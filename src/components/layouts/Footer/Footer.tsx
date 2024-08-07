@@ -27,7 +27,8 @@ const Footer: FC<IFooter> = (props: IFooter): ReactElement => {
   };
 
   const renderGithub = () => {
-    const link = '[Pixelcutter.io](https://www.pixelcutter.io/)';
+    const link =
+      '[Github](https://github.com/mauriziomambrini/castlelight.git)';
     return (
       <MarkdownText
         text={t('footer.label.github', { link: link })}

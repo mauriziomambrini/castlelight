@@ -11,9 +11,9 @@ const TOTAL_IMAGES = 6;
 const IMAGE_TRIGGER = 2; // Must be a third of TOTAL_IMAGES
 const TIME_REDUCTION = 5;
 const DIFFICULTY_TIMES: Record<DifficultyTypes, number> = {
-  easy: 60, // seconds
-  medium: 45,
-  hard: 30,
+  easy: 45, // seconds
+  medium: 30,
+  hard: 20,
 };
 
 // Create the Quiz context
