@@ -1,5 +1,6 @@
 import * as IMAGES from '@/assets/images';
 import Button from '@/components/buttons/Button';
+import MarkdownText from '@/components/typography/MarkdownText';
 import Typo from '@/components/typography/Typo';
 import Flex from '@/components/utils/Flex';
 import Icon from '@/components/utils/Icon';
@@ -121,13 +122,25 @@ const Recap = () => {
           weight='semi'
         />
       </div>
-      <Typo
-        className={s.resultText}
-        text={t(`recap.${resultData.text}`)}
-        size='db'
-        weight='semi'
-        balancer={true}
-      />
+      <Flex
+        className={s.wrapText}
+        direction={'column'}
+        align={'center'}
+        gap={[1]}
+      >
+        <Typo
+          className={s.title}
+          text={t(`recap.${resultData.text}.title`)}
+          size={'db'}
+          weight={'bold'}
+          balancer={true}
+        />
+        <MarkdownText
+          classNames={{ text: s.text }}
+          text={t(`recap.${resultData.text}.text`)}
+          baseSize={'lg'}
+        />
+      </Flex>
       <Button
         classNames={{ button: s.btn }}
         label={t('action.restart')}

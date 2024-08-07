@@ -38,4 +38,22 @@ export const questions: QuestionTypes[] = [
     answer: 'princess_tower_a',
     options: ['princess_tower_a', 'princess_tower_b', 'princess_tower_c'],
   },
+  {
+    key: 'knights_return',
+    image: IMAGES.knightsReturn,
+    answer: 'knights_return_a',
+    options: ['knights_return_a', 'knights_return_b', 'knights_return_c'],
+  },
+  {
+    key: 'outlaw_escape',
+    image: IMAGES.outlawEscape,
+    answer: 'outlaw_escape_a',
+    options: ['outlaw_escape_a', 'outlaw_escape_b', 'outlaw_escape_c'],
+  },
+  {
+    key: 'sea_monster',
+    image: IMAGES.seaMonster,
+    answer: 'outlaw_escape_a',
+    options: ['sea_monster_a', 'sea_monster_b', 'sea_monster_c'],
+  },
 ];

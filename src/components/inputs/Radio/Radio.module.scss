@@ -16,7 +16,6 @@
   background-color: var(--lc-bg-input);
   padding: var(--s-df);
   transition: var(--transition-025);
-  cursor: pointer;
 
   *:not(input, button, a) {
     pointer-events: none;
