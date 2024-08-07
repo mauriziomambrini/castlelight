@@ -16,7 +16,7 @@ const DIFFICULTY_TIMES: Record<DifficultyTypes, number> = {
   hard: 30,
 };
 
-// Creazione del contesto
+// Create the Quiz context
 export const QuizContext = createContext<QuizContextTypes | undefined>(
   undefined,
 );
@@ -25,7 +25,7 @@ interface IQuizProvider {
   children: React.ReactNode;
 }
 
-// Funzione per randomizzare e limitare le domande
+// Randomize and limit the questions
 const getRandomQuestions = (
   questions: QuestionTypes[],
   limit: number,
@@ -49,11 +49,13 @@ const QuizProvider = ({ children }: IQuizProvider) => {
 
   const question = questions[currentQuestion];
 
+  // Set random questions on component mount
   useEffect(() => {
     const selectedQuestions = getRandomQuestions(allQuestions, TOTAL_IMAGES);
     setQuestions(selectedQuestions);
   }, []);
 
+  // Adjust countdown time based on difficulty and level
   useEffect(() => {
     if (difficulty) {
       const reduction = level * TIME_REDUCTION;
@@ -62,6 +64,7 @@ const QuizProvider = ({ children }: IQuizProvider) => {
     }
   }, [difficulty, level]);
 
+  // Handle countdown logic
   useEffect(() => {
     if (countdown !== undefined && countdown > 0) {
       const interval = setInterval(() => {
@@ -77,20 +80,23 @@ const QuizProvider = ({ children }: IQuizProvider) => {
     setQuizStarted(true);
   }
 
+  // Start quiz
   const startQuiz = () => {
     setShowImage(true);
     setQuizStarted(true);
     setCountdown(DIFFICULTY_TIMES[difficulty!]);
   };
 
+  // Handle user answer and progress to the next question
   const handleAnswer = (answer: string) => {
     setUserAnswers([...userAnswers, answer]);
 
     if (currentQuestion < questions.length - 1) {
+      const newCurrentImage = currentImage + 1;
       setCurrentQuestion(currentQuestion + 1);
-      setCurrentImage(currentImage + 1);
+      setCurrentImage(newCurrentImage);
 
-      if ((currentImage + 1) % IMAGE_TRIGGER === 0) {
+      if ((newCurrentImage - 1) % IMAGE_TRIGGER === 0) {
         setLevel((prevLevel) => prevLevel + 1);
       }
     } else {
@@ -98,6 +104,7 @@ const QuizProvider = ({ children }: IQuizProvider) => {
     }
   };
 
+  // Calculate user score
   const calculateScore = () => {
     const correctAnswers = questions.map((q) => q.answer);
     const score = userAnswers.filter(

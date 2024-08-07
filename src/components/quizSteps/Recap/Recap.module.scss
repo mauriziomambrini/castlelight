@@ -63,6 +63,8 @@
 }
 
 .resultText {
+  margin-bottom: var(--s-xxl);
+  font-size: clamp(var(--fs-xxl), 3.25cqw, var(--fs-tr));
   text-align: center;
 }
 
