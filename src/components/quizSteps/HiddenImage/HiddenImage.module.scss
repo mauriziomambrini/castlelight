@@ -1,3 +1,5 @@
+@import "@/styles/mixins/media";
+
 .wrapper {
   --lsize-light: 5vw;
   
@@ -19,7 +21,7 @@
   z-index: var(--z-index-1);
 }
 
-.cursor {
+.light {
   width: var(--lsize-light);
   height: var(--lsize-light);
   visibility: hidden;
@@ -33,13 +35,12 @@
   background-color: var(--c-grey);
 }
 
-.wrapper:active,
 .wrapper:hover {
   cursor: none;
 }
 
-.wrapper:active .cursor,
-.wrapper:hover .cursor {
+.wrapper:active .light,
+.wrapper:hover .light {
   visibility: visible;
 }
 
@@ -53,4 +54,10 @@
 
 .hard {
   --lsize-light: 5vw;
+}
+
+@include media(touch) {
+  .wrapper {
+    --lsize-light: 20vw;
+  }
 }

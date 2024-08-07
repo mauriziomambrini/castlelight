@@ -19,6 +19,7 @@ body {
   font-stretch: var(--fst-normal);
   line-height: 1;
   color: var(--c-grey);
+  overscroll-behavior: none;
 }
 
 body {
