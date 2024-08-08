@@ -2,7 +2,7 @@
 
 .wrapper {
   --lsize-light: 5vw;
-
+  
   overflow: hidden;
   width: 100%;
   height: 100%;
@@ -25,7 +25,7 @@
   pointer-events: none;
   width: var(--lsize-light);
   height: var(--lsize-light);
-  visibility: hidden;
+  display: var(--ldisplay-light);
   position: absolute;
   top: var(--ly-cursor);
   left: var(--lx-cursor);
@@ -43,9 +43,11 @@
   cursor: none;
 }
 
-.wrapper:active .light,
-.wrapper:hover .light {
-  visibility: visible;
+@include media(noTouch) {
+  .wrapper:hover .light {
+    --ldisplay-light: initial;
+  }
+  
 }
 
 .easy {

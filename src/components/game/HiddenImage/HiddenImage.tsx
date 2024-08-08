@@ -3,7 +3,7 @@ import useTouchDevice from '@/hooks/useTouchDevice'; // Assicurati che il percor
 import type { Classnames } from '@/types/compoentsTypes.ts';
 import type { DifficultyTypes } from '@/types/quizTypes.ts';
 import cx from 'classnames';
-import { useLayoutEffect, useRef } from 'react';
+import { type CSSProperties, useLayoutEffect, useRef, useState } from 'react';
 import s from './HiddenImage.module.scss';
 
 export interface IHiddenImage {
@@ -14,9 +14,10 @@ export interface IHiddenImage {
 
 const HiddenImage = (props: IHiddenImage) => {
   const { image, difficulty = 'easy', classNames } = props;
-  const isTouchDevice = useTouchDevice(); // Usa l'hook per rilevare i dispositivi touch
-
+  const isTouchDevice = useTouchDevice();
   const cursorRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const [isCursorVisible, setIsCursorVisible] = useState(false); // Stato per la visibilità
 
   const handleMouseMove = (event: MouseEvent) => {
     if (cursorRef.current) {
@@ -37,47 +38,64 @@ const HiddenImage = (props: IHiddenImage) => {
   };
 
   const handleTouchStart = () => {
-    if (cursorRef.current) {
-      cursorRef.current.style.visibility = 'visible';
-    }
+    setIsCursorVisible(true); // Rende visibile il cursore al touch start
   };
 
   const handleTouchEnd = () => {
-    if (cursorRef.current) {
-      cursorRef.current.style.visibility = 'hidden';
-    }
+    setIsCursorVisible(false); // Nasconde il cursore al touch end
   };
 
   useLayoutEffect(() => {
-    const addTouchListeners = () => {
-      document.addEventListener('touchmove', handleTouchMove);
-      document.addEventListener('touchstart', handleTouchStart);
-      document.addEventListener('touchend', handleTouchEnd);
-    };
+    const wrapperElement = wrapperRef.current;
 
-    const removeTouchListeners = () => {
-      document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchstart', handleTouchStart);
-      document.removeEventListener('touchend', handleTouchEnd);
-    };
+    if (wrapperElement) {
+      const addTouchListeners = () => {
+        wrapperElement.addEventListener('touchmove', handleTouchMove);
+        wrapperElement.addEventListener('touchstart', handleTouchStart);
+        wrapperElement.addEventListener('touchend', handleTouchEnd);
+      };
 
-    const addMouseListeners = () => {
-      document.addEventListener('mousemove', handleMouseMove);
-    };
+      const removeTouchListeners = () => {
+        wrapperElement.removeEventListener('touchmove', handleTouchMove);
+        wrapperElement.removeEventListener('touchstart', handleTouchStart);
+        wrapperElement.removeEventListener('touchend', handleTouchEnd);
+      };
 
-    const removeMouseListeners = () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-    };
+      const addMouseListeners = () => {
+        wrapperElement.addEventListener('mousemove', handleMouseMove);
+      };
 
-    isTouchDevice ? addTouchListeners() : addMouseListeners();
+      const removeMouseListeners = () => {
+        wrapperElement.removeEventListener('mousemove', handleMouseMove);
+      };
 
-    return () => {
-      isTouchDevice ? removeTouchListeners() : removeMouseListeners();
-    };
+      if (isTouchDevice) {
+        addTouchListeners();
+      } else {
+        addMouseListeners();
+      }
+
+      return () => {
+        if (isTouchDevice) {
+          removeTouchListeners();
+        } else {
+          removeMouseListeners();
+        }
+      };
+    }
   }, [isTouchDevice]);
 
   return (
-    <div className={cx(s.wrapper, classNames?.wrapper, s[difficulty])}>
+    <div
+      className={cx(s.wrapper, classNames?.wrapper, s[difficulty])}
+      style={
+        {
+          '--ldisplay-light':
+            isCursorVisible && isTouchDevice ? 'initial' : 'none',
+        } as CSSProperties
+      }
+      ref={wrapperRef}
+    >
       <div className={s.light} ref={cursorRef} />
       <Icon className={s.img} name={image} />
     </div>
