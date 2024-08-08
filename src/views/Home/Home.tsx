@@ -3,16 +3,17 @@ import Typo from '@/components/typography/Typo';
 import Flex from '@/components/utils/Flex';
 import Icon from '@/components/utils/Icon';
 import Logo from '@/components/utils/Logo';
-import { type CSSProperties, useEffect } from 'react';
+import { useEffect } from 'react';
+import type { CSSProperties } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-// import { useTranslation } from 'react-i18next';
 import s from './Home.module.scss';
 
 const Home = () => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const TIME_ANIMATION = 10;
+  const TIME_ANIMATION = 12;
 
   useEffect(() => {
     // Set a timeout to navigate after TIME_ANIMATION seconds
@@ -36,7 +37,7 @@ const Home = () => {
     return (
       <Typo
         className={s.subtitle}
-        text={'Dissolve the darkness!'}
+        text={t('intro_subtitle')}
         size={'db'}
         weight={'regular'}
         color={'accent'}
@@ -54,7 +55,6 @@ const Home = () => {
       style={{ '--lt-animation': `${TIME_ANIMATION}s` } as CSSProperties}
       onClick={handleClick}
     >
-      <div className={s.light} />
       <Flex
         className={s.wrapper}
         direction={'column'}
@@ -62,9 +62,18 @@ const Home = () => {
         align={'center'}
         gap={[0.5]}
       >
-        {renderLogo()}
-        {renderSubtitle()}
-        {renderImage()}
+        <div className={s.light} />
+        <Flex
+          className={s.content}
+          direction={'column'}
+          justify={'center'}
+          align={'center'}
+          gap={[0.5]}
+        >
+          {renderLogo()}
+          {renderSubtitle()}
+          {renderImage()}
+        </Flex>
       </Flex>
     </main>
   );

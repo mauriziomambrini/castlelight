@@ -52,5 +52,6 @@
   "start.desktop_text": "Select the difficulty level, hover your mouse over the image to view it, guess what it represents...",
   "start.mobile_text": "Select the difficulty level, touch and move to reveal the image, guess what it represents...",
   "start.title": "Let the adventure begin!",
-  "not_found.title": "Oops... page not found!"
+  "not_found.title": "Oops... page not found!",
+  "intro_subtitle": "Dissolve the darkness!"
 }
