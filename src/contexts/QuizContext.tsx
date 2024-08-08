@@ -96,7 +96,6 @@ const QuizProvider = ({ children }: IQuizProvider) => {
       setCurrentQuestion(currentQuestion + 1);
       setCurrentImage(newCurrentImage);
 
-      // Aggiorna il livello ogni volta che viene raggiunto un nuovo trigger di immagine
       if (newCurrentImage % IMAGE_TRIGGER === 0) {
         setLevel((prevLevel) => prevLevel + 1);
       }
