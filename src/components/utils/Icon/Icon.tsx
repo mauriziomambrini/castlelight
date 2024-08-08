@@ -11,7 +11,7 @@ export interface IIcon {
 }
 
 const Icon: FC<IIcon> = (props: IIcon): ReactElement => {
-  const { name, size = [1], color = 'default', onClick, className } = props;
+  const { name, size = [1], color = 'accent', onClick, className } = props;
 
   const src = name || '';
   const width = `${size[0]}rem`;

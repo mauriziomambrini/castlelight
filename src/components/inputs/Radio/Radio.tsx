@@ -16,6 +16,7 @@ export interface IRadio {
   checkSize?: number;
   checkPosition?: 'before' | 'after';
   onChange?: (...args: any[]) => void;
+  onClick?: (...args: any[]) => void;
   classNames?: Classnames<'wrapper' | 'content' | 'label' | 'hint' | 'check'>;
 }
 
@@ -31,12 +32,18 @@ const Radio = (props: IRadio) => {
     checkPosition = 'before',
     id,
     onChange,
+    onClick,
     classNames,
   } = props;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (disabled) return;
     onChange?.(event);
+  };
+
+  const handleClick = () => {
+    if (disabled) return;
+    onClick?.();
   };
 
   const renderLabel = () => {
@@ -90,6 +97,7 @@ const Radio = (props: IRadio) => {
           '--ldirection': checkPosition === 'before' ? 'row' : 'row-reverse',
         } as CSSProperties
       }
+      onClick={handleClick}
     >
       {renderCheck()}
       {renderContent()}

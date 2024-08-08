@@ -7,6 +7,7 @@ import type { Classnames } from '@/types/compoentsTypes.ts';
 import cx from 'classnames';
 
 import Logo from '@/components/utils/Logo';
+import { Link } from 'react-router-dom';
 import s from './Header.module.scss';
 
 export interface IHeader {
@@ -25,9 +26,9 @@ const Header = (props: IHeader) => {
 
   const renderLogo = () => {
     return (
-      <div className={s.logo} onClick={() => window.location.reload()}>
+      <Link className={s.logo} to={'/'}>
         <Logo name={IMAGES.logo} maxHeight={1.5} />
-      </div>
+      </Link>
     );
   };
 

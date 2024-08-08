@@ -3,6 +3,7 @@ import characterArcherArrow from './svg/character_archer_arrow.svg';
 import characterFarmer from './svg/character_farmer.svg';
 import characterKnightSword from './svg/character_knight_sword.svg';
 import characterSoldierLance from './svg/character_soldier_lance.svg';
+import charactersIntro from './svg/characters_intro.svg';
 import dragonCastle from './svg/dragon_castle.svg';
 import knightsReturn from './svg/knights_return.svg';
 import logo from './svg/logo.svg';
@@ -19,6 +20,7 @@ export {
   characterFarmer,
   characterKnightSword,
   characterSoldierLance,
+  charactersIntro,
   dragonCastle,
   knightsReturn,
   logo,

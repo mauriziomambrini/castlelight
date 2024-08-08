@@ -1,73 +1,72 @@
-import Layout from '@/components/layouts/Layout';
-import Quiz from '@/components/quizSteps/Quiz';
-import Recap from '@/components/quizSteps/Recap';
-import Start from '@/components/quizSteps/Start';
-import TinyTable from '@/components/utils/TinyTable';
-import { useQuizContext } from '@/hooks/useQuizContext';
-import { useTranslation } from 'react-i18next';
+import * as IMAGES from '@/assets/images';
+import Typo from '@/components/typography/Typo';
+import Flex from '@/components/utils/Flex';
+import Icon from '@/components/utils/Icon';
+import Logo from '@/components/utils/Logo';
+import { type CSSProperties, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+// import { useTranslation } from 'react-i18next';
 import s from './Home.module.scss';
 
 const Home = () => {
-  const { level, difficulty, currentImage, totalImages, userAnswers } =
-    useQuizContext();
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
+  const navigate = useNavigate();
 
-  const renderStart = () => {
-    if (difficulty !== undefined) return null;
-    return <Start />;
+  const TIME_ANIMATION = 10;
+
+  useEffect(() => {
+    // Set a timeout to navigate after TIME_ANIMATION seconds
+    const timer = setTimeout(() => {
+      navigate('/game');
+    }, TIME_ANIMATION * 1000);
+
+    // Cleanup the timeout if the component unmounts before time is up
+    return () => clearTimeout(timer);
+  }, [TIME_ANIMATION, navigate]);
+
+  const handleClick = () => {
+    navigate('/game');
   };
 
-  const renderInfo = () => {
-    if (difficulty === undefined) return null;
-    if (userAnswers.length === totalImages) return null;
+  const renderLogo = () => {
+    return <Logo classNames={{ wrapper: s.logo }} name={IMAGES.logo} />;
+  };
 
-    const infos = [
-      {
-        key: 'difficulty',
-        label: t('label.difficulty'),
-        value: difficulty ? t(`label.difficulty_${difficulty}`) : '-',
-      },
-      {
-        key: 'level',
-        label: t('label.level'),
-        value: level + 1,
-      },
-      {
-        key: 'image',
-        label: t('label.image'),
-        value: [currentImage, totalImages].join('/'),
-      },
-    ];
-
+  const renderSubtitle = () => {
     return (
-      <TinyTable
-        classNames={{ wrapper: s.tinyTable }}
-        data={infos}
-        size={['md']}
-        col={['auto', '1fr']}
-        gap={[0.25]}
+      <Typo
+        className={s.subtitle}
+        text={'Dissolve the darkness!'}
+        size={'db'}
+        weight={'regular'}
+        color={'accent'}
       />
     );
   };
 
-  const renderGame = () => {
-    if (difficulty === undefined) return null;
-    if (userAnswers.length === totalImages) return null;
-    return <Quiz />;
-  };
-
-  const renderRecap = () => {
-    if (userAnswers.length !== totalImages) return null;
-    return <Recap />;
+  const renderImage = () => {
+    return <Icon className={s.img} name={IMAGES.charactersIntro} />;
   };
 
   return (
-    <Layout>
-      {renderInfo()}
-      {renderStart()}
-      {renderGame()}
-      {renderRecap()}
-    </Layout>
+    <main
+      className={s.main}
+      style={{ '--lt-animation': `${TIME_ANIMATION}s` } as CSSProperties}
+      onClick={handleClick}
+    >
+      <div className={s.light} />
+      <Flex
+        className={s.wrapper}
+        direction={'column'}
+        justify={'center'}
+        align={'center'}
+        gap={[0.5]}
+      >
+        {renderLogo()}
+        {renderSubtitle()}
+        {renderImage()}
+      </Flex>
+    </main>
   );
 };
 

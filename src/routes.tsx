@@ -1,4 +1,6 @@
+import Game from '@/views/Game';
 import Home from '@/views/Home';
+import Recap from '@/views/Recap/Recap.tsx';
 import { Outlet, createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -9,6 +11,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: 'game',
+        element: <Game />,
+      },
+      {
+        path: 'recap',
+        element: <Recap />,
       },
     ],
   },
