@@ -36,11 +36,6 @@
   width: 100%;
   max-width: var(--w-max-sm);
   position: relative;
-
-  
-  @include media(xl) {
-    max-width: var(--w-max-df);
-  }
 }
 
 .light {
