@@ -90,8 +90,7 @@ const HiddenImage = (props: IHiddenImage) => {
       className={cx(s.wrapper, classNames?.wrapper, s[difficulty])}
       style={
         {
-          '--ldisplay-light':
-            isCursorVisible && isTouchDevice ? 'initial' : 'none',
+          '--lop-light': isCursorVisible && isTouchDevice ? 1 : 0,
         } as CSSProperties
       }
       ref={wrapperRef}

@@ -23,9 +23,9 @@
 
 .light {
   pointer-events: none;
+  opacity: var(--lop-light);
   width: var(--lsize-light);
   height: var(--lsize-light);
-  display: var(--ldisplay-light);
   position: absolute;
   top: var(--ly-cursor);
   left: var(--lx-cursor);
@@ -33,6 +33,7 @@
   border-radius: 50%;
   background-color: var(--c-grey);
   transform: translate(-50%, -250%);
+  transition: opcaity 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
   
   @include media(noTouch) {
     transform: translate(-50%, -100%);
@@ -45,7 +46,7 @@
 
 @include media(noTouch) {
   .wrapper:hover .light {
-    --ldisplay-light: initial;
+    --lop-light: 1;
   }
   
 }
