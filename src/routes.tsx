@@ -1,5 +1,6 @@
 import Game from '@/views/Game';
 import Home from '@/views/Home';
+import NotFound from '@/views/NotFound';
 import Recap from '@/views/Recap/Recap.tsx';
 import { Outlet, createBrowserRouter } from 'react-router-dom';
 
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: 'recap',
         element: <Recap />,
+      },
+      {
+        path: '*',
+        element: <NotFound />,
       },
     ],
   },

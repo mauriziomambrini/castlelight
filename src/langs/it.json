@@ -4,6 +4,7 @@
   "action.difficulty_hard": "Esperto",
   "action.difficulty_medium": "Medio",
   "action.restart": "Ricomincia",
+  "action.back_home": "Torna alla home",
   "answer_archers_castle_a": "Un gruppo di arcieri che assalta un castello",
   "answer_archers_castle_b": "Un gruppo di cavalieri che assalta un castello",
   "answer_archers_castle_c": "Un gruppo di arcieri che esplora una foresta",
@@ -50,5 +51,6 @@
   "recap.normal.text": "C'è ancora strada da fare per diventare cavaliere.",
   "start.desktop_text": "Seleziona la difficoltà, passa il mouse sull'immagine per visualizzarla, indovina cosa rappresenta...",
   "start.mobile_text": "Seleziona la difficoltà, tocca e muovi per scoprire l'immagine, indovina cosa rappresenta...",
-  "start.title": "Che l'avventura abbia inizio!"
+  "start.title": "Che l'avventura abbia inizio!",
+  "not_found.title": "Oops... pagina non trovata!"
 }

@@ -8,6 +8,7 @@ import dragonCastle from './svg/dragon_castle.svg';
 import knightsReturn from './svg/knights_return.svg';
 import logo from './svg/logo.svg';
 import minstrelWall from './svg/minstrel_wall.svg';
+import notFound from './svg/not_found.svg';
 import outlawEscape from './svg/outlaw_escape.svg';
 import outlawTower from './svg/outlaw_tower.svg';
 import outlawWood from './svg/outlaw_wood.svg';
@@ -25,6 +26,7 @@ export {
   knightsReturn,
   logo,
   minstrelWall,
+  notFound,
   outlawEscape,
   outlawTower,
   outlawWood,
