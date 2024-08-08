@@ -13,10 +13,10 @@
   min-width: var(--lh);
   height: var(--lh);
   display: flex;
-  padding-inline: var(--lp-inline);
   flex-direction: var(--l-icon-position);
   justify-content: center;
   align-items: center;
+  padding-inline: var(--lp-inline);
   border: 2px solid var(--lc-border);
   border-radius: var(--l-radius);
   background: var(--lc-bg);
@@ -93,8 +93,8 @@
   --lc-label: var(--lc);
 
   height: initial;
-  padding: 0;
   gap: var(--lp-content);
+  padding: 0;
   border: none;
   background: none;
   text-decoration: underline;

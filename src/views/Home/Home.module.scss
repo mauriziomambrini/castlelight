@@ -1,5 +1,127 @@
 @import "@/styles/mixins/media";
 
-.tinyTable {
-  flex-direction: row;
+.main {
+  cursor: none;
+  pointer-events: none;
+  overflow: hidden;
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--s-inset);
+  background-color: var(--c-accent);
+  animation: click-animation var(--lt-animation) cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+@keyframes click-animation {
+  0% {
+    cursor: none;
+    pointer-events: none;
+  }
+  
+  90% {
+    cursor: pointer;
+    pointer-events: initial;
+  }
+  
+  100% {
+    cursor: pointer;
+    pointer-events: initial;
+  }
+}
+
+.light {
+  --lsize-light: 20vw;
+  
+  width: var(--lsize-light);
+  height: var(--lsize-light);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: var(--z-index-1);
+  translate: -50% -50%;
+  scale: 0;
+  border-radius: 50%;
+  background-color: var(--c-invert);
+  animation: light-animation var(--lt-animation) cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+  
+  @include media(sm) {
+    --lsize-light: 8vw;
+  }
+}
+
+@keyframes light-animation {
+  10% {
+    scale: 1;
+    translate: -50% -50%;
+  }
+  
+  20% {
+    scale: 1;
+    translate: 175% 10%;
+  }
+  
+  35% {
+    scale: 1;
+    translate: -280% 10%;
+  }
+  
+  40% {
+    scale: 1;
+    translate: -300% -150%;
+  }
+  
+  70% {
+    scale: 1;
+    translate: 180% -150%;
+  }
+  
+  75% {
+    scale: 1;
+    translate: -50% -50%;
+  }
+  
+  95% {
+    scale: 100;
+    translate: -50% -50%;
+  }
+  
+  100% {
+    scale: 100;
+    translate: -50% -50%;
+  }
+}
+
+
+.wrapper {
+  width: 100%;
+  max-width: var(--w-max-sm);
+  position: relative;
+  z-index: var(--z-index-2);
+  text-align: center;
+}
+
+.logo {
+  width: 100%;
+  fill: var(--c-accent);
+}
+
+.subtitle {
+  font-size: clamp(var(--fs-xxl), 3.25cqw, var(--fs-db));
+}
+
+.img {
+  --lh-img: 5rem;
+  
+  width: 100%;
+  height: var(--lh-img);
+  fill: var(--c-accent);
+  
+  
+  @include media(sm) {
+    --lh-img: 10rem;
+  }
 }

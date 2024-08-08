@@ -4,6 +4,7 @@
   "action.difficulty_hard": "Expert",
   "action.difficulty_medium": "Medium",
   "action.restart": "Restart",
+  "action.back_home": "Back to home",
   "answer_archers_castle_a": "A group of archers attacking a castle",
   "answer_archers_castle_b": "A group of knights attacking a castle",
   "answer_archers_castle_c": "A group of archers exploring a forest",
@@ -50,5 +51,6 @@
   "recap.normal.text": "There's still a way to go to become a knight.",
   "start.desktop_text": "Select the difficulty level, hover your mouse over the image to view it, guess what it represents...",
   "start.mobile_text": "Select the difficulty level, touch and move to reveal the image, guess what it represents...",
-  "start.title": "Let the adventure begin!"
+  "start.title": "Let the adventure begin!",
+  "not_found.title": "Oops... page not found!"
 }

@@ -38,7 +38,7 @@ const QuestionsList = () => {
             name={option}
             value={option}
             label={t(`answer_${option}`)}
-            onChange={() => handleAnswer(option)}
+            onClick={() => handleAnswer(option)}
             checked={selectedAnswer === option}
           />
         );

@@ -2,37 +2,41 @@
 
 .wrapper {
   --lsize-light: 5vw;
-  
+
+  overflow: hidden;
   width: 100%;
   height: 100%;
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
-  position: relative;
-  overflow: hidden;
 }
 
 .img {
   width: auto;
   height: 100%;
-  fill: var(--c-body);
-  aspect-ratio: 3/2;
   position: relative;
   z-index: var(--z-index-1);
+  fill: var(--c-body);
+  aspect-ratio: 3/2;
 }
 
 .light {
+  pointer-events: none;
   width: var(--lsize-light);
   height: var(--lsize-light);
   visibility: hidden;
-  pointer-events: none;
   position: absolute;
   top: var(--ly-cursor);
   left: var(--lx-cursor);
   z-index: var(--z-index-0);
-  transform: translate(-50%, -50%);
   border-radius: 50%;
   background-color: var(--c-grey);
+  transform: translate(-50%, -150%);
+  
+  @include media(noTouch) {
+    transform: translate(-50%, -100%);
+  }
 }
 
 .wrapper:hover {

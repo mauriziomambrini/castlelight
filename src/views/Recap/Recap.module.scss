@@ -1,38 +1,70 @@
 @import "@/styles/mixins/media";
 
 .wrapper {
-  padding-inline: var(--s-inset);
+  width: 100%;
+  height: 100%;
+  padding-inline:var(--s-inset);
+}
 
+.wrapProgress {
+  width: 15rem;
+  position: relative;
+  
+  @include media(sm) {
+    width: 20rem;
+  }
+}
+
+.img {
+  width: 50%;
+  height: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+.score {
+  position: absolute;
+  right: 0;
+  bottom: 15%;
+  left: 0;
+  text-align: center;
 }
 
 .wrapText {
-  max-width: 40rem;
+  max-width: var(--w-max-df);
   text-align: center;
 }
 
 .title {
-  font-size: clamp(var(--fs-big), 3.25cqw, var(--fs-qr));
+  font-size: clamp(var(--fs-xxl), 3.25cqw, var(--fs-tr));
   text-transform: uppercase;
   animation: 0.5s linear 0.5s infinite flicker;
 }
 
 @keyframes flicker {
-  from {
+  0% {
     font-variation-settings: 'INFM' 0, 'BNCE' -10;
   }
+
   33.33% {
     font-variation-settings: 'INFM' 0, 'BNCE' -10;
   }
+
   33.34% {
     font-variation-settings: 'INFM' 100, 'BNCE' 20;
   }
+
   66.66% {
     font-variation-settings: 'INFM' 100, 'BNCE' 20;
   }
+
   66.67% {
     font-variation-settings: 'INFM' 50, 'BNCE' 10;
   }
-  to {
+
+  100% {
     font-variation-settings: 'INFM' 50, 'BNCE' 10;
   }
 }
@@ -41,21 +73,6 @@
   --lfs: clamp(var(--fs-lg), 3.25cqw, var(--fs-xxl)) !important;
 }
 
-
-.wrapBtn {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: var(--s-df);
-  
-  @include media(sm) {
-    flex-direction: row;
-  }
-}
-
-
 .btn {
   min-width: 100%;
   
@@ -63,3 +80,4 @@
     min-width: 10rem;
   }
 }
+

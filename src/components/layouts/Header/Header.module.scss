@@ -1,23 +1,24 @@
 @import "@/styles/mixins/media";
+
 .wrapper {
   width: 100%;
   display: grid;
   grid-template-columns: 6rem 1fr 6rem;
   grid-template-areas: 'lang logo countdown';
   align-items: center;
-  padding-inline: var(--s-inset);
   gap: var(--s-df);
+  padding-inline: var(--s-inset);
 }
 
 .lang {
-  grid-area: lang;
   width: 5rem;
+  grid-area: lang;
 }
 
 .logo {
+  cursor: pointer;
   grid-area: logo;
   place-self: center;
-  cursor: pointer;
 }
 
 
@@ -34,6 +35,7 @@
   0%, 100% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.1);
   }

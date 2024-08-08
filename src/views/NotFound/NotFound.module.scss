@@ -1,0 +1,49 @@
+@import "@/styles/mixins/media";
+
+.wrapper {
+  padding: var(--s-inset);
+}
+
+.img {
+  --lh-img: 5rem;
+  
+  width: 100%;
+  height: var(--lh-img);
+  fill: var(--c-accent);
+  
+  @include media(sm) {
+    --lh-img: 10rem;
+  }
+}
+
+.title {
+  font-size: clamp(var(--fs-xxl), 3.25cqw, var(--fs-tr));
+  text-transform: uppercase;
+  animation: 0.5s linear 0.5s infinite flicker;
+}
+
+@keyframes flicker {
+  0% {
+    font-variation-settings: 'INFM' 0, 'BNCE' -10;
+  }
+  
+  33.33% {
+    font-variation-settings: 'INFM' 0, 'BNCE' -10;
+  }
+  
+  33.34% {
+    font-variation-settings: 'INFM' 100, 'BNCE' 20;
+  }
+  
+  66.66% {
+    font-variation-settings: 'INFM' 100, 'BNCE' 20;
+  }
+  
+  66.67% {
+    font-variation-settings: 'INFM' 50, 'BNCE' 10;
+  }
+  
+  100% {
+    font-variation-settings: 'INFM' 50, 'BNCE' 10;
+  }
+}

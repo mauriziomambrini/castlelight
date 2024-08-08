@@ -13,7 +13,7 @@ const TIME_REDUCTION = 5;
 const DIFFICULTY_TIMES: Record<DifficultyTypes, number> = {
   easy: 45, // seconds
   medium: 30,
-  hard: 20,
+  hard: 15,
 };
 
 // Create the Quiz context
