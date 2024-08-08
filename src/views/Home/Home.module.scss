@@ -1,18 +1,18 @@
 @import "@/styles/mixins/media";
 
 .main {
+  cursor: none;
+  pointer-events: none;
+  overflow: hidden;
   width: 100%;
   height: 100dvh;
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
   padding: var(--s-inset);
   background-color: var(--c-accent);
-  overflow: hidden;
-  cursor: none;
-  pointer-events: none;
   animation: click-animation var(--lt-animation) cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
 }
 

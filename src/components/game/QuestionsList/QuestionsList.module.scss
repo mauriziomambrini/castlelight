@@ -1,11 +1,11 @@
 .wrapper {
   width: 100%;
-  height: 100%;
   max-width: var(--w-max-sm);
+  height: 100%;
   padding-inline:var(--s-inset);
 }
 
 .title {
-  font-size: clamp(var(--fs-xxl), 3.25cqw, var(--fs-tr));
   margin-bottom: var(--s-xxl);
+  font-size: clamp(var(--fs-xxl), 3.25cqw, var(--fs-tr));
 }

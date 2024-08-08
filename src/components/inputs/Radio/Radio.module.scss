@@ -4,17 +4,18 @@
   --lc-border-input: var(--c-input-default);
   --lc-bg-input: transparent;
   --lsw-input: inset 0 0 0 var(--lw-border-input) var(--lc-border-input);
-  
+
+  cursor: pointer;
   width: 100%;
   min-width: fit-content;
   display: flex;
   flex-direction: var(--ldirection);
   align-items: center;
   gap: 1rem;
-  border-radius: var(--s-uxs);
-  box-shadow: var(--lsw-input);
-  background-color: var(--lc-bg-input);
   padding: var(--s-df);
+  border-radius: var(--s-uxs);
+  background-color: var(--lc-bg-input);
+  box-shadow: var(--lsw-input);
   transition: var(--transition-025);
 
   *:not(input, button, a) {

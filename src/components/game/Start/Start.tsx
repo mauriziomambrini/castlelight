@@ -14,27 +14,30 @@ const Start = () => {
   const isTouch = useTouchDevice();
   const difficultyLevels: DifficultyTypes[] = ['easy', 'medium', 'hard'];
 
-  return (
-    <Flex className={s.wrapper} direction={'column'} align={'center'} gap={[3]}>
-      <Flex
-        className={s.wrapText}
-        direction={'column'}
-        align={'center'}
-        gap={[1]}
-      >
-        <Typo
-          className={s.title}
-          text={t('start.title')}
-          size={'db'}
-          weight={'bold'}
-          balancer={true}
-        />
-        <MarkdownText
-          classNames={{ text: s.text }}
-          text={isTouch ? t('start.mobile_text') : t('start.desktop_text')}
-          baseSize={'lg'}
-        />
-      </Flex>
+  const renderTitle = () => {
+    return (
+      <Typo
+        className={s.title}
+        text={t('start.title')}
+        size={'db'}
+        weight={'bold'}
+        balancer={true}
+      />
+    );
+  };
+
+  const renderText = () => {
+    return (
+      <MarkdownText
+        classNames={{ text: s.text }}
+        text={isTouch ? t('start.mobile_text') : t('start.desktop_text')}
+        baseSize={'lg'}
+      />
+    );
+  };
+
+  const renderDifficulty = () => {
+    return (
       <div className={s.wrapBtn}>
         {difficultyLevels.map((level) => {
           return (
@@ -48,6 +51,21 @@ const Start = () => {
           );
         })}
       </div>
+    );
+  };
+
+  return (
+    <Flex className={s.wrapper} direction={'column'} align={'center'} gap={[3]}>
+      <Flex
+        className={s.wrapText}
+        direction={'column'}
+        align={'center'}
+        gap={[1]}
+      >
+        {renderTitle()}
+        {renderText()}
+      </Flex>
+      {renderDifficulty()}
     </Flex>
   );
 };
