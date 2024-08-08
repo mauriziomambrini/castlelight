@@ -96,7 +96,7 @@ const QuizProvider = ({ children }: IQuizProvider) => {
       setCurrentQuestion(currentQuestion + 1);
       setCurrentImage(newCurrentImage);
 
-      if (newCurrentImage % IMAGE_TRIGGER === 0) {
+      if ((newCurrentImage - 1) % (IMAGE_TRIGGER + 1) === 0) {
         setLevel((prevLevel) => prevLevel + 1);
       }
     } else {
