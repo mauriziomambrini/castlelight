@@ -64,7 +64,7 @@ const QuizProvider = ({ children }: IQuizProvider) => {
     }
   }, [difficulty, level]);
 
-  // Handle countdown logic
+  // Handle countdown logic and automatically move to the next question/image when countdown reaches 0
   useEffect(() => {
     if (countdown !== undefined && countdown > 0) {
       const interval = setInterval(() => {
@@ -73,12 +73,29 @@ const QuizProvider = ({ children }: IQuizProvider) => {
 
       return () => clearInterval(interval);
     }
-  }, [countdown]);
 
-  if (countdown === 0 && showImage) {
-    setShowImage(false);
-    setQuizStarted(true);
-  }
+    if (countdown === 0) {
+      handleNextQuestion();
+    }
+  }, [countdown]);
+  const handleNextQuestion = () => {
+    if (currentQuestion < questions.length - 1) {
+      const newCurrentImage = currentImage + 1;
+      setCurrentQuestion(currentQuestion + 1);
+      setCurrentImage(newCurrentImage);
+
+      if ((newCurrentImage + 1) % (IMAGE_TRIGGER + 1) === 0) {
+        setLevel((prevLevel) => prevLevel + 1);
+      }
+
+      // Reset countdown for the next question
+      const reduction = (level + 1) * TIME_REDUCTION;
+      const newCountdown = DIFFICULTY_TIMES[difficulty!] - reduction;
+      setCountdown(newCountdown > 0 ? newCountdown : 0);
+    } else {
+      setQuizStarted(false);
+    }
+  };
 
   // Start quiz
   const startQuiz = () => {
@@ -90,18 +107,7 @@ const QuizProvider = ({ children }: IQuizProvider) => {
   // Handle user answer and progress to the next question
   const handleAnswer = (answer: string) => {
     setUserAnswers([...userAnswers, answer]);
-
-    if (currentQuestion < questions.length - 1) {
-      const newCurrentImage = currentImage + 1;
-      setCurrentQuestion(currentQuestion + 1);
-      setCurrentImage(newCurrentImage);
-
-      if ((newCurrentImage + 1) % (IMAGE_TRIGGER + 1) === 0) {
-        setLevel((prevLevel) => prevLevel + 1);
-      }
-    } else {
-      setQuizStarted(false);
-    }
+    handleNextQuestion();
   };
 
   // Calculate user score
@@ -114,7 +120,7 @@ const QuizProvider = ({ children }: IQuizProvider) => {
     return { score, successRate };
   };
 
-  // Rest answers
+  // Reset answers
   const resetQuiz = () => {
     setDifficulty(undefined);
     setUserAnswers([]);
