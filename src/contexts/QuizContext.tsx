@@ -114,6 +114,16 @@ const QuizProvider = ({ children }: IQuizProvider) => {
     return { score, successRate };
   };
 
+  // Rest answers
+  const resetQuiz = () => {
+    setUserAnswers([]);
+    setCurrentQuestion(0);
+    setShowImage(true);
+    setQuizStarted(false);
+    setCurrentImage(1);
+    setLevel(0);
+  };
+
   return (
     <QuizContext.Provider
       value={{
@@ -131,6 +141,7 @@ const QuizProvider = ({ children }: IQuizProvider) => {
         currentImage,
         totalImages: TOTAL_IMAGES,
         level,
+        resetQuiz,
       }}
     >
       {children}
