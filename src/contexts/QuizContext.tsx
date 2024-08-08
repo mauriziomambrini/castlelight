@@ -45,9 +45,26 @@ const QuizProvider = ({ children }: IQuizProvider) => {
   const [quizStarted, setQuizStarted] = useState(false);
   const [currentImage, setCurrentImage] = useState(1);
   const [level, setLevel] = useState(0);
+  const [reduction, setReduction] = useState(0);
   const [questions, setQuestions] = useState<QuestionTypes[]>([]);
 
   const question = questions[currentQuestion];
+
+  // Start quiz
+  const startQuiz = () => {
+    const initialTime = DIFFICULTY_TIMES[difficulty!] - reduction;
+
+    setShowImage(true);
+    setQuizStarted(true);
+    setCountdown(initialTime);
+  };
+
+  // Side effect to handle showing or hiding the image and managing countdown
+  useEffect(() => {
+    if (countdown === 0 && showImage) {
+      setShowImage(false);
+    }
+  }, [countdown, showImage]);
 
   // Set random questions on component mount
   useEffect(() => {
@@ -55,37 +72,29 @@ const QuizProvider = ({ children }: IQuizProvider) => {
     setQuestions(selectedQuestions);
   }, []);
 
-  // Adjust countdown time based on difficulty and level
+  // Set reduction based on the level
   useEffect(() => {
-    if (difficulty) {
-      const reduction = level * TIME_REDUCTION;
-      const newCountdown = DIFFICULTY_TIMES[difficulty] - reduction;
-      setCountdown(newCountdown > 0 ? newCountdown : 0);
-    }
-  }, [difficulty, level]);
+    if (level === 0) return;
+    const newReduction = level * TIME_REDUCTION;
+    setReduction(newReduction);
+  }, [level]);
+
+  // Adjust countdown time based on difficulty and reduction when the level changes
+  useEffect(() => {
+    if (!difficulty || countdown === undefined) return;
+    const timeLeft = DIFFICULTY_TIMES[difficulty] - level * TIME_REDUCTION;
+    setCountdown(timeLeft);
+  }, [level, difficulty]);
 
   // Handle countdown logic
   useEffect(() => {
-    if (countdown !== undefined && countdown > 0) {
-      const interval = setInterval(() => {
-        setCountdown((prev) => (prev !== undefined && prev > 0 ? prev - 1 : 0));
-      }, 1000);
+    if (countdown === undefined || countdown < 0) return;
 
-      return () => clearInterval(interval);
-    }
+    const interval = setInterval(() => {
+      setCountdown((prev) => (prev !== undefined && prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(interval);
   }, [countdown]);
-
-  if (countdown === 0 && showImage) {
-    setShowImage(false);
-    setQuizStarted(true);
-  }
-
-  // Start quiz
-  const startQuiz = () => {
-    setShowImage(true);
-    setQuizStarted(true);
-    setCountdown(DIFFICULTY_TIMES[difficulty!]);
-  };
 
   // Handle user answer and progress to the next question
   const handleAnswer = (answer: string) => {
@@ -96,7 +105,7 @@ const QuizProvider = ({ children }: IQuizProvider) => {
       setCurrentQuestion(currentQuestion + 1);
       setCurrentImage(newCurrentImage);
 
-      if ((newCurrentImage + 1) % (IMAGE_TRIGGER + 1) === 0) {
+      if ((newCurrentImage - 1) % IMAGE_TRIGGER === 0) {
         setLevel((prevLevel) => prevLevel + 1);
       }
     } else {
@@ -114,7 +123,7 @@ const QuizProvider = ({ children }: IQuizProvider) => {
     return { score, successRate };
   };
 
-  // Rest answers
+  // Reset quiz
   const resetQuiz = () => {
     setDifficulty(undefined);
     setUserAnswers([]);
@@ -123,6 +132,8 @@ const QuizProvider = ({ children }: IQuizProvider) => {
     setQuizStarted(false);
     setCurrentImage(1);
     setLevel(0);
+    setReduction(0); // Reset reduction as well
+    setCountdown(undefined); // Reset countdown
   };
 
   return (
