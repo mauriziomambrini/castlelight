@@ -100,16 +100,17 @@ const QuizProvider = ({ children }: IQuizProvider) => {
   const handleAnswer = (answer: string) => {
     setUserAnswers([...userAnswers, answer]);
 
-    if (currentQuestion < questions.length - 1) {
-      const newCurrentImage = currentImage + 1;
-      setCurrentQuestion(currentQuestion + 1);
-      setCurrentImage(newCurrentImage);
-
-      if ((newCurrentImage - 1) % IMAGE_TRIGGER === 0) {
-        setLevel((prevLevel) => prevLevel + 1);
-      }
-    } else {
+    if (currentQuestion >= questions.length - 1) {
       setQuizStarted(false);
+      return;
+    }
+
+    const newCurrentImage = currentImage + 1;
+    setCurrentQuestion(currentQuestion + 1);
+    setCurrentImage(newCurrentImage);
+
+    if ((newCurrentImage - 1) % IMAGE_TRIGGER === 0) {
+      setLevel((prevLevel) => prevLevel + 1);
     }
   };
 
