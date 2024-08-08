@@ -32,7 +32,7 @@
   z-index: var(--z-index-0);
   border-radius: 50%;
   background-color: var(--c-grey);
-  transform: translate(-50%, -150%);
+  transform: translate(-50%, -250%);
   
   @include media(noTouch) {
     transform: translate(-50%, -100%);
