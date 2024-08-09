@@ -30,10 +30,14 @@ const HiddenImage = (props: IHiddenImage) => {
 
   const handleTouchMove = (event: TouchEvent) => {
     if (cursorRef.current) {
-      const { clientX, clientY } = event.touches[0];
-      const { style } = cursorRef.current;
-      style.setProperty('--lx-cursor', `${clientX}px`);
-      style.setProperty('--ly-cursor', `${clientY}px`);
+      const currentCursor = cursorRef.current;
+      requestAnimationFrame(() => {
+        const { clientX, clientY } = event.touches[0];
+        if (currentCursor) {
+          currentCursor.style.setProperty('--lx-cursor', `${clientX}px`);
+          currentCursor.style.setProperty('--ly-cursor', `${clientY}px`);
+        }
+      });
     }
   };
 

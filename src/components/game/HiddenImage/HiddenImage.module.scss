@@ -10,6 +10,9 @@
   position: relative;
   justify-content: center;
   align-items: center;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
 }
 
 .img {

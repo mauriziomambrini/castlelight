@@ -1,3 +1,4 @@
+@import "@/styles/mixins/media";
 @import "@/styles/mixins/overflow";
 
 // Wrapper
@@ -5,7 +6,7 @@
   --lw-indicator: var(--lw-tab);
   --lx-indicator: var(--lleft-tab);
   --ly-indicator: var(--ltop-tab);
-  --lh-tab: 2rem;
+  --lh-tab: 1.5rem;
   --lp-tab: 0rem;
   
   width: 100%;
@@ -15,6 +16,10 @@
   position: relative;
   align-items: flex-end;
   padding: var(--lp-tab);
+  
+  @include media(sm) {
+    --lh-tab: 2rem;
+  }
 }
 
 // Indicator
