@@ -1,3 +1,5 @@
+import type { Dispatch, SetStateAction } from 'react';
+
 export type QuestionTypes = {
   key: string;
   image: string;
@@ -7,20 +9,31 @@ export type QuestionTypes = {
 
 export type DifficultyTypes = 'easy' | 'medium' | 'hard';
 
-export type QuizContextTypes = {
+export type QuizStateType = {
   difficulty: DifficultyTypes | undefined;
-  countdown: number | undefined;
   currentQuestion: number;
-  question: QuestionTypes | undefined;
+  userAnswers: string[];
   showImage: boolean;
   quizStarted: boolean;
-  userAnswers: string[];
-  startQuiz: () => void;
-  handleAnswer: (answer: string) => void;
-  setDifficulty: (level: DifficultyTypes) => void;
-  calculateScore: () => { score: number; successRate: number };
   currentImage: number;
-  totalImages: number;
   level: number;
+  reduction: number;
+  questions: QuestionTypes[];
+};
+
+export type QuizContextTypes = {
+  calculateScore: () => { score: number; successRate: number };
+  countdown: number | undefined;
+  fillQuizState: <T extends keyof QuizStateType>(
+    key: T,
+    value: QuizStateType[T],
+  ) => void;
+  handleAnswer: (answer: string) => void;
+  level: number;
+  question: QuestionTypes | undefined;
+  quizState: QuizStateType;
   resetQuiz: () => void;
+  setQuizState: Dispatch<SetStateAction<QuizStateType>>;
+  startQuiz: () => void;
+  totalImages: number;
 };

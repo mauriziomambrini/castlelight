@@ -19,9 +19,9 @@ const DIFFICULTY_TIMES: Record<DifficultyTypes, number> = {
 };
 
 const DEFAULT_QUIZ_STATE: QuizStateType = {
+  difficulty: undefined,
   currentImage: 1,
   currentQuestion: 0,
-  difficulty: undefined,
   level: 0,
   questions: [],
   quizStarted: false,
@@ -162,17 +162,17 @@ const QuizProvider = ({ children }: IQuizProvider) => {
   return (
     <QuizContext.Provider
       value={{
-        quizState,
-        setQuizState,
-        fillQuizState,
-        countdown,
-        question,
-        startQuiz,
-        handleAnswer,
         calculateScore,
-        totalImages: TOTAL_IMAGES,
+        countdown,
+        fillQuizState,
+        handleAnswer,
         level,
+        question,
+        quizState,
         resetQuiz,
+        setQuizState,
+        startQuiz,
+        totalImages: TOTAL_IMAGES,
       }}
     >
       {children}

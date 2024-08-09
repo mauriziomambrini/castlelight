@@ -68,7 +68,6 @@ const Home = () => {
           direction={'column'}
           justify={'center'}
           align={'center'}
-          gap={[0.5]}
         >
           {renderLogo()}
           {renderSubtitle()}
