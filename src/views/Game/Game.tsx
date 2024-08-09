@@ -7,7 +7,8 @@ import { Fragment, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Game = () => {
-  const { difficulty, totalImages, userAnswers } = useQuizContext();
+  const { totalImages, quizState } = useQuizContext();
+  const { difficulty, userAnswers } = quizState;
   const navigate = useNavigate();
 
   // Navigate to Recap route if quiz completed

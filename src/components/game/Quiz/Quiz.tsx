@@ -4,14 +4,8 @@ import { useQuizContext } from '@/hooks/useQuizContext'; // Importa il nuovo hoo
 import { useEffect } from 'react';
 
 const Quiz = () => {
-  const {
-    difficulty,
-    currentQuestion,
-    question,
-    showImage,
-    quizStarted,
-    startQuiz,
-  } = useQuizContext();
+  const { question, quizState, startQuiz } = useQuizContext();
+  const { difficulty, currentQuestion, showImage, quizStarted } = quizState;
 
   useEffect(() => {
     startQuiz();

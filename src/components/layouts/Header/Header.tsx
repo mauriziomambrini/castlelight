@@ -17,7 +17,8 @@ export interface IHeader {
 
 const Header = (props: IHeader) => {
   const { classNames } = props;
-  const { showImage, countdown } = useQuizContext();
+  const { countdown, quizState } = useQuizContext();
+  const { showImage } = quizState;
   const formattedTime = useFormat(countdown || 0); // Passa il countdown a useFormat
 
   const renderLangSwitch = () => {

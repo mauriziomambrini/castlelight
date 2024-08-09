@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import s from './InfoQuiz.module.scss';
 
 const InfoQuiz = () => {
-  const { level, difficulty, currentImage, totalImages } = useQuizContext();
+  const { totalImages, quizState } = useQuizContext();
+  const { currentImage, difficulty, level } = quizState;
   const { t } = useTranslation();
 
   const infos = [
