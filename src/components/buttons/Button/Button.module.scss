@@ -1,3 +1,5 @@
+@import "@/styles/mixins/media";
+
 .btn {
   --lp-content: var(--s-uxs);
   --l-radius: var(--s-uxs);
@@ -38,9 +40,15 @@
   outline-offset: 0.125rem;
 }
 
-.btn:not(.outline):hover {
-  --lc-border: var(--lc-hover);
-  --lc-bg: var(--lc-hover);
+.btn:active {
+  scale: 0.96;
+}
+
+@include media(noTouch) {
+  .btn:not(.outline):hover {
+    --lc-border: var(--lc-hover);
+    --lc-bg: var(--lc-hover);
+  }
 }
 
 // Icon
@@ -83,9 +91,11 @@
   --lc-label: var(--lc);
 }
 
-.outline:hover {
-  --lc-bg: var(--lc-hover);
-  --lc-label: var(--c-invert);
+@include media(noTouch) {
+  .outline:hover {
+    --lc-bg: var(--lc-hover);
+    --lc-label: var(--c-invert);
+  }
 }
 
 // If theme text
@@ -104,8 +114,10 @@
   }
 }
 
-.text:hover {
-  --lc-label: var(--lc-hover);
+@include media(noTouch) {
+  .text:hover {
+    --lc-label: var(--lc-hover);
+  }
 }
 
 // If disabled or loading

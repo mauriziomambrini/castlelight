@@ -29,6 +29,10 @@
   }
 }
 
+.wrapper:active {
+  scale: 0.96;
+}
+
 @include media(noTouch) {
   .wrapper:hover {
     --lw-border-input: 2px;
