@@ -8,11 +8,13 @@ import Icon from '@/components/utils/Icon';
 import { useQuizContext } from '@/hooks/useQuizContext.ts';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import s from './Recap.module.scss';
 
 const Recap = () => {
   const { t } = useTranslation();
-  const { calculateScore } = useQuizContext();
+  const navigate = useNavigate();
+  const { calculateScore, resetQuiz } = useQuizContext();
   const { successRate } = calculateScore();
 
   const [pathLength, setPathLength] = useState(0);
@@ -76,6 +78,11 @@ const Recap = () => {
       requestAnimationFrame((timestamp) => animate(timestamp, timestamp));
     }
   }, [pathLength, successRate]);
+
+  const handleReset = () => {
+    resetQuiz();
+    navigate('/game'); // Redirect to the quiz start page
+  };
 
   const renderProgressBar = () => {
     return (
@@ -149,7 +156,7 @@ const Recap = () => {
       <Button
         classNames={{ button: s.btn }}
         label={t('action.restart')}
-        to={'/game'}
+        onClick={handleReset}
         theme={'outline'}
       />
     );
