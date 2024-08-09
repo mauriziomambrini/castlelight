@@ -34,6 +34,7 @@ export type QuizContextTypes = {
   quizState: QuizStateType;
   resetQuiz: () => void;
   setQuizState: Dispatch<SetStateAction<QuizStateType>>;
+  skipImage: () => void;
   startQuiz: () => void;
   totalImages: number;
 };

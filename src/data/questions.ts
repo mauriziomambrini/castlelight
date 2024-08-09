@@ -11,7 +11,7 @@ export const questions: QuestionTypes[] = [
   {
     key: 'dragon_castle',
     image: IMAGES.dragonCastle,
-    answer: 'archers_castle_a',
+    answer: 'dragon_castle_a',
     options: ['dragon_castle_a', 'dragon_castle_b', 'dragon_castle_c'],
   },
   {
@@ -53,7 +53,7 @@ export const questions: QuestionTypes[] = [
   {
     key: 'sea_monster',
     image: IMAGES.seaMonster,
-    answer: 'outlaw_escape_a',
+    answer: 'sea_monster_a',
     options: ['sea_monster_a', 'sea_monster_b', 'sea_monster_c'],
   },
 ];

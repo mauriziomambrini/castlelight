@@ -12,7 +12,6 @@ const LangSwitch = (props: ILangSwitch) => {
   const { classNames } = props;
   const { supportedLocales, currentLocale, switchLanguage } = useTranslation();
 
-  // Configura le tabs per il componente
   const tabs = useMemo(() => {
     return supportedLocales.map((locale) => ({
       key: locale,
