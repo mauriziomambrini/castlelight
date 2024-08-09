@@ -3,7 +3,6 @@ import Typo from '@/components/typography/Typo';
 import Flex from '@/components/utils/Flex';
 import Icon from '@/components/utils/Icon';
 import Logo from '@/components/utils/Logo';
-import { useEffect } from 'react';
 import type { CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -15,15 +14,15 @@ const Home = () => {
 
   const TIME_ANIMATION = 12;
 
-  useEffect(() => {
-    // Set a timeout to navigate after TIME_ANIMATION seconds
-    const timer = setTimeout(() => {
-      navigate('/game');
-    }, TIME_ANIMATION * 1000);
-
-    // Cleanup the timeout if the component unmounts before time is up
-    return () => clearTimeout(timer);
-  }, [TIME_ANIMATION, navigate]);
+  // useEffect(() => {
+  //   // Set a timeout to navigate after TIME_ANIMATION seconds
+  //   const timer = setTimeout(() => {
+  //     navigate('/game');
+  //   }, TIME_ANIMATION * 1000);
+  //
+  //   // Cleanup the timeout if the component unmounts before time is up
+  //   return () => clearTimeout(timer);
+  // }, [TIME_ANIMATION, navigate]);
 
   const handleClick = () => {
     navigate('/game');
@@ -68,7 +67,6 @@ const Home = () => {
           direction={'column'}
           justify={'center'}
           align={'center'}
-          gap={[0.5]}
         >
           {renderLogo()}
           {renderSubtitle()}
