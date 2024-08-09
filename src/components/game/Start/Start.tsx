@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 import s from './Start.module.scss';
 
 const Start = () => {
-  const { setDifficulty } = useQuizContext();
+  const { fillQuizState } = useQuizContext();
   const { t } = useTranslation();
   const isTouch = useTouchDevice();
   const difficultyLevels: DifficultyTypes[] = ['easy', 'medium', 'hard'];
@@ -45,7 +45,7 @@ const Start = () => {
               key={level}
               classNames={{ button: s.btn }}
               label={t(`action.difficulty_${level}`)}
-              onClick={() => setDifficulty(level)}
+              onClick={() => fillQuizState('difficulty', level)}
               theme={'outline'}
             />
           );

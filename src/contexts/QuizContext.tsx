@@ -3,7 +3,9 @@ import type {
   DifficultyTypes,
   QuestionTypes,
   QuizContextTypes,
+  QuizStateType,
 } from '@/types/quizTypes';
+import type { ReactNode } from 'react';
 import { createContext, useEffect, useState } from 'react';
 
 // Constants
@@ -16,13 +18,25 @@ const DIFFICULTY_TIMES: Record<DifficultyTypes, number> = {
   hard: 20,
 };
 
+const DEFAULT_QUIZ_STATE: QuizStateType = {
+  currentImage: 1,
+  currentQuestion: 0,
+  difficulty: undefined,
+  level: 0,
+  questions: [],
+  quizStarted: false,
+  reduction: 0,
+  showImage: true,
+  userAnswers: [],
+};
+
 // Create the Quiz context
 export const QuizContext = createContext<QuizContextTypes | undefined>(
   undefined,
 );
 
 interface IQuizProvider {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 // Randomize and limit the questions
@@ -35,48 +49,59 @@ const getRandomQuestions = (
 };
 
 const QuizProvider = ({ children }: IQuizProvider) => {
-  const [difficulty, setDifficulty] = useState<DifficultyTypes | undefined>(
-    undefined,
-  );
+  const [quizState, setQuizState] = useState<QuizStateType>(DEFAULT_QUIZ_STATE);
   const [countdown, setCountdown] = useState<number | undefined>(undefined);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [userAnswers, setUserAnswers] = useState<string[]>([]);
-  const [showImage, setShowImage] = useState(true);
-  const [quizStarted, setQuizStarted] = useState(false);
-  const [currentImage, setCurrentImage] = useState(1);
-  const [level, setLevel] = useState(0);
-  const [reduction, setReduction] = useState(0);
-  const [questions, setQuestions] = useState<QuestionTypes[]>([]);
+  const {
+    currentImage,
+    currentQuestion,
+    difficulty,
+    level,
+    questions,
+    reduction,
+    showImage,
+    userAnswers,
+  } = quizState;
 
-  const question = questions[currentQuestion];
+  const question = questions[quizState.currentQuestion];
+
+  const fillQuizState = <T extends keyof QuizStateType>(
+    key: T,
+    value: QuizStateType[T],
+  ) => {
+    setQuizState((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
 
   // Start quiz
   const startQuiz = () => {
     const initialTime = DIFFICULTY_TIMES[difficulty!] - reduction;
-
-    setShowImage(true);
-    setQuizStarted(true);
+    setQuizState((prev) => ({
+      ...prev,
+      showImage: true,
+      quizStarted: true,
+    }));
     setCountdown(initialTime);
   };
 
   // Side effect to handle showing or hiding the image and managing countdown
   useEffect(() => {
-    if (countdown === 0 && showImage) {
-      setShowImage(false);
-    }
+    if (countdown !== 0 || !showImage) return;
+    fillQuizState('showImage', false);
   }, [countdown, showImage]);
 
   // Set random questions on component mount
   useEffect(() => {
     const selectedQuestions = getRandomQuestions(allQuestions, TOTAL_IMAGES);
-    setQuestions(selectedQuestions);
+    fillQuizState('questions', selectedQuestions);
   }, []);
 
   // Set reduction based on the level
   useEffect(() => {
     if (level === 0) return;
     const newReduction = level * TIME_REDUCTION;
-    setReduction(newReduction);
+    fillQuizState('reduction', newReduction);
   }, [level]);
 
   // Adjust countdown time based on difficulty and reduction when the level changes
@@ -98,26 +123,30 @@ const QuizProvider = ({ children }: IQuizProvider) => {
 
   // Handle user answer and progress to the next question
   const handleAnswer = (answer: string) => {
-    setUserAnswers([...userAnswers, answer]);
+    fillQuizState('userAnswers', [...userAnswers, answer]);
 
     if (currentQuestion >= questions.length - 1) {
-      setQuizStarted(false);
+      fillQuizState('quizStarted', false);
       return;
     }
 
     const newCurrentImage = currentImage + 1;
-    setCurrentQuestion(currentQuestion + 1);
-    setCurrentImage(newCurrentImage);
+    setQuizState((prev) => ({
+      ...prev,
+      currentQuestion: currentQuestion + 1,
+      currentImage: newCurrentImage,
+    }));
 
     if ((newCurrentImage - 1) % IMAGE_TRIGGER === 0) {
-      setLevel((prevLevel) => prevLevel + 1);
+      fillQuizState('level', level + 1);
+      // setLevel((prevLevel) => prevLevel + 1);
     }
   };
 
   // Calculate user score
   const calculateScore = () => {
     const correctAnswers = questions.map((q) => q.answer);
-    const score = userAnswers.filter(
+    const score = quizState.userAnswers.filter(
       (answer, index) => answer === correctAnswers[index],
     ).length;
     const successRate = (score / questions.length) * 100;
@@ -126,32 +155,21 @@ const QuizProvider = ({ children }: IQuizProvider) => {
 
   // Reset quiz
   const resetQuiz = () => {
-    setDifficulty(undefined);
-    setUserAnswers([]);
-    setCurrentQuestion(0);
-    setShowImage(true);
-    setQuizStarted(false);
-    setCurrentImage(1);
-    setLevel(0);
-    setReduction(0); // Reset reduction as well
+    setQuizState(DEFAULT_QUIZ_STATE);
     setCountdown(undefined); // Reset countdown
   };
 
   return (
     <QuizContext.Provider
       value={{
-        difficulty,
+        quizState,
+        setQuizState,
+        fillQuizState,
         countdown,
-        currentQuestion,
         question,
-        showImage,
-        quizStarted,
-        userAnswers,
         startQuiz,
         handleAnswer,
-        setDifficulty,
         calculateScore,
-        currentImage,
         totalImages: TOTAL_IMAGES,
         level,
         resetQuiz,

@@ -7,8 +7,8 @@ import s from './QuestionsList.module.scss';
 
 const QuestionsList = () => {
   const { t } = useTranslation();
-  const { question, handleAnswer, currentQuestion, userAnswers } =
-    useQuizContext();
+  const { question, handleAnswer, quizState } = useQuizContext();
+  const { currentQuestion, userAnswers } = quizState;
 
   const shuffledOptions = question?.options
     ? [...question.options].sort(() => Math.random() - 0.5)
