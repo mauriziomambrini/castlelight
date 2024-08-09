@@ -1,19 +1,22 @@
+import Button from '@/components/buttons/Button';
 import Icon from '@/components/utils/Icon';
+import { useQuizContext } from '@/hooks/useQuizContext.ts';
 import useTouchDevice from '@/hooks/useTouchDevice'; // Assicurati che il percorso dell'import sia corretto
 import type { Classnames } from '@/types/compoentsTypes.ts';
 import type { DifficultyTypes } from '@/types/quizTypes.ts';
 import cx from 'classnames';
-import { type CSSProperties, useLayoutEffect, useRef, useState } from 'react';
-import s from './HiddenImage.module.scss';
-
-export interface IHiddenImage {
-  image: string;
-  difficulty?: DifficultyTypes;
-  classNames?: Classnames<'wrapper'>;
-}
+import {
+  type CSSProperties,
+  Fragment,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 
 const HiddenImage = (props: IHiddenImage) => {
+  const { t } = useTranslation();
   const { image, difficulty = 'easy', classNames } = props;
+  const { skipImage } = useQuizContext();
   const isTouchDevice = useTouchDevice();
   const cursorRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -94,20 +97,49 @@ const HiddenImage = (props: IHiddenImage) => {
     }
   }, [isTouchDevice]);
 
+  const renderImage = () => {
+    return (
+      <div
+        className={cx(s.wrapper, classNames?.wrapper, s[difficulty])}
+        style={
+          {
+            '--lop-light': isCursorVisible && isTouchDevice ? 1 : 0,
+          } as CSSProperties
+        }
+        ref={wrapperRef}
+      >
+        <div className={s.light} ref={cursorRef} />
+        <Icon className={s.img} name={image} />
+      </div>
+    );
+  };
+
+  const renderCta = () => {
+    return (
+      <Button
+        classNames={{ button: s.cta, label: s.labelCta }}
+        label={t('action.skip')}
+        onClick={() => skipImage()}
+        theme={'text'}
+      />
+    );
+  };
+
   return (
-    <div
-      className={cx(s.wrapper, classNames?.wrapper, s[difficulty])}
-      style={
-        {
-          '--lop-light': isCursorVisible && isTouchDevice ? 1 : 0,
-        } as CSSProperties
-      }
-      ref={wrapperRef}
-    >
-      <div className={s.light} ref={cursorRef} />
-      <Icon className={s.img} name={image} />
-    </div>
+    <Fragment>
+      {renderImage()}
+      {renderCta()}
+    </Fragment>
   );
 };
+
+import { useTranslation } from 'react-i18next';
+import s from './HiddenImage.module.scss';
+
+export interface IHiddenImage {
+  image: string;
+  difficulty?: DifficultyTypes;
+  classNames?: Classnames<'wrapper'>;
+}
 
 export default HiddenImage;

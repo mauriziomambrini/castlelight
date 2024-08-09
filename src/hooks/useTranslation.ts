@@ -1,4 +1,4 @@
-import i18n from 'i18next'; // Importa i18next
+import i18n from 'i18next';
 import { useEffect, useState } from 'react';
 
 const useTranslation = () => {
@@ -34,14 +34,14 @@ const useTranslation = () => {
     const initialLocale =
       getPersistedLocale() || getUserPreferredLocale() || defaultLocale;
     setCurrentLocale(initialLocale);
-    i18n.changeLanguage(initialLocale); // Informa i18next della lingua iniziale
+    i18n.changeLanguage(initialLocale);
   }, []);
 
   const switchLanguage = (newLocale: string) => {
     if (isLocaleSupported(newLocale)) {
       setCurrentLocale(newLocale);
       localStorage.setItem('user-locale', newLocale);
-      i18n.changeLanguage(newLocale); // Cambia la lingua anche in i18next
+      i18n.changeLanguage(newLocale);
     } else {
       console.warn(`Locale ${newLocale} is not supported.`);
     }

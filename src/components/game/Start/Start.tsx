@@ -9,8 +9,8 @@ import { useTranslation } from 'react-i18next';
 import s from './Start.module.scss';
 
 const Start = () => {
-  const { fillQuizState } = useQuizContext();
   const { t } = useTranslation();
+  const { fillQuizState } = useQuizContext();
   const isTouch = useTouchDevice();
   const difficultyLevels: DifficultyTypes[] = ['easy', 'medium', 'hard'];
 

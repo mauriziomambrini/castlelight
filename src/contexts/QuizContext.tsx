@@ -11,11 +11,11 @@ import { createContext, useEffect, useState } from 'react';
 // Constants
 const TOTAL_IMAGES = 6;
 const IMAGE_TRIGGER = 2; // Must be a third of TOTAL_IMAGES
-const TIME_REDUCTION = 5;
+const TIME_REDUCTION = 3;
 const DIFFICULTY_TIMES: Record<DifficultyTypes, number> = {
-  easy: 45, // seconds
-  medium: 30,
-  hard: 20,
+  easy: 20, // seconds
+  medium: 15,
+  hard: 10,
 };
 
 const DEFAULT_QUIZ_STATE: QuizStateType = {
@@ -153,12 +153,22 @@ const QuizProvider = ({ children }: IQuizProvider) => {
     return { score, successRate };
   };
 
+  // Skip image and go to question
+  const skipImage = () => {
+    setCountdown(0);
+  };
+
   // Reset quiz
   const resetQuiz = () => {
-    setQuizState(DEFAULT_QUIZ_STATE);
+    const selectedQuestions = getRandomQuestions(allQuestions, TOTAL_IMAGES);
+    setQuizState({
+      ...DEFAULT_QUIZ_STATE,
+      questions: selectedQuestions,
+    });
     setCountdown(undefined); // Reset countdown
   };
 
+  console.log('BBB', userAnswers);
   return (
     <QuizContext.Provider
       value={{
@@ -172,6 +182,7 @@ const QuizProvider = ({ children }: IQuizProvider) => {
         resetQuiz,
         setQuizState,
         startQuiz,
+        skipImage,
         totalImages: TOTAL_IMAGES,
       }}
     >

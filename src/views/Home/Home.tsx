@@ -13,7 +13,7 @@ const Home = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const TIME_ANIMATION = 12;
+  const TIME_ANIMATION = 6;
 
   useEffect(() => {
     // Set a timeout to navigate after TIME_ANIMATION seconds
