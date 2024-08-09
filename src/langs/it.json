@@ -52,5 +52,6 @@
   "start.desktop_text": "Seleziona la difficoltà, passa il mouse sull'immagine per visualizzarla, indovina cosa rappresenta...",
   "start.mobile_text": "Seleziona la difficoltà, tocca e muovi per scoprire l'immagine, indovina cosa rappresenta...",
   "start.title": "Che l'avventura abbia inizio!",
-  "not_found.title": "Oops... pagina non trovata!"
+  "not_found.title": "Oops... pagina non trovata!",
+  "intro_subtitle": "Dissolvi le tenebre!"
 }

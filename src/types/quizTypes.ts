@@ -22,4 +22,5 @@ export type QuizContextTypes = {
   currentImage: number;
   totalImages: number;
   level: number;
+  resetQuiz: () => void;
 };

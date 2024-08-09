@@ -1,3 +1,5 @@
+@import "@/styles/mixins/media";
+
 // Wrapper
 .wrapper {
   --lw-border-input: 1px;
@@ -27,9 +29,15 @@
   }
 }
 
-.wrapper:hover {
-  --lw-border-input: 2px;
-  --lc-border-input: var(--c-input-hover);
+.wrapper:active {
+  scale: 0.96;
+}
+
+@include media(noTouch) {
+  .wrapper:hover {
+    --lw-border-input: 2px;
+    --lc-border-input: var(--c-input-hover);
+  }
 }
 
 // Content
@@ -65,9 +73,11 @@
   transition: var(--transition-025);
 }
 
-.check:hover {
-  --lw-border-input: 2px;
-  --lc-border-input: var(--c-input-hover);
+@include media(noTouch) {
+  .check:hover {
+    --lw-border-input: 2px;
+    --lc-border-input: var(--c-input-hover);
+  }
 }
 
 // If checked
