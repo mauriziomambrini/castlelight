@@ -36,10 +36,10 @@
   border-radius: 50%;
   background-color: var(--c-grey);
   transform: translate(-50%, -250%);
-  transition: opcaity 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: opcaity 0.25s cubic-bezier(0.215, 0.61, 0.355, 1), transform 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);;
   
   @include media(noTouch) {
-    transform: translate(-50%, -100%);
+    transform: translate(-50%, -150%);
   }
 }
 

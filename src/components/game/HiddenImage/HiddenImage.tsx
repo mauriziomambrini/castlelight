@@ -28,6 +28,15 @@ const HiddenImage = (props: IHiddenImage) => {
     }
   };
 
+  const handleTouchStart = (event: TouchEvent) => {
+    if (cursorRef.current) {
+      const { clientX, clientY } = event.touches[0];
+      cursorRef.current.style.setProperty('--lx-cursor', `${clientX}px`);
+      cursorRef.current.style.setProperty('--ly-cursor', `${clientY}px`);
+      setIsCursorVisible(true);
+    }
+  };
+
   const handleTouchMove = (event: TouchEvent) => {
     if (cursorRef.current) {
       const currentCursor = cursorRef.current;
@@ -41,12 +50,8 @@ const HiddenImage = (props: IHiddenImage) => {
     }
   };
 
-  const handleTouchStart = () => {
-    setIsCursorVisible(true); // Rende visibile il cursore al touch start
-  };
-
   const handleTouchEnd = () => {
-    setIsCursorVisible(false); // Nasconde il cursore al touch end
+    setIsCursorVisible(false);
   };
 
   useLayoutEffect(() => {
