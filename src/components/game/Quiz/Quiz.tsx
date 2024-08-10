@@ -7,8 +7,6 @@ const Quiz = () => {
   const { question, quizState, startQuiz } = useQuizContext();
   const { difficulty, currentQuestion, showImage, quizStarted } = quizState;
 
-  console.log('AAA', currentQuestion, showImage, question?.image);
-
   useEffect(() => {
     startQuiz();
   }, [currentQuestion]);

@@ -20,6 +20,7 @@ const DIFFICULTY_TIMES: Record<DifficultyTypes, number> = {
 
 const DEFAULT_QUIZ_STATE: QuizStateType = {
   difficulty: undefined,
+  initialTime: 0,
   currentImage: 1,
   currentQuestion: 0,
   level: 0,
@@ -62,6 +63,7 @@ const QuizProvider = ({ children }: IQuizProvider) => {
     userAnswers,
   } = quizState;
 
+  const initialTime = DIFFICULTY_TIMES[difficulty!] - reduction;
   const question = questions[quizState.currentQuestion];
 
   const fillQuizState = <T extends keyof QuizStateType>(
@@ -76,9 +78,9 @@ const QuizProvider = ({ children }: IQuizProvider) => {
 
   // Start quiz
   const startQuiz = () => {
-    const initialTime = DIFFICULTY_TIMES[difficulty!] - reduction;
     setQuizState((prev) => ({
       ...prev,
+      initialTime: initialTime,
       showImage: true,
       quizStarted: true,
     }));
@@ -168,11 +170,11 @@ const QuizProvider = ({ children }: IQuizProvider) => {
     setCountdown(undefined); // Reset countdown
   };
 
-  console.log('BBB', userAnswers);
   return (
     <QuizContext.Provider
       value={{
         calculateScore,
+        initialTime,
         countdown,
         fillQuizState,
         handleAnswer,

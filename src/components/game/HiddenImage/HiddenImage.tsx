@@ -16,7 +16,7 @@ import {
 const HiddenImage = (props: IHiddenImage) => {
   const { t } = useTranslation();
   const { image, difficulty = 'easy', classNames } = props;
-  const { skipImage } = useQuizContext();
+  const { initialTime, countdown, skipImage } = useQuizContext();
   const isTouchDevice = useTouchDevice();
   const cursorRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -115,24 +115,38 @@ const HiddenImage = (props: IHiddenImage) => {
   };
 
   const renderCta = () => {
+    if (!countdown) return null;
+
+    const disabled = countdown > initialTime - 2;
+
     return (
       <Button
         classNames={{ button: s.cta, label: s.labelCta }}
         label={t('action.skip')}
         onClick={() => skipImage()}
+        disabled={disabled}
         theme={'text'}
       />
+    );
+  };
+
+  const renderFooter = () => {
+    return (
+      <Flex className={s.footer} justify={'center'} align={'center'}>
+        {renderCta()}
+      </Flex>
     );
   };
 
   return (
     <Fragment>
       {renderImage()}
-      {renderCta()}
+      {renderFooter()}
     </Fragment>
   );
 };
 
+import Flex from '@/components/utils/Flex';
 import { useTranslation } from 'react-i18next';
 import s from './HiddenImage.module.scss';
 

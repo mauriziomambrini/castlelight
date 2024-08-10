@@ -11,6 +11,7 @@ export type DifficultyTypes = 'easy' | 'medium' | 'hard';
 
 export type QuizStateType = {
   difficulty: DifficultyTypes | undefined;
+  initialTime: number;
   currentQuestion: number;
   userAnswers: string[];
   showImage: boolean;
@@ -23,6 +24,7 @@ export type QuizStateType = {
 
 export type QuizContextTypes = {
   calculateScore: () => { score: number; successRate: number };
+  initialTime: number;
   countdown: number | undefined;
   fillQuizState: <T extends keyof QuizStateType>(
     key: T,

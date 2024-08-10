@@ -75,17 +75,18 @@
 }
 
 // Cta
+.footer {
+  min-height: var(--s-qr);
+}
+
 .cta {
   --lfs-label: var(--fs-lg);
-
-  margin-block: var(--s-xxl);
   
   @include media(sm) {
     --lfs-label: var(--fs-xxl);
   }
-  
 }
 
 .labelCta {
-  font-weight: var(--fw-bold) !important;
+  font-weight: var(--fw-bold);
 }
