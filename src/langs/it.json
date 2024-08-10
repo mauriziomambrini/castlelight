@@ -54,5 +54,6 @@
   "recap.normal.title": "Un tentativo valido.",
   "start.desktop_text": "Seleziona la difficoltà, **muovi il mouse** per scoprire l'immagine, indovina cosa rappresenta...",
   "start.mobile_text": "Seleziona la difficoltà, **tocca e muovi** per scoprire l'immagine, indovina cosa rappresenta...",
-  "start.title": "Che l'avventura abbia inizio!"
+  "start.title": "Che l'avventura abbia inizio!",
+  "tutorial.title": "Tieni premuto e muoviti"
 }

@@ -1,26 +1,30 @@
+import * as ICONS from '@/assets/icons';
 import Button from '@/components/buttons/Button';
 import Icon from '@/components/utils/Icon';
 import { useQuizContext } from '@/hooks/useQuizContext.ts';
-import useTouchDevice from '@/hooks/useTouchDevice'; // Assicurati che il percorso dell'import sia corretto
+import useTouchDevice from '@/hooks/useTouchDevice';
 import type { Classnames } from '@/types/compoentsTypes.ts';
 import type { DifficultyTypes } from '@/types/quizTypes.ts';
 import cx from 'classnames';
-import {
-  type CSSProperties,
-  Fragment,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import type { CSSProperties } from 'react';
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 const HiddenImage = (props: IHiddenImage) => {
   const { t } = useTranslation();
   const { image, difficulty = 'easy', classNames } = props;
-  const { initialTime, countdown, skipImage } = useQuizContext();
+  const { initialTime, countdown, skipImage, quizState } = useQuizContext();
+  const { currentImage } = quizState;
   const isTouchDevice = useTouchDevice();
   const cursorRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const [isCursorVisible, setIsCursorVisible] = useState(false); // Stato per la visibilità
+  const [isCursorVisible, setIsCursorVisible] = useState(false);
+  const [showTutorial, setShowTutorial] = useState(true);
+
+  useEffect(() => {
+    if (currentImage > 1) {
+      setShowTutorial(false);
+    }
+  }, [currentImage]);
 
   const handleMouseMove = (event: MouseEvent) => {
     if (cursorRef.current) {
@@ -32,6 +36,7 @@ const HiddenImage = (props: IHiddenImage) => {
   };
 
   const handleTouchStart = (event: TouchEvent) => {
+    setShowTutorial(false);
     if (cursorRef.current) {
       const { clientX, clientY } = event.touches[0];
       cursorRef.current.style.setProperty('--lx-cursor', `${clientX}px`);
@@ -97,6 +102,28 @@ const HiddenImage = (props: IHiddenImage) => {
     }
   }, [isTouchDevice]);
 
+  const renderTutorial = () => {
+    if (!isTouchDevice) return null;
+    if (!showTutorial) return null;
+    return (
+      <Flex
+        className={s.tutorial}
+        direction={'column'}
+        justify={'center'}
+        align={'center'}
+        gap={[1]}
+      >
+        <Icon name={ICONS.pressMove} size={[4]} color={'accent'} />
+        <Typo
+          text={t('tutorial.title')}
+          size={'xl'}
+          weight={'medium'}
+          color={'accent'}
+        />
+      </Flex>
+    );
+  };
+
   const renderImage = () => {
     return (
       <div
@@ -110,13 +137,14 @@ const HiddenImage = (props: IHiddenImage) => {
       >
         <div className={s.light} ref={cursorRef} />
         <Icon className={s.img} name={image} />
+        {renderTutorial()}
       </div>
     );
   };
 
   const renderCta = () => {
+    if (showTutorial) return null;
     if (!countdown) return null;
-
     const disabled = countdown > initialTime - 2;
 
     return (
@@ -146,6 +174,7 @@ const HiddenImage = (props: IHiddenImage) => {
   );
 };
 
+import Typo from '@/components/typography/Typo';
 import Flex from '@/components/utils/Flex';
 import { useTranslation } from 'react-i18next';
 import s from './HiddenImage.module.scss';

@@ -1,6 +1,6 @@
 import HiddenImage from '@/components/game/HiddenImage';
 import QuestionsList from '@/components/game/QuestionsList';
-import { useQuizContext } from '@/hooks/useQuizContext'; // Importa il nuovo hook che accede al contesto
+import { useQuizContext } from '@/hooks/useQuizContext';
 import { useEffect } from 'react';
 
 const Quiz = () => {
