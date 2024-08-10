@@ -14,3 +14,12 @@
     flex-direction: row;
   }
 }
+
+.menu.menu {
+  width: fit-content;
+}
+
+.credits {
+  --lfs-label: var(--fs-sm) !important;
+}
+

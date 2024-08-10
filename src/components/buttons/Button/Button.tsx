@@ -81,7 +81,7 @@ const Button = (props: IButton) => {
         className={cx(s.label, classNames?.label)}
         text={label}
         size={'df'}
-        weight={'medium'}
+        weight={'semi'}
       />
     );
   };

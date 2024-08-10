@@ -76,6 +76,7 @@
 
 // Tutorial
 .tutorial {
+  pointer-events: none;
   opacity: 0.25;
   position: absolute;
   z-index: var(--z-index-2);

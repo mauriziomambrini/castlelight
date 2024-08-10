@@ -1,6 +1,7 @@
 {
   "action.back_home": "Torna alla home",
   "action.continue": "Continua",
+  "action.credits": "Crediti",
   "action.difficulty_easy": "Facile",
   "action.difficulty_hard": "Esperto",
   "action.difficulty_medium": "Medio",
@@ -33,6 +34,8 @@
   "answer_sea_monster_a": "Una nava catturata da un mostro marino",
   "answer_sea_monster_b": "Un gruppo di marinai che esplora un'isola deserta",
   "answer_sea_monster_c": "Una nave che attraversa una tempesta violenta",
+  "credits.title": "Castel light è progettato e sviluppato da **Maurizio Mambrini**",
+  "credits.text": "_Ringraziamenti speciali_:\n\n**Misha Mambrini** e **Sasha Patapava** per l'ispirazione e il supporto morale.\n\n**Luca Raffo** per la revisione del codice e i consigli.\n\n**Nicolò Benigni** per il beta testing e i suggerimenti.",
   "footer.label.github": "Vedi su {{link}}",
   "footer.label.powered_by": "©{{year}} Cucito a mano da {{link}}",
   "intro_subtitle": "Dissolvi le tenebre!",
