@@ -7,7 +7,7 @@ import type { Classnames } from '@/types/compoentsTypes.ts';
 import cx from 'classnames';
 
 import Logo from '@/components/utils/Logo';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import s from './Header.module.scss';
 
 export interface IHeader {
@@ -17,9 +17,15 @@ export interface IHeader {
 
 const Header = (props: IHeader) => {
   const { classNames } = props;
-  const { countdown, quizState } = useQuizContext();
+  const navigate = useNavigate();
+  const { countdown, quizState, resetQuiz } = useQuizContext();
   const { showImage } = quizState;
-  const formattedTime = useFormat(countdown || 0); // Passa il countdown a useFormat
+  const formattedTime = useFormat(countdown || 0);
+
+  const handleClick = () => {
+    resetQuiz();
+    navigate('/');
+  };
 
   const renderLangSwitch = () => {
     return <LangSwitch classNames={{ wrapper: s.lang }} />;
@@ -27,16 +33,16 @@ const Header = (props: IHeader) => {
 
   const renderLogo = () => {
     return (
-      <Link className={s.logo} to={'/'}>
+      <div className={s.logo} onClick={() => handleClick()}>
         <Logo name={IMAGES.logo} maxHeight={1.5} />
-      </Link>
+      </div>
     );
   };
 
   const renderCountDown = () => {
     if (!showImage) return null;
     if (!countdown) return null;
-    const isPulsing = countdown > 0 && countdown <= 10;
+    const isPulsing = countdown > 0 && countdown <= 5;
     return (
       <Typo
         className={cx(s.countdown, { [s.pulse]: isPulsing })}

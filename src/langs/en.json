@@ -54,5 +54,6 @@
   "recap.normal.title": "A valid attempt.",
   "start.desktop_text": "Select the difficulty level, **move mouse** to reveal the image, guess what it represents...",
   "start.mobile_text": "Select the difficulty level, **touch and move** to reveal the image, guess what it represents...",
-  "start.title": "Let the adventure begin!"
+  "start.title": "Let the adventure begin!",
+  "tutorial.title": "Hold and move"
 }

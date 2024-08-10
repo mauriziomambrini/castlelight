@@ -1,4 +1,4 @@
-import { QuizContext } from '@/contexts/QuizContext'; // Assicurati di usare il percorso corretto
+import { QuizContext } from '@/contexts/QuizContext';
 import { useContext } from 'react';
 
 export const useQuizContext = () => {
