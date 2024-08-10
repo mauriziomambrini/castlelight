@@ -42,7 +42,7 @@ const Header = (props: IHeader) => {
   const renderCountDown = () => {
     if (!showImage) return null;
     if (!countdown) return null;
-    const isPulsing = countdown > 0 && countdown <= 10;
+    const isPulsing = countdown > 0 && countdown <= 5;
     return (
       <Typo
         className={cx(s.countdown, { [s.pulse]: isPulsing })}
