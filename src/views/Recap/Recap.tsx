@@ -69,7 +69,7 @@ const Recap = () => {
     if (pathRef.current) {
       const length = pathRef.current.getTotalLength();
       setPathLength(length);
-      setDashOffset(length); // Imposta il dashOffset iniziale
+      setDashOffset(length);
     }
   }, []);
 
