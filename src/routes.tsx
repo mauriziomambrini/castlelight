@@ -1,3 +1,4 @@
+import Credits from '@/views/Credits/Credits.tsx';
 import Game from '@/views/Game';
 import Home from '@/views/Home';
 import NotFound from '@/views/NotFound';
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: 'recap',
         element: <Recap />,
+      },
+      {
+        path: 'credits',
+        element: <Credits />,
       },
       {
         path: '*',

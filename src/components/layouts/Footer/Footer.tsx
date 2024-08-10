@@ -3,7 +3,10 @@ import type { FC, ReactElement } from 'react';
 import cx from 'classnames';
 import s from './Footer.module.scss';
 
+import Button from '@/components/buttons/Button';
 import MarkdownText from '@/components/typography/MarkdownText';
+import Divider from '@/components/utils/Divider';
+import Flex from '@/components/utils/Flex';
 import { useTranslation } from 'react-i18next';
 
 export interface IFooter {
@@ -26,6 +29,17 @@ const Footer: FC<IFooter> = (props: IFooter): ReactElement => {
     );
   };
 
+  const renderCredits = () => {
+    return (
+      <Button
+        classNames={{ button: s.credits }}
+        label={'Credits'}
+        to={'/credits'}
+        theme={'text'}
+      />
+    );
+  };
+
   const renderGithub = () => {
     const link =
       '[GitHub](https://github.com/mauriziomambrini/castlelight.git)';
@@ -41,7 +55,11 @@ const Footer: FC<IFooter> = (props: IFooter): ReactElement => {
   return (
     <footer className={cx(s.footer, className)}>
       {renderGithub()}
-      {renderPoweredBy()}
+      <Flex className={s.menu}>
+        {renderPoweredBy()}
+        <Divider theme={'vertical'} spacing={[0.25]} />
+        {renderCredits()}
+      </Flex>
     </footer>
   );
 };

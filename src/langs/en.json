@@ -1,6 +1,7 @@
 {
   "action.back_home": "Back to home",
   "action.continue": "Continue",
+  "action.credits": "Credits",
   "action.difficulty_easy": "Easy",
   "action.difficulty_hard": "Expert",
   "action.difficulty_medium": "Medium",
@@ -33,6 +34,8 @@
   "answer_sea_monster_a": "A ship captured by a sea monster",
   "answer_sea_monster_b": "A group of sailors exploring a deserted island",
   "answer_sea_monster_c": "A ship navigating through a violent storm",
+  "credits.title": "Castel light is designed and developed by **Maurizio Mambrini**",
+  "credits.text": "_Special thanks_:\n\n**Misha Mambrini** and **Sasha Patapava** for inspiration and moral support.\n\n**Luca Raffo** for code review and advice.\n\n**Nicolò Benigni** for beta testing and suggestions.",
   "footer.label.github": "View on {{link}}",
   "footer.label.powered_by": "©{{year}} Hand-sewn by {{link}}",
   "intro_subtitle": "Dissolve the darkness!",
