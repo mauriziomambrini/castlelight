@@ -143,7 +143,7 @@ const HiddenImage = (props: IHiddenImage) => {
   };
 
   const renderCta = () => {
-    if (showTutorial) return null;
+    if (isTouchDevice && showTutorial) return null;
     if (!countdown) return null;
     const disabled = countdown > initialTime - 2;
 

@@ -56,4 +56,16 @@ export const questions: QuestionTypes[] = [
     answer: 'sea_monster_a',
     options: ['sea_monster_a', 'sea_monster_b', 'sea_monster_c'],
   },
+  {
+    key: 'archers_joust',
+    image: IMAGES.archersJoust,
+    answer: 'archers_joust_a',
+    options: ['archers_joust_a', 'archers_joust_b', 'archers_joust_c'],
+  },
+  {
+    key: 'knights_joust',
+    image: IMAGES.knightsJoust,
+    answer: 'knights_joust_a',
+    options: ['knights_joust_a', 'knights_joust_b', 'knights_joust_c'],
+  },
 ];
