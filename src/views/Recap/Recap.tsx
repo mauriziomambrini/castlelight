@@ -1,12 +1,12 @@
-import * as IMAGES from '@/assets/images';
 import Button from '@/components/buttons/Button';
 import Layout from '@/components/layouts/Layout';
 import MarkdownText from '@/components/typography/MarkdownText';
 import Typo from '@/components/typography/Typo';
 import Flex from '@/components/utils/Flex';
 import Icon from '@/components/utils/Icon';
+import TinyTable from '@/components/utils/TinyTable';
 import { useQuizContext } from '@/hooks/useQuizContext.ts';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import useRecap from '@/hooks/useRecap.ts';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import s from './Recap.module.scss';
@@ -14,70 +14,10 @@ import s from './Recap.module.scss';
 const Recap = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { calculateScore, resetQuiz } = useQuizContext();
-  const { successRate } = calculateScore();
-
-  const [pathLength, setPathLength] = useState(0);
-  const [dashOffset, setDashOffset] = useState(0);
-  const [animatedSuccessRate, setAnimatedSuccessRate] = useState(0);
-
-  const pathRef = useRef<SVGPathElement>(null);
-
-  const resultData = useMemo(() => {
-    switch (true) {
-      case successRate >= 75:
-        return {
-          text: 'excellent',
-          image: IMAGES.characterKnightSword,
-        };
-      case successRate >= 50:
-        return {
-          text: 'good',
-          image: IMAGES.characterArcherArrow,
-        };
-      case successRate >= 25:
-        return {
-          text: 'normal',
-          image: IMAGES.characterSoldierLance,
-        };
-      default:
-        return {
-          text: 'bad',
-          image: IMAGES.characterFarmer,
-        };
-    }
-  }, [successRate]);
-
-  const animate = (timestamp: number, startTimestamp: number) => {
-    const elapsed = timestamp - startTimestamp;
-    const progress = Math.min(elapsed / 2000, 1);
-
-    const currentRate = Math.floor(progress * successRate);
-    setAnimatedSuccessRate(currentRate);
-
-    const currentOffset = pathLength - (pathLength * currentRate) / 100;
-    setDashOffset(currentOffset);
-
-    if (progress < 1) {
-      requestAnimationFrame((newTimestamp) =>
-        animate(newTimestamp, startTimestamp),
-      );
-    }
-  };
-
-  useEffect(() => {
-    if (pathRef.current) {
-      const length = pathRef.current.getTotalLength();
-      setPathLength(length);
-      setDashOffset(length);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (pathLength > 0) {
-      requestAnimationFrame((timestamp) => animate(timestamp, timestamp));
-    }
-  }, [pathLength, successRate]);
+  const { resetQuiz, quizState } = useQuizContext();
+  const { difficulty } = quizState;
+  const { pathRef, pathLength, dashOffset, animatedSuccessRate, resultData } =
+    useRecap();
 
   const handleReset = () => {
     resetQuiz();
@@ -129,6 +69,23 @@ const Recap = () => {
     );
   };
 
+  const renderDifficulty = () => {
+    return (
+      <TinyTable
+        data={[
+          {
+            key: 'difficulty',
+            label: t('label.difficulty'),
+            value: difficulty ? t(`label.difficulty_${difficulty}`) : '-',
+          },
+        ]}
+        size={['md']}
+        col={['auto', '1fr']}
+        gap={[0.25]}
+      />
+    );
+  };
+
   const renderTitle = () => {
     return (
       <Typo
@@ -175,7 +132,9 @@ const Recap = () => {
           {renderProgressBar()}
           {renderIcon()}
           {renderScore()}
+          {renderDifficulty()}
         </div>
+
         <Flex
           className={s.wrapText}
           direction={'column'}
