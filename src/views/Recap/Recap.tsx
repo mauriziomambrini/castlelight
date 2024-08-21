@@ -19,7 +19,9 @@ const Recap = () => {
   const {
     resetQuiz, // Ensure this is available
     quizState,
+    calculateScore,
   } = useQuizContext();
+  const { score, successRate } = calculateScore();
   const { difficulty } = quizState;
   const { pathRef, pathLength, dashOffset, animatedSuccessRate, resultData } =
     useRecap();
@@ -31,8 +33,8 @@ const Recap = () => {
     const scoreData = {
       name: 'Player',
       difficulty: difficulty || 'Unknown',
-      score: 0,
-      success_rate: animatedSuccessRate,
+      score: score,
+      success_rate: successRate,
       date: new Date().toISOString().split('T')[0],
       time: 'Unknown',
     };
