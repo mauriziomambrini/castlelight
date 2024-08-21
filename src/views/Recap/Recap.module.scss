@@ -8,7 +8,11 @@
 
 .wrapProgress {
   width: 15rem;
+  display: flex;
   position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   
   @include media(sm) {
     width: 20rem;
