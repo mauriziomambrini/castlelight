@@ -1,3 +1,4 @@
+import Contacts from '@/views/Contacts';
 import Credits from '@/views/Credits';
 import Game from '@/views/Game';
 import Home from '@/views/Home';
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: 'scores',
         element: <Scores />,
+      },
+      {
+        path: 'contacts',
+        element: <Contacts />,
       },
       {
         path: 'credits',

@@ -1,0 +1,29 @@
+@mixin flicker-animation($duration: 0.5s, $timing-function: linear, $delay: 0.5s, $iteration-count: infinite) {
+  animation: #{$duration} #{$timing-function} #{$delay} #{$iteration-count} flicker;
+}
+
+@keyframes flicker {
+  0% {
+    font-variation-settings: 'INFM' 0, 'BNCE' -10;
+  }
+  
+  33.33% {
+    font-variation-settings: 'INFM' 0, 'BNCE' -10;
+  }
+  
+  33.34% {
+    font-variation-settings: 'INFM' 100, 'BNCE' 20;
+  }
+  
+  66.66% {
+    font-variation-settings: 'INFM' 100, 'BNCE' 20;
+  }
+  
+  66.67% {
+    font-variation-settings: 'INFM' 50, 'BNCE' 10;
+  }
+  
+  100% {
+    font-variation-settings: 'INFM' 50, 'BNCE' 10;
+  }
+}

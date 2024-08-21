@@ -11,15 +11,40 @@
   padding-inline: var(--s-inset);
   
   @include media(sm) {
-    flex-direction: row;
+    flex-direction: row-reverse;
   }
 }
 
-.menu.menu {
-  width: fit-content;
+
+// Main menu
+.mainMenu {
+  display: flex;
+  align-items: center;
+  gap: var(--s-xxs);
 }
 
-.credits {
+.itemMenu {
   --lfs-label: var(--fs-sm) !important;
 }
+
+// Copyright and GitHub
+.copyrightMenu {
+  width: fit-content;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-uxs);
+  
+  @include media(sm) {
+    flex-direction: row-reverse;
+  }
+}
+
+.divider {
+  display: none;
+  
+  @include media(sm) {
+    display: inherit;
+  }
+}
+
 

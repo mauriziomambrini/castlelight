@@ -1,0 +1,29 @@
+@import "@/styles/mixins/typography";
+
+.wrapper {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--s-df);
+  text-align: center;
+}
+
+.title {
+  text-align: center;
+}
+
+.mail {
+  font-weight: var(--fw-bold);
+  font-size: clamp(var(--fs-db), 3.25cqw, var(--fs-qr));
+  color: var(--c-accent);
+  transition: var(--transition-025);
+
+  @include flicker-animation;
+}
+
+.mail:hover {
+  text-decoration: underline;
+  color: var(--c-accent);
+}

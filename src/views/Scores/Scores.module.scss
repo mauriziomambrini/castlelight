@@ -1,0 +1,9 @@
+@import "@/styles/mixins/typography";
+
+.title {
+  font-size: clamp(var(--fs-xxl), 3.25cqw, var(--fs-tr));
+  text-transform: uppercase;
+  
+  @include flicker-animation;
+}
+

@@ -19,6 +19,7 @@ const Start = () => {
       <Typo
         className={s.title}
         text={t('start.title')}
+        tag={'h1'}
         size={'db'}
         weight={'bold'}
         balancer={true}

@@ -7,6 +7,7 @@ import Button from '@/components/buttons/Button';
 import MarkdownText from '@/components/typography/MarkdownText';
 import Divider from '@/components/utils/Divider';
 import Flex from '@/components/utils/Flex';
+import useMenu from '@/hooks/useMenu.ts';
 import { useTranslation } from 'react-i18next';
 
 export interface IFooter {
@@ -16,6 +17,26 @@ export interface IFooter {
 const Footer: FC<IFooter> = (props: IFooter): ReactElement => {
   const { className } = props;
   const { t } = useTranslation();
+  const main = useMenu();
+
+  const renderMainMenu = () => {
+    return (
+      <ul className={s.mainMenu} role='list'>
+        {main.map((item) => {
+          return (
+            <li key={item.key}>
+              <Button
+                classNames={{ button: s.itemMenu }}
+                label={item.label}
+                to={item.href}
+                theme={'text'}
+              />
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
 
   const renderPoweredBy = () => {
     const year = new Date().getFullYear();
@@ -25,28 +46,6 @@ const Footer: FC<IFooter> = (props: IFooter): ReactElement => {
         text={t('footer.label.powered_by', { year: year, link: link })}
         baseSize={'sm'}
         color={'grey-2'}
-      />
-    );
-  };
-
-  const renderCredits = () => {
-    return (
-      <Button
-        classNames={{ button: s.credits }}
-        label={'Credits'}
-        to={'/credits'}
-        theme={'text'}
-      />
-    );
-  };
-
-  const renderScores = () => {
-    return (
-      <Button
-        classNames={{ button: s.credits }}
-        label={'Scores'}
-        to={'/scores'}
-        theme={'text'}
       />
     );
   };
@@ -63,19 +62,24 @@ const Footer: FC<IFooter> = (props: IFooter): ReactElement => {
     );
   };
 
-  return (
-    <footer className={cx(s.footer, className)}>
-      <Flex className={s.menu}>
-        {renderScores()}
-        <Divider theme={'vertical'} spacing={[0.25]} />
-        {renderCredits()}
-      </Flex>
-
-      <Flex className={s.menu}>
+  const renderCopyrightMenu = () => {
+    return (
+      <Flex className={s.copyrightMenu}>
         {renderGithub()}
-        <Divider theme={'vertical'} spacing={[0.25]} />
+        <Divider
+          classNames={{ wrapper: s.divider }}
+          theme={'vertical'}
+          spacing={[0.5]}
+        />
         {renderPoweredBy()}
       </Flex>
+    );
+  };
+
+  return (
+    <footer className={cx(s.footer, className)}>
+      {renderMainMenu()}
+      {renderCopyrightMenu()}
     </footer>
   );
 };

@@ -53,7 +53,8 @@ const Recap = () => {
   };
 
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPlayerName(event.target.value); // Aggiorna lo stato con il valore dell'input
+    const inputValue = event.target.value.toUpperCase();
+    setPlayerName(inputValue); // Aggiorna lo stato con il valore dell'input
   };
 
   const renderProgressBar = () => {
@@ -123,6 +124,7 @@ const Recap = () => {
       <Typo
         className={s.title}
         text={t(`recap.${resultData.text}.title`)}
+        tag={'h1'}
         size={'db'}
         weight={'bold'}
         balancer={true}
@@ -143,7 +145,7 @@ const Recap = () => {
   const renderForm = () => {
     return (
       <form onSubmit={handleSubmit}>
-        <Input value={playerName} onChange={handleNameChange} />
+        <Input value={playerName} onChange={handleNameChange} maxLength={20} />
         <Button
           classNames={{ button: s.btn }}
           type={'submit'}
