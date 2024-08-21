@@ -1,10 +1,12 @@
 import Button from '@/components/buttons/Button';
+import Input from '@/components/inputs/Input';
 import Layout from '@/components/layouts/Layout';
 import MarkdownText from '@/components/typography/MarkdownText';
 import Typo from '@/components/typography/Typo';
 import Flex from '@/components/utils/Flex';
 import Icon from '@/components/utils/Icon';
 import TinyTable from '@/components/utils/TinyTable';
+import { useNotion } from '@/hooks/useNotion.ts';
 import { useQuizContext } from '@/hooks/useQuizContext.ts';
 import useRecap from '@/hooks/useRecap.ts';
 import { useTranslation } from 'react-i18next';
@@ -18,10 +20,31 @@ const Recap = () => {
   const { difficulty } = quizState;
   const { pathRef, pathLength, dashOffset, animatedSuccessRate, resultData } =
     useRecap();
+  const { submitScore } = useNotion();
 
   const handleReset = () => {
     resetQuiz();
     navigate('/game'); // Redirect to the quiz start page
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const scoreData = {
+      name: 'Player', // Replace with actual player name
+      difficulty: difficulty || 'Unknown',
+      score: 0, // Replace with actual score
+      success_rate: animatedSuccessRate,
+      date: new Date().toISOString().split('T')[0], // Current date in YYYY-MM-DD format
+      time: 'Unknown', // Replace with actual time if needed
+    };
+
+    try {
+      await submitScore(scoreData);
+      alert('Score submitted successfully!');
+    } catch (error) {
+      console.error('Failed to submit score:', error);
+      alert('Failed to submit score.');
+    }
   };
 
   const renderProgressBar = () => {
@@ -108,29 +131,17 @@ const Recap = () => {
     );
   };
 
-  // const renderForm = () => {
-  //   return (
-  //     <form>
-  //       <Input />
-  //       <Button
-  //         classNames={{ button: s.btn }}
-  //         type={'submit'}
-  //         label={t('action.restart')}
-  //         onClick={handleReset}
-  //         theme={'outline'}
-  //       />
-  //     </form>
-  //   );
-  // };
-
-  const renderCta = () => {
+  const renderForm = () => {
     return (
-      <Button
-        classNames={{ button: s.btn }}
-        label={t('action.restart')}
-        onClick={handleReset}
-        theme={'outline'}
-      />
+      <form onSubmit={handleSubmit}>
+        <Input />
+        <Button
+          classNames={{ button: s.btn }}
+          type={'submit'}
+          label={t('action.submit')}
+          theme={'outline'}
+        />
+      </form>
     );
   };
 
@@ -159,7 +170,7 @@ const Recap = () => {
           {renderTitle()}
           {renderText()}
         </Flex>
-        {renderCta()}
+        {renderForm()}
       </Flex>
     </Layout>
   );

@@ -6,84 +6,73 @@ export default async function handler(
   req: IncomingMessage,
   res: ServerResponse,
 ) {
-  if (req.method === 'GET') {
-    const notionToken = process.env.NOTION_API_KEY as string;
-    const databaseId = process.env.NOTION_DATABASE_ID as string;
+  if (req.method === 'POST') {
+    let body = '';
+    req.on('data', (chunk) => {
+      body += chunk.toString();
+    });
 
-    if (!notionToken || !databaseId) {
-      res.statusCode = 500;
-      res.end(
-        JSON.stringify({ message: 'Notion token or database ID is missing' }),
-      );
-      return;
-    }
+    req.on('end', async () => {
+      try {
+        const {
+          name,
+          difficulty,
+          score,
+          success_rate,
+          date,
+          time,
+        }: ScoreTypes = JSON.parse(body);
 
-    try {
-      const response = await fetch(
-        `https://api.notion.com/v1/databases/${databaseId}/query`,
-        {
+        const notionToken = process.env.NOTION_API_KEY as string;
+        const databaseId = process.env.NOTION_DATABASE_ID as string;
+
+        const response = await fetch('https://api.notion.com/v1/pages', {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${notionToken}`,
             'Content-Type': 'application/json',
             'Notion-Version': '2022-06-28',
           },
-        },
-      );
-
-      const responseBody = await response.text();
-      console.log('Response from Notion:', responseBody);
-
-      if (response.ok) {
-        const data = JSON.parse(responseBody);
-
-        if (data.results && data.results.length > 0) {
-          console.log(
-            'First item structure:',
-            JSON.stringify(data.results[0], null, 2),
-          );
-        }
-
-        const scores: ScoreTypes[] = data.results.map((page: any) => {
-          const name =
-            page.properties?.name?.title?.[0]?.text?.content || 'Unknown';
-          const difficulty =
-            page.properties?.difficulty?.rich_text?.[0]?.text?.content ||
-            'Unknown';
-          const score = page.properties?.score?.number || 0;
-          const success_rate = page.properties?.success_rate?.number || 0;
-          const date = page.properties?.date?.date?.start || 'Unknown';
-          const time =
-            page.properties?.time?.rich_text?.[0]?.text?.content || 'Unknown';
-
-          return {
-            name,
-            difficulty,
-            score,
-            success_rate,
-            date,
-            time,
-          };
+          body: JSON.stringify({
+            parent: { database_id: databaseId },
+            properties: {
+              name: {
+                title: [{ text: { content: name } }],
+              },
+              difficulty: {
+                rich_text: [{ text: { content: difficulty } }],
+              },
+              score: {
+                number: score,
+              },
+              success_rate: {
+                number: success_rate,
+              },
+              date: {
+                date: { start: date },
+              },
+              time: {
+                rich_text: [{ text: { content: time } }],
+              },
+            },
+          }),
         });
 
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify(scores));
-      } else {
-        res.statusCode = response.status;
+        if (response.ok) {
+          res.statusCode = 200;
+          res.setHeader('Content-Type', 'application/json');
+          res.end(JSON.stringify({ message: 'Success' }));
+        } else {
+          res.statusCode = response.status;
+          res.end(JSON.stringify({ message: 'Failed to submit data' }));
+        }
+      } catch (error) {
+        res.statusCode = 500;
         res.end(
-          JSON.stringify({
-            message: 'Failed to fetch data',
-            details: responseBody,
-          }),
+          JSON.stringify({ message: 'Server error', details: error.message }),
         );
       }
-    } catch (error: any) {
-      res.statusCode = 500;
-      res.end(
-        JSON.stringify({ message: 'Server error', details: error.message }),
-      );
-    }
+    });
   } else {
     res.statusCode = 405;
     res.setHeader('Content-Type', 'application/json');
