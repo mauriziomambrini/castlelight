@@ -9,6 +9,7 @@ import TinyTable from '@/components/utils/TinyTable';
 import { useNotion } from '@/hooks/useNotion.ts';
 import { useQuizContext } from '@/hooks/useQuizContext.ts';
 import useRecap from '@/hooks/useRecap.ts';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import s from './Recap.module.scss';
@@ -26,12 +27,13 @@ const Recap = () => {
   const { pathRef, pathLength, dashOffset, animatedSuccessRate, resultData } =
     useRecap();
   const { submitScore } = useNotion();
+  const [playerName, setPlayerName] = useState(''); // Stato per il nome del giocatore
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     const scoreData = {
-      name: 'Player',
+      name: playerName,
       difficulty: difficulty || 'Unknown',
       score: score,
       success_rate: successRate,
@@ -48,6 +50,10 @@ const Recap = () => {
       // Handle error if needed
       console.error('Failed to submit score:', error);
     }
+  };
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPlayerName(event.target.value); // Aggiorna lo stato con il valore dell'input
   };
 
   const renderProgressBar = () => {
@@ -137,7 +143,7 @@ const Recap = () => {
   const renderForm = () => {
     return (
       <form onSubmit={handleSubmit}>
-        <Input />
+        <Input value={playerName} onChange={handleNameChange} />
         <Button
           classNames={{ button: s.btn }}
           type={'submit'}
