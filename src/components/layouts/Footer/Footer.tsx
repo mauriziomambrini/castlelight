@@ -40,6 +40,17 @@ const Footer: FC<IFooter> = (props: IFooter): ReactElement => {
     );
   };
 
+  const renderScores = () => {
+    return (
+      <Button
+        classNames={{ button: s.credits }}
+        label={'Scores'}
+        to={'/scores'}
+        theme={'text'}
+      />
+    );
+  };
+
   const renderGithub = () => {
     const link =
       '[GitHub](https://github.com/mauriziomambrini/castlelight.git)';
@@ -54,11 +65,16 @@ const Footer: FC<IFooter> = (props: IFooter): ReactElement => {
 
   return (
     <footer className={cx(s.footer, className)}>
-      {renderGithub()}
       <Flex className={s.menu}>
-        {renderPoweredBy()}
+        {renderScores()}
         <Divider theme={'vertical'} spacing={[0.25]} />
         {renderCredits()}
+      </Flex>
+
+      <Flex className={s.menu}>
+        {renderGithub()}
+        <Divider theme={'vertical'} spacing={[0.25]} />
+        {renderPoweredBy()}
       </Flex>
     </footer>
   );
