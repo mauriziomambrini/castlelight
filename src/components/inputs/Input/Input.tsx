@@ -1,10 +1,14 @@
-import { forwardRef } from 'react';
-
-import cx from 'classnames';
-import s from './Input.module.scss';
-
 import Typo from '@/components/typography/Typo';
 import type { Classnames } from '@/types/compoentsTypes.ts';
+import cx from 'classnames';
+import {
+  type ChangeEvent,
+  type FocusEvent,
+  type KeyboardEvent,
+  type MouseEvent,
+  forwardRef,
+} from 'react';
+import s from './Input.module.scss';
 
 export interface IInput {
   type?: 'text';
@@ -23,17 +27,17 @@ export interface IInput {
   fake?: boolean;
   readOnly?: boolean;
   disabled?: boolean;
-  onClick?: (...args: any[]) => void;
-  onChange?: (...args: any[]) => void;
-  onFocus?: (...args: any[]) => void;
-  onBlur?: (...args: any[]) => void;
-  onKeyDown?: (...args: any[]) => void;
-  onEnter?: (...args: any[]) => void;
-  onEsc?: (...args: any[]) => void;
+  onClick?: (event: MouseEvent<HTMLDivElement>) => void;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onFocus?: (event: FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
+  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
+  onEnter?: (event: KeyboardEvent<HTMLInputElement>) => void;
+  onEsc?: (event: KeyboardEvent<HTMLInputElement>) => void;
+  onKeyUp?: (event: KeyboardEvent<HTMLInputElement>) => void;
   classNames?: Classnames<
     'wrapper' | 'wrapInput' | 'input' | 'label' | 'before' | 'icon' | 'hint'
   >;
-  onKeyUp?: (...args: any[]) => void;
 }
 
 const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
@@ -66,32 +70,38 @@ const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
 
   const error = props.error || Boolean(errorHint);
 
-  const handleClick = (event) => {
+  const handleClick = (event: MouseEvent<HTMLDivElement>) => {
     if (disabled || loading) return;
     onClick?.(event);
   };
 
-  const handleChange = (event) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (disabled || loading) return;
     onChange?.(event);
   };
 
-  const handleFocus = (event) => {
+  const handleFocus = (event: FocusEvent<HTMLInputElement>) => {
     if (disabled || loading) return;
     onFocus?.(event);
   };
 
-  const handleBlur = (event) => {
+  const handleBlur = (event: FocusEvent<HTMLInputElement>) => {
     if (disabled || loading) return;
     onBlur?.(event);
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (disabled || loading) return;
     onKeyDown?.(event);
+
+    if (event.key === 'Enter') {
+      onEnter?.(event);
+    } else if (event.key === 'Escape') {
+      onEsc?.(event);
+    }
   };
 
-  const handleKeyUp = (event) => {
+  const handleKeyUp = (event: KeyboardEvent<HTMLInputElement>) => {
     if (disabled || loading) return;
     onKeyUp?.(event);
   };
@@ -168,4 +178,5 @@ const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
     </div>
   );
 });
+
 export default Input;
