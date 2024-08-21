@@ -31,19 +31,30 @@ export default async function handler(
         },
       );
 
-      const responseBody = await response.text(); // Fetch the raw response text
+      const responseBody = await response.text();
       console.log('Response from Notion:', responseBody); // Logga la risposta completa
 
       if (response.ok) {
-        const data = JSON.parse(responseBody); // Parse JSON se la risposta è OK
-        const scores: ScoreTypes[] = data.results.map((page: any) => ({
-          name: page.properties.name.title[0]?.text.content || '',
-          difficulty: page.properties.difficulty.select.name || '',
-          score: page.properties.score.number || 0,
-          success_rate: page.properties.successRate.number || 0,
-          date: page.properties.date.date.start || '',
-          time: page.properties.time.rich_text[0]?.text.content || '',
-        }));
+        const data = JSON.parse(responseBody);
+        const scores: ScoreTypes[] = data.results.map((page: any) => {
+          const name = page.properties?.Name?.title?.[0]?.text?.content || '';
+          const difficulty = page.properties?.Difficulty?.select?.name || '';
+          const score = page.properties?.Score?.number || 0;
+          const success_rate = page.properties?.SuccessRate?.number || 0;
+          const date = page.properties?.Date?.date?.start || '';
+          const time =
+            page.properties?.Time?.rich_text?.[0]?.text?.content || '';
+
+          return {
+            name,
+            difficulty,
+            score,
+            success_rate,
+            date,
+            time,
+          };
+        });
+
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify(scores));
