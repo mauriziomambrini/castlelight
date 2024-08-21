@@ -10,14 +10,14 @@ import { useNotion } from '@/hooks/useNotion.ts';
 import { useQuizContext } from '@/hooks/useQuizContext.ts';
 import useRecap from '@/hooks/useRecap.ts';
 import { useTranslation } from 'react-i18next';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import s from './Recap.module.scss';
 
 const Recap = () => {
   const { t } = useTranslation();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const {
-    // resetQuiz,
+    resetQuiz, // Ensure this is available
     quizState,
   } = useQuizContext();
   const { difficulty } = quizState;
@@ -25,28 +25,26 @@ const Recap = () => {
     useRecap();
   const { submitScore } = useNotion();
 
-  // const handleReset = () => {
-  //   resetQuiz();
-  //   navigate('/game'); // Redirect to the quiz start page
-  // };
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+
     const scoreData = {
-      name: 'Player', // Replace with actual player name
+      name: 'Player',
       difficulty: difficulty || 'Unknown',
-      score: 0, // Replace with actual score
+      score: 0,
       success_rate: animatedSuccessRate,
-      date: new Date().toISOString().split('T')[0], // Current date in YYYY-MM-DD format
-      time: 'Unknown', // Replace with actual time if needed
+      date: new Date().toISOString().split('T')[0],
+      time: 'Unknown',
     };
 
     try {
       await submitScore(scoreData);
-      alert('Score submitted successfully!');
+      // Reset quiz and navigate after successful submission
+      resetQuiz();
+      navigate('/game');
     } catch (error) {
+      // Handle error if needed
       console.error('Failed to submit score:', error);
-      alert('Failed to submit score.');
     }
   };
 
