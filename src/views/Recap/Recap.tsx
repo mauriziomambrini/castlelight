@@ -1,4 +1,5 @@
 import Button from '@/components/buttons/Button';
+import Input from '@/components/inputs/Input';
 import Layout from '@/components/layouts/Layout';
 import MarkdownText from '@/components/typography/MarkdownText';
 import Typo from '@/components/typography/Typo';
@@ -108,16 +109,31 @@ const Recap = () => {
     );
   };
 
-  const renderCta = () => {
+  const renderForm = () => {
     return (
-      <Button
-        classNames={{ button: s.btn }}
-        label={t('action.restart')}
-        onClick={handleReset}
-        theme={'outline'}
-      />
+      <form>
+        <Input />
+        <Button
+          classNames={{ button: s.btn }}
+          type={'submit'}
+          label={t('action.restart')}
+          onClick={handleReset}
+          theme={'outline'}
+        />
+      </form>
     );
   };
+
+  // const renderCta = () => {
+  //   return (
+  //     <Button
+  //       classNames={{ button: s.btn }}
+  //       label={t('action.restart')}
+  //       onClick={handleReset}
+  //       theme={'outline'}
+  //     />
+  //   );
+  // };
 
   return (
     <Layout>
@@ -144,7 +160,7 @@ const Recap = () => {
           {renderTitle()}
           {renderText()}
         </Flex>
-        {renderCta()}
+        {renderForm()}
       </Flex>
     </Layout>
   );

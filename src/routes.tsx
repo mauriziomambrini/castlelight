@@ -1,8 +1,9 @@
-import Credits from '@/views/Credits/Credits.tsx';
+import Credits from '@/views/Credits';
 import Game from '@/views/Game';
 import Home from '@/views/Home';
 import NotFound from '@/views/NotFound';
-import Recap from '@/views/Recap/Recap.tsx';
+import Recap from '@/views/Recap';
+import Scores from '@/views/Scores';
 import { Outlet, createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: 'recap',
         element: <Recap />,
+      },
+      {
+        path: 'scores',
+        element: <Scores />,
       },
       {
         path: 'credits',

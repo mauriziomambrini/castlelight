@@ -40,3 +40,12 @@ export type QuizContextTypes = {
   startQuiz: () => void;
   totalImages: number;
 };
+
+export type ScoreTypes = {
+  name: string;
+  difficulty: string;
+  score: number;
+  success_rate: number;
+  date: string;
+  time: string;
+};

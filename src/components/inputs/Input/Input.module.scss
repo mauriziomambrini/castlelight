@@ -1,0 +1,166 @@
+.wrapper {
+  width: 100%;
+}
+
+.wrapInput {
+  --lw-before: 0rem;
+  --lw-icon: 0rem;
+  --lx-icon: var(--s-sm);
+  --lp: var(--s-sm);
+  --lp-before: 0rem;
+  --lp-icon: 0rem;
+  --lp-left: calc(var(--lp) + var(--lp-before) + var(--lw-before));
+  --lp-right: calc(var(--lp) + var(--lp-icon) + var(--lw-icon));
+  --lh-input: 3.5rem;
+
+  width: 100%;
+  position: relative;
+}
+
+// Input
+.input {
+  --lw-border-input: 1px;
+  --lc-border-input: var(--c-input-default);
+  --lc-bg-input: var(--c-input-bg);
+  --lsw-input: inset 0 0 0 var(--lw-border-input) var(--lc-border-input);
+
+  appearance: none;
+  width: 100%;
+  height: var(--lh-input);
+  padding-right: var(--lp-right);
+  padding-left: var(--lp-left);
+  padding-block: var(--s-xxs);
+  outline: none !important;
+  border: none;
+  border-radius: var(--s-us);
+  background: var(--lc-bg-input);
+  box-shadow: var(--lsw-input);
+  font-family: var(--ff-main);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-df);
+  line-height: 1.5;
+  color: var(--c-grey);
+  transition: var(--transition-025);
+}
+
+.input::placeholder {
+  opacity: 0.5;
+  color: var(--c-grey);
+}
+
+.input:-webkit-autofill {
+  -webkit-text-fill-color: var(--c-accent);
+}
+
+.input:hover {
+  --lw-border-input: 2px;
+  --lc-border-input: var(--c-input-hover);
+}
+
+.input:focus {
+  --lw-border-input: 2px;
+  --lc-border-input: var(--c-accent);
+}
+
+// Label
+.label {
+  pointer-events: none;
+  position: absolute;
+  top: calc(var(--lh-input) / 2);
+  left: var(--lp-left);
+  font-size: var(--fs-df);
+  color: var(--c-grey-2);
+  transition: var(--transition-025);
+  translate: 0 -50%;
+}
+
+// Icon
+.icon {
+  pointer-events: none;
+  width: var(--lw-icon);
+  min-width: var(--lw-icon);
+  height: var(--lw-icon);
+  position: absolute;
+  top: 50%;
+  right: var(--lx-icon);
+  fill: var(--c-grey);
+  transition: var(--transition-025);
+  translate: 0 -50%;
+}
+
+// If has onclick icon
+.hasClickIcon {
+  cursor: pointer;
+  pointer-events: initial;
+}
+
+// Before
+.before {
+  pointer-events: none;
+  width: fit-content;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: var(--lx-icon);
+  justify-content: center;
+  align-items: center;
+  translate: 0 -50%;
+}
+
+// If has label
+.wrapInput:has(.label) > .input {
+  padding-top: var(--s-xxl);
+}
+
+// If has icon
+.wrapInput:has(.icon) {
+  --lp-icon: var(--lp);
+  --lw-icon: 1.25rem;
+}
+
+// If has before
+.wrapInput:has(.before) {
+  --lp-before: var(--lp);
+  --lw-before: 1.5rem;
+}
+
+// Label animation on focus / completed
+.input:focus ~ .label,
+.input:not([value='']) ~ .label,
+.input:placeholder-shown ~ .label {
+  top: 0.375rem;
+  font-size: var(--fs-sm);
+  line-height: 1.15;
+  translate: 0 0;
+}
+
+// Hint and error
+.hint,
+.errorHint {
+  margin-top: var(--s-xxs);
+}
+
+// If has error
+.error > .input {
+  --lw-border-input: 2px;
+  --lc-border-input: var(--c-error);
+}
+
+// If readOnly or disabled
+.readOnly,
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+// If required
+.required .label::after {
+  content: var(--unicode-asterisk);
+  margin-left: 0.125em;
+  color: var(--c-accent);
+}
+
+// If fake
+.fake > * {
+  cursor: pointer;
+}
