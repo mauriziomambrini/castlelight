@@ -10,22 +10,25 @@ import { useNotion } from '@/hooks/useNotion.ts';
 import { useQuizContext } from '@/hooks/useQuizContext.ts';
 import useRecap from '@/hooks/useRecap.ts';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import s from './Recap.module.scss';
 
 const Recap = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const { resetQuiz, quizState } = useQuizContext();
+  // const navigate = useNavigate();
+  const {
+    // resetQuiz,
+    quizState,
+  } = useQuizContext();
   const { difficulty } = quizState;
   const { pathRef, pathLength, dashOffset, animatedSuccessRate, resultData } =
     useRecap();
   const { submitScore } = useNotion();
 
-  const handleReset = () => {
-    resetQuiz();
-    navigate('/game'); // Redirect to the quiz start page
-  };
+  // const handleReset = () => {
+  //   resetQuiz();
+  //   navigate('/game'); // Redirect to the quiz start page
+  // };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
