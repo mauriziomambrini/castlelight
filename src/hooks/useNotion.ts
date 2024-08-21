@@ -17,7 +17,6 @@ export const useNotion = () => {
         throw new Error('Failed to fetch scores');
       }
     } catch (err: any) {
-      // Aggiungi un tipo esplicito per l'errore
       setError(err.message);
     } finally {
       setLoading(false);
@@ -39,7 +38,6 @@ export const useNotion = () => {
         throw new Error('Failed to submit score');
       }
     } catch (err: any) {
-      // Aggiungi un tipo esplicito per l'errore
       setError(err.message);
     } finally {
       setLoading(false);

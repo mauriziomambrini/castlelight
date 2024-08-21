@@ -29,22 +29,22 @@ export default async function handler(
         body: JSON.stringify({
           parent: { database_id: databaseId },
           properties: {
-            Name: {
+            name: {
               title: [{ text: { content: name } }],
             },
-            Difficulty: {
+            difficulty: {
               select: { name: difficulty },
             },
-            Score: {
+            score: {
               number: score,
             },
-            SuccessRate: {
+            successRate: {
               number: success_rate,
             },
-            Date: {
+            date: {
               date: { start: date },
             },
-            Time: {
+            time: {
               rich_text: [{ text: { content: time } }],
             },
           },

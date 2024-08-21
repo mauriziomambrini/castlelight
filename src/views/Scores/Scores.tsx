@@ -11,7 +11,7 @@ const Scores = () => {
 
   useEffect(() => {
     fetchScores();
-  }, [fetchScores]);
+  }, []);
 
   if (loading) return <Layout>{t('Loading...')}</Layout>;
   if (error) return <Layout>{t(`Error: ${error}`)}</Layout>;
@@ -23,10 +23,8 @@ const Scores = () => {
         <tr key={index}>
           <td>{score.name}</td>
           <td>{score.difficulty}</td>
-          <td>{score.score}</td>
           <td>{score.success_rate}%</td>
           <td>{score.date}</td>
-          <td>{score.time}</td>
         </tr>
       ))}
     </Layout>
