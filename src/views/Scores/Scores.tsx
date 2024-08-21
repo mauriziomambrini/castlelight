@@ -2,11 +2,11 @@ import Layout from '@/components/layouts/Layout';
 import { useNotion } from '@/hooks/useNotion.ts';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const Scores = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { scores, error, loading, fetchScores } = useNotion();
 
   useEffect(() => {

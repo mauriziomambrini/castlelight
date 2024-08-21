@@ -1,4 +1,4 @@
-import type { ScoreTypes } from '@/types/quizTypes.ts';
+import type { ScoreTypes } from '@/types/quizTypes';
 import { useState } from 'react';
 
 export const useNotion = () => {
@@ -11,19 +11,21 @@ export const useNotion = () => {
     try {
       const response = await fetch('/api/getScores');
       if (response.ok) {
-        const data = await response.json();
+        const data: ScoreTypes[] = await response.json(); // Tipizza la risposta JSON
         setScores(data);
       } else {
         throw new Error('Failed to fetch scores');
       }
-    } catch (error) {
-      setError(error.message);
+    } catch (err: any) {
+      // Aggiungi un tipo esplicito per l'errore
+      setError(err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  const submitScore = async (scoreData: Score) => {
+  const submitScore = async (scoreData: ScoreTypes) => {
+    // Cambia Score a ScoreTypes
     setLoading(true);
     try {
       const response = await fetch('/api/submitScore', {
@@ -36,7 +38,8 @@ export const useNotion = () => {
       if (!response.ok) {
         throw new Error('Failed to submit score');
       }
-    } catch (err) {
+    } catch (err: any) {
+      // Aggiungi un tipo esplicito per l'errore
       setError(err.message);
     } finally {
       setLoading(false);
