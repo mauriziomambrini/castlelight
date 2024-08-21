@@ -32,12 +32,11 @@ export default async function handler(
       );
 
       const responseBody = await response.text();
-      console.log('Response from Notion:', responseBody); // Logga la risposta completa
+      console.log('Response from Notion:', responseBody);
 
       if (response.ok) {
         const data = JSON.parse(responseBody);
 
-        // Log dettagliato per verificare la struttura del singolo oggetto
         if (data.results && data.results.length > 0) {
           console.log(
             'First item structure:',
@@ -47,14 +46,14 @@ export default async function handler(
 
         const scores: ScoreTypes[] = data.results.map((page: any) => {
           const name =
-            page.properties?.Name?.title?.[0]?.text?.content || 'Unknown';
+            page.properties?.name?.title?.[0]?.text?.content || 'Unknown';
           const difficulty =
-            page.properties?.Difficulty?.select?.name || 'Unknown';
-          const score = page.properties?.Score?.number || 0;
-          const success_rate = page.properties?.SuccessRate?.number || 0;
-          const date = page.properties?.Date?.date?.start || 'Unknown';
+            page.properties?.difficulty?.select?.name || 'Unknown';
+          const score = page.properties?.score?.number || 0;
+          const success_rate = page.properties?.success_rate?.number || 0;
+          const date = page.properties?.date?.date?.start || 'Unknown';
           const time =
-            page.properties?.Time?.rich_text?.[0]?.text?.content || 'Unknown';
+            page.properties?.time?.rich_text?.[0]?.text?.content || 'Unknown';
 
           return {
             name,
