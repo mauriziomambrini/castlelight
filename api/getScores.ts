@@ -46,25 +46,15 @@ export default async function handler(
 
         const scores: ScoreTypes[] = data.results.map((page: any) => {
           const name =
-            page.properties?.Name?.title?.[0]?.text?.content || 'Unknown';
+            page.properties?.name?.title?.[0]?.text?.content || 'Unknown';
           const difficulty =
-            page.properties?.Difficulty?.rich_text?.[0]?.text?.content ||
+            page.properties?.difficulty?.rich_text?.[0]?.text?.content ||
             'Unknown';
-          const score = page.properties?.Score?.number || 0;
-          const success_rate = page.properties?.SuccessRate?.number || 0;
-          const date = page.properties?.Date?.date?.start || 'Unknown';
+          const score = page.properties?.score?.number || 0;
+          const success_rate = page.properties?.success_rate?.number || 0;
+          const date = page.properties?.date?.date?.start || 'Unknown';
           const time =
-            page.properties?.Time?.rich_text?.[0]?.text?.content || 'Unknown';
-
-          // Log the individual fields to diagnose further
-          console.log({
-            name,
-            difficulty,
-            score,
-            success_rate,
-            date,
-            time,
-          });
+            page.properties?.time?.rich_text?.[0]?.text?.content || 'Unknown';
 
           return {
             name,
