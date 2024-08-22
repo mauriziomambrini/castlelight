@@ -81,7 +81,7 @@ const Scores = () => {
               key={col}
               text={t(`label.${col}`)}
               size={'md'}
-              weight={'bold'}
+              weight={'regular'}
             />
           );
         })}
@@ -98,8 +98,8 @@ const Scores = () => {
         <div className={s.rowTable} key={score.id}>
           <Typo text={RANK} size={'df'} weight={'bold'} />
           <Typo text={score.name} size={'df'} weight={'bold'} />
-          <Typo text={SUCCESS_RATE} size={'df'} weight={'regular'} />
-          <Typo text={score.time} size={'df'} weight={'regular'} />
+          <Typo text={SUCCESS_RATE} size={'df'} weight={'bold'} />
+          <Typo text={score.time} size={'df'} weight={'bold'} />
         </div>
       );
     });
