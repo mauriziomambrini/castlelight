@@ -29,6 +29,9 @@ const DEFAULT_QUIZ_STATE: QuizStateType = {
   reduction: 0,
   showImage: true,
   userAnswers: [],
+  startTime: undefined,
+  endTime: undefined,
+  totalDuration: undefined,
 };
 
 // Create the Quiz context
@@ -78,11 +81,13 @@ const QuizProvider = ({ children }: IQuizProvider) => {
 
   // Start quiz
   const startQuiz = () => {
+    const startTime = new Date().getTime();
     setQuizState((prev) => ({
       ...prev,
       initialTime: initialTime,
       showImage: true,
       quizStarted: true,
+      startTime: startTime,
     }));
     setCountdown(initialTime);
   };
@@ -128,7 +133,11 @@ const QuizProvider = ({ children }: IQuizProvider) => {
     fillQuizState('userAnswers', [...userAnswers, answer]);
 
     if (currentQuestion >= questions.length - 1) {
+      const endTime = new Date().getTime();
+      const totalDuration = (endTime - quizState.startTime!) / 1000;
       fillQuizState('quizStarted', false);
+      fillQuizState('endTime', endTime);
+      fillQuizState('totalDuration', totalDuration);
       return;
     }
 

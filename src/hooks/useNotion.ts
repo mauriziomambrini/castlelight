@@ -1,49 +1,84 @@
-import type { ScoreTypes } from '@/types/quizTypes';
+import type { NotionStateTypes, ScoreTypes } from '@/types/quizTypes';
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid'; // Import the UUID library to generate unique IDs
+
+// Default initial state
+const DEFAULT_NOTION_STATE: NotionStateTypes = {
+  scores: [],
+  error: null,
+  loading: false,
+};
 
 export const useNotion = () => {
-  const [scores, setScores] = useState<ScoreTypes[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+  // Unified state using a single useState hook
+  const [notionState, setNotionState] =
+    useState<NotionStateTypes>(DEFAULT_NOTION_STATE);
 
+  // Function to update a specific key in the notionState
+  const fillNotionState = <T extends keyof NotionStateTypes>(
+    key: T,
+    value: NotionStateTypes[T],
+  ) => {
+    setNotionState((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  // Function to set multiple keys for handling complex operations
+  const startLoading = () => {
+    setNotionState((prev) => ({
+      ...prev,
+      loading: true,
+      error: null, // Optionally reset error when starting a new operation
+    }));
+  };
+
+  // Function to fetch scores from the server
   const fetchScores = async () => {
-    setLoading(true);
+    startLoading();
     try {
       const response = await fetch('/api/getScores');
       if (response.ok) {
-        const data: ScoreTypes[] = await response.json(); // Tipizza la risposta JSON
-        setScores(data);
+        const data: ScoreTypes[] = await response.json(); // Type the JSON response
+        fillNotionState('scores', data); // Update scores in the state
       } else {
-        throw new Error('Failed to fetch scores');
+        throw new Error('Failed to fetch scores'); // Handle non-OK responses
       }
     } catch (err: any) {
-      setError(err.message);
+      fillNotionState('error', err.message); // Set error message if fetching fails
     } finally {
-      setLoading(false);
+      fillNotionState('loading', false); // Stop the loading indicator
     }
   };
 
+  // Function to submit a new score to the server
   const submitScore = async (scoreData: ScoreTypes) => {
-    // Cambia Score a ScoreTypes
-    setLoading(true);
+    startLoading();
     try {
+      const id = uuidv4(); // Generate a unique ID for the score entry
+
       const response = await fetch('/api/submitScore', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(scoreData),
+        body: JSON.stringify({ ...scoreData, id }), // Include the generated ID in the request body
       });
       if (!response.ok) {
-        throw new Error('Failed to submit score');
+        throw new Error('Failed to submit score'); // Handle non-OK responses
       }
     } catch (err: any) {
-      setError(err.message);
+      fillNotionState('error', err.message); // Set error message if submission fails
     } finally {
-      setLoading(false);
+      fillNotionState('loading', false); // Stop the loading indicator
     }
   };
 
+  // Destructure state properties for easier access in components
+  const { scores, error, loading } = notionState;
+
+  // Return the states and functions for use in components
   return {
     scores,
     error,

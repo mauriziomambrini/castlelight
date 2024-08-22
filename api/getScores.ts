@@ -28,8 +28,10 @@ export default async function handler(
       const data = JSON.parse(responseBody);
 
       const scores: ScoreTypes[] = data.results.map((page: any) => {
-        const name =
+        const id =
           page.properties?.name?.title?.[0]?.text?.content || 'Unknown';
+        const name =
+          page.properties?.name?.rich_text?.[0]?.text?.content || 'Unknown';
         const difficulty =
           page.properties?.difficulty?.rich_text?.[0]?.text?.content ||
           'Unknown';
@@ -40,6 +42,7 @@ export default async function handler(
           page.properties?.time?.rich_text?.[0]?.text?.content || 'Unknown';
 
         return {
+          id,
           name,
           difficulty,
           score,

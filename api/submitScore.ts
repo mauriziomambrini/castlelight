@@ -15,6 +15,7 @@ export default async function handler(
     req.on('end', async () => {
       try {
         const {
+          id,
           name,
           difficulty,
           score,
@@ -36,8 +37,11 @@ export default async function handler(
           body: JSON.stringify({
             parent: { database_id: databaseId },
             properties: {
+              id: {
+                title: [{ text: { content: id } }],
+              },
               name: {
-                title: [{ text: { content: name } }],
+                rich_text: [{ text: { content: name } }],
               },
               difficulty: {
                 rich_text: [{ text: { content: difficulty } }],

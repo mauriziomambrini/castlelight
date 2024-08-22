@@ -6,9 +6,11 @@ import Typo from '@/components/typography/Typo';
 import Flex from '@/components/utils/Flex';
 import Icon from '@/components/utils/Icon';
 import TinyTable from '@/components/utils/TinyTable';
+import useFormat from '@/hooks/useFormat.ts';
 import { useNotion } from '@/hooks/useNotion.ts';
 import { useQuizContext } from '@/hooks/useQuizContext.ts';
 import useRecap from '@/hooks/useRecap.ts';
+import type { ScoreTypes } from '@/types/quizTypes.ts';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -23,16 +25,17 @@ const Recap = () => {
     calculateScore,
   } = useQuizContext();
   const { score, successRate } = calculateScore();
-  const { difficulty } = quizState;
+  const { difficulty, totalDuration } = quizState;
   const { pathRef, pathLength, dashOffset, animatedSuccessRate, resultData } =
     useRecap();
   const { submitScore } = useNotion();
-  const [playerName, setPlayerName] = useState(''); // Stato per il nome del giocatore
+  const [playerName, setPlayerName] = useState('');
+  const formattedTime = useFormat(totalDuration || 0, true);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const scoreData = {
+    const scoreData: ScoreTypes = {
       name: playerName,
       difficulty: difficulty || 'Unknown',
       score: score,
@@ -110,6 +113,11 @@ const Recap = () => {
             key: 'difficulty',
             label: t('label.difficulty'),
             value: difficulty ? t(`label.difficulty_${difficulty}`) : '-',
+          },
+          {
+            key: 'duration',
+            label: t('label.duration'),
+            value: totalDuration ? formattedTime : '-',
           },
         ]}
         size={['md']}

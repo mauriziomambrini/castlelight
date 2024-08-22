@@ -20,6 +20,9 @@ export type QuizStateType = {
   level: number;
   reduction: number;
   questions: QuestionTypes[];
+  startTime: number | undefined;
+  endTime: number | undefined;
+  totalDuration: number | undefined;
 };
 
 export type QuizContextTypes = {
@@ -42,10 +45,17 @@ export type QuizContextTypes = {
 };
 
 export type ScoreTypes = {
+  id?: string;
   name: string;
   difficulty: string;
   score: number;
   success_rate: number;
   date: string;
   time: string;
+};
+
+export type NotionStateTypes = {
+  scores: ScoreTypes[];
+  error: string | null;
+  loading: boolean;
 };

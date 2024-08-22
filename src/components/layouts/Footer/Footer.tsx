@@ -6,7 +6,6 @@ import s from './Footer.module.scss';
 import Button from '@/components/buttons/Button';
 import MarkdownText from '@/components/typography/MarkdownText';
 import Divider from '@/components/utils/Divider';
-import Flex from '@/components/utils/Flex';
 import useMenu from '@/hooks/useMenu.ts';
 import { useTranslation } from 'react-i18next';
 
@@ -64,7 +63,7 @@ const Footer: FC<IFooter> = (props: IFooter): ReactElement => {
 
   const renderCopyrightMenu = () => {
     return (
-      <Flex className={s.copyrightMenu}>
+      <div className={s.copyrightMenu}>
         {renderGithub()}
         <Divider
           classNames={{ wrapper: s.divider }}
@@ -72,7 +71,7 @@ const Footer: FC<IFooter> = (props: IFooter): ReactElement => {
           spacing={[0.5]}
         />
         {renderPoweredBy()}
-      </Flex>
+      </div>
     );
   };
 
