@@ -34,7 +34,7 @@ export const useNotion = () => {
     setNotionState((prev) => ({
       ...prev,
       loading: true,
-      error: null, // Optionally reset error when starting a new operation
+      error: null,
     }));
   };
 
@@ -67,7 +67,7 @@ export const useNotion = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...scoreData, id }), // Include the generated ID in the request body
+        body: JSON.stringify({ ...scoreData, id }),
       });
       if (!response.ok) {
         throw new Error('Failed to submit score'); // Handle non-OK responses
