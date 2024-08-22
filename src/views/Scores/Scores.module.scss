@@ -1,9 +1,76 @@
+@import "@/styles/mixins/media";
 @import "@/styles/mixins/typography";
+
+.wrapper {
+  width: 100%;
+  max-width: var(--w-max-df);
+  height: 100%;
+  padding-inline:var(--s-inset);
+}
+
 
 .title {
   font-size: clamp(var(--fs-xxl), 3.25cqw, var(--fs-tr));
+  text-align: center;
   text-transform: uppercase;
   
-  @include flicker-animation;
+  //@include flicker-animation;
+}
+
+.tabs {
+  max-width: 20rem;
+}
+
+
+.table {
+  width: 100%;
+  max-width: var(--w-max-xs);
+  display: grid;
+  grid-template-columns: 1fr;
+  
+  @include media(xxl) {
+    max-width: var(--w-max-df);
+  }
+}
+
+.headerTable,
+.rowTable{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3rem 1fr 4rem 6rem;
+
+  
+  @include media(xxl) {
+    grid-template-columns: 5rem 1fr 8rem 10rem;
+  }
+}
+
+.headerTable > *,
+.rowTable > * {
+  padding-block: var(--s-sm);
+  padding-inline: var(--s-uxs);
+}
+
+.headerTable > * {
+  font-size: clamp(var(--fs-md), 3.25cqw, var(--fs-lg));
+}
+
+
+.headerTable > *:first-child,
+.rowTable > *:first-child {
+  justify-self: center;
+}
+
+.headerTable > *:nth-last-child(-n+2),
+.rowTable > *:nth-last-child(-n+2) {
+  justify-self: end;
+}
+
+.headerTable {
+  box-shadow: var(--sw-inset-bottom);
+}
+
+.rowTable > * {
+  font-size: clamp(var(--fs-df), 3.25cqw, var(--fs-xxl));
 }
 

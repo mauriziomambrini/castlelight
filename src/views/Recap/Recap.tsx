@@ -108,20 +108,23 @@ const Recap = () => {
   };
 
   const renderDifficulty = () => {
+    const INFOS = [
+      {
+        key: 'difficulty',
+        label: t('label.difficulty'),
+        value: difficulty ? t(`label.difficulty_${difficulty}`) : '-',
+      },
+      {
+        key: 'time',
+        label: t('label.time'),
+        value: totalTime ? formattedTime : '-',
+      },
+    ];
+
     return (
       <TinyTable
-        data={[
-          {
-            key: 'difficulty',
-            label: t('label.difficulty'),
-            value: difficulty ? t(`label.difficulty_${difficulty}`) : '-',
-          },
-          {
-            key: 'duration',
-            label: t('label.duration'),
-            value: totalTime ? formattedTime : '-',
-          },
-        ]}
+        classNames={{ wrapper: s.tinyTable }}
+        data={INFOS}
         size={['md']}
         col={['auto', '1fr']}
         gap={[0.25]}

@@ -1,4 +1,8 @@
-import type { NotionStateTypes, ScoreTypes } from '@/types/quizTypes';
+import type {
+  DifficultyTypes,
+  NotionStateTypes,
+  ScoreTypes,
+} from '@/types/quizTypes';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid'; // Import the UUID library to generate unique IDs
 
@@ -75,6 +79,28 @@ export const useNotion = () => {
     }
   };
 
+  // Function to get the top 10 scores for a specific difficulty level
+  const getTopScores = (difficulty: DifficultyTypes) => {
+    // Filter scores by the given difficulty
+    const filteredScores = notionState.scores.filter(
+      (score) => score.difficulty === difficulty,
+    );
+
+    // Sort the scores based on success_rate, then time (in seconds), then full ISO date string (including time)
+    const sortedScores = filteredScores.sort((a, b) => {
+      const successRateComparison = b.success_rate - a.success_rate;
+      if (successRateComparison !== 0) return successRateComparison;
+
+      const timeComparison = a.time - b.time; // Compare numeric time directly
+      if (timeComparison !== 0) return timeComparison;
+
+      return a.date.localeCompare(b.date); // Compare ISO date strings directly
+    });
+
+    // Return the top 10 scores
+    return sortedScores.slice(0, 10);
+  };
+
   // Destructure state properties for easier access in components
   const { scores, error, loading } = notionState;
 
@@ -85,5 +111,6 @@ export const useNotion = () => {
     loading,
     fetchScores,
     submitScore,
+    getTopScores,
   };
 };
