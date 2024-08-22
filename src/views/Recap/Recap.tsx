@@ -6,10 +6,10 @@ import Typo from '@/components/typography/Typo';
 import Flex from '@/components/utils/Flex';
 import Icon from '@/components/utils/Icon';
 import TinyTable from '@/components/utils/TinyTable';
-import useFormat from '@/hooks/useFormat.ts';
 import { useNotion } from '@/hooks/useNotion.ts';
 import { useQuizContext } from '@/hooks/useQuizContext.ts';
 import useRecap from '@/hooks/useRecap.ts';
+import useTimeFormat from '@/hooks/useTimeFormat.ts';
 import type { ScoreTypes } from '@/types/quizTypes.ts';
 import type { ChangeEvent, FormEvent } from 'react';
 import { useState } from 'react';
@@ -31,7 +31,7 @@ const Recap = () => {
     useRecap();
   const { submitScore } = useNotion();
   const [playerName, setPlayerName] = useState('');
-  const formattedTime = useFormat(totalTime || 0, true);
+  const timeFormdatted = useTimeFormat(totalTime || 0, true);
   const isoDate = new Date().toISOString().split('.')[0];
 
   const handleSubmit = async (event: FormEvent) => {
@@ -107,7 +107,7 @@ const Recap = () => {
     );
   };
 
-  const renderDifficulty = () => {
+  const renderInfo = () => {
     const INFOS = [
       {
         key: 'difficulty',
@@ -117,7 +117,7 @@ const Recap = () => {
       {
         key: 'time',
         label: t('label.time'),
-        value: totalTime ? formattedTime : '-',
+        value: totalTime ? timeFormdatted : '-',
       },
     ];
 
@@ -187,7 +187,7 @@ const Recap = () => {
           {renderProgressBar()}
           {renderIcon()}
           {renderScore()}
-          {renderDifficulty()}
+          {renderInfo()}
         </div>
 
         <Flex

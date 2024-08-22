@@ -6,6 +6,7 @@ import Flex from '@/components/utils/Flex';
 import Tabs from '@/components/utils/Tabs';
 import type { ITab } from '@/components/utils/Tabs/Tabs.tsx';
 import { useNotion } from '@/hooks/useNotion.ts';
+import useTimeFormat from '@/hooks/useTimeFormat.ts';
 import type { DifficultyTypes } from '@/types/quizTypes.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -120,13 +121,14 @@ const Scores = () => {
     return scores.map((score, index) => {
       const RANK = index + 1;
       const SUCCESS_RATE = `${score.success_rate}%`;
+      const TIME_FORMATED = useTimeFormat(score.time, true);
 
       return (
         <div className={s.rowTable} key={score.id}>
           <Typo text={RANK} size={'df'} weight={'bold'} />
           <Typo text={score.name} size={'df'} weight={'bold'} />
           <Typo text={SUCCESS_RATE} size={'df'} weight={'bold'} />
-          <Typo text={score.time} size={'df'} weight={'bold'} />
+          <Typo text={TIME_FORMATED} size={'df'} weight={'bold'} />
         </div>
       );
     });

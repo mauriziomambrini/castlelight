@@ -1,8 +1,8 @@
 import * as IMAGES from '@/assets/images';
 import LangSwitch from '@/components/LangSwitch/LangSwitch.tsx';
 import Typo from '@/components/typography/Typo';
-import useFormat from '@/hooks/useFormat.ts';
 import { useQuizContext } from '@/hooks/useQuizContext.ts';
+import useTimeFormat from '@/hooks/useTimeFormat.ts';
 import type { Classnames } from '@/types/compoentsTypes.ts';
 import cx from 'classnames';
 
@@ -20,7 +20,7 @@ const Header = (props: IHeader) => {
   const navigate = useNavigate();
   const { countdown, quizState, resetQuiz } = useQuizContext();
   const { showImage } = quizState;
-  const formattedTime = useFormat(countdown || 0);
+  const formattedTime = useTimeFormat(countdown || 0);
 
   const handleClick = () => {
     resetQuiz();
