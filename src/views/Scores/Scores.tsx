@@ -1,4 +1,6 @@
+import Button from '@/components/buttons/Button';
 import Layout from '@/components/layouts/Layout';
+import MarkdownText from '@/components/typography/MarkdownText';
 import Typo from '@/components/typography/Typo';
 import Flex from '@/components/utils/Flex';
 import Tabs from '@/components/utils/Tabs';
@@ -8,7 +10,6 @@ import type { DifficultyTypes } from '@/types/quizTypes.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import s from './Scores.module.scss';
-// import { useNavigate } from 'react-router-dom';
 
 // const MOCKSCORES = [
 //   {
@@ -27,7 +28,6 @@ import s from './Scores.module.scss';
 
 const Scores = () => {
   const { t } = useTranslation();
-  // const navigate = useNavigate();
   const { error, loading, fetchScores, getTopScores } = useNotion();
   const [difficulty, setDifficulty] = useState<DifficultyTypes>('hard');
   const scores = getTopScores(difficulty);
@@ -36,21 +36,29 @@ const Scores = () => {
     fetchScores();
   }, []);
 
-  if (loading) return <Layout>{t('Loading...')}</Layout>;
-  if (error) return <Layout>{t(`Error: ${error}`)}</Layout>;
-
   const handleTab = (tab: ITab<DifficultyTypes>) => {
     setDifficulty(tab.value);
   };
 
-  const renderTitle = () => {
+  const renderTitle = (type: 'scores' | 'loading' | 'error') => {
     return (
       <Typo
         className={s.title}
-        text={t('scores.title')}
+        text={t(`${type}.title`)}
         size={'db'}
         weight={'bold'}
         balancer={true}
+      />
+    );
+  };
+
+  const renderText = () => {
+    return (
+      <MarkdownText
+        classNames={{ text: s.text }}
+        text={t('scores.text')}
+        baseSize={'df'}
+        linkTarget={'_self'}
       />
     );
   };
@@ -114,19 +122,75 @@ const Scores = () => {
     );
   };
 
-  return (
-    <Layout>
+  const renderLoading = () => {
+    if (!loading) return null;
+    return (
+      <Flex
+        className={s.wrapperLoading}
+        direction={'column'}
+        justify={'center'}
+        align={'center'}
+        gap={[1]}
+      >
+        {renderTitle('loading')}
+        <div className={s.barLoading}>
+          <div />
+        </div>
+      </Flex>
+    );
+  };
+
+  const renderError = () => {
+    if (!error) return null;
+    return (
+      <Flex
+        className={s.wrapperLoading}
+        direction={'column'}
+        justify={'center'}
+        align={'center'}
+        gap={[1]}
+      >
+        {renderTitle('error')}
+        <Typo text={error} size={'df'} weight={'regular'} balancer={true} />
+        <Button
+          label={t('action.reload_page')}
+          onClick={() => window.location.reload()}
+          theme={'outline'}
+        />
+      </Flex>
+    );
+  };
+
+  const renderContent = () => {
+    if (loading) return null;
+    if (error) return null;
+    return (
       <Flex
         className={s.wrapper}
         direction={'column'}
-        // justify={'center'}
         align={'center'}
         gap={[2]}
       >
-        {renderTitle()}
+        <Flex
+          className={s.wrapText}
+          direction={'column'}
+          align={'center'}
+          gap={[0.5]}
+        >
+          {renderTitle('scores')}
+          {renderText()}
+        </Flex>
         {renderTabs()}
         {renderTable()}
       </Flex>
+    );
+  };
+
+  return (
+    <Layout>
+      {renderLoading()}
+      {renderError()}
+      {renderContent()}
     </Layout>
   );
 };

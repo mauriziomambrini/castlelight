@@ -12,6 +12,7 @@ export interface IMarkdown {
   text?: string;
   baseSize?: TypoSizeType;
   color?: TypoColorType;
+  linkTarget?: '_blank' | '_self' | '_parent' | '_top';
   classNames?: Classnames<
     | 'text'
     | 'h1'
@@ -33,7 +34,13 @@ export interface IMarkdown {
 }
 
 const MarkdownText = (props: IMarkdown) => {
-  const { text, baseSize = 'df', color = 'default', classNames } = props;
+  const {
+    text,
+    baseSize = 'df',
+    color = 'default',
+    linkTarget = '_blank',
+    classNames,
+  } = props;
 
   const renderComponents = (
     classNames: IMarkdown['classNames'],
@@ -69,7 +76,7 @@ const MarkdownText = (props: IMarkdown) => {
     ),
     a: ({ ...props }) => (
       <a
-        target={'_blank'}
+        target={linkTarget}
         rel={'noreferrer'}
         className={cx(s.a, classNames?.a)}
         {...props}
