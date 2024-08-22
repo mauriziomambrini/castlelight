@@ -119,7 +119,7 @@ const Scores = () => {
       <Flex
         className={s.wrapper}
         direction={'column'}
-        justify={'center'}
+        // justify={'center'}
         align={'center'}
         gap={[2]}
       >
