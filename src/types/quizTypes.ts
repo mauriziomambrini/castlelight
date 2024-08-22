@@ -22,7 +22,7 @@ export type QuizStateType = {
   questions: QuestionTypes[];
   startTime: number | undefined;
   endTime: number | undefined;
-  totalDuration: number | undefined;
+  totalTime: number | undefined;
 };
 
 export type QuizContextTypes = {
@@ -51,7 +51,7 @@ export type ScoreTypes = {
   score: number;
   success_rate: number;
   date: string;
-  time: string;
+  time: number;
 };
 
 export type NotionStateTypes = {

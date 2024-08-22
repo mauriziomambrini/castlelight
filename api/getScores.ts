@@ -38,8 +38,7 @@ export default async function handler(
         const score = page.properties?.score?.number || 0;
         const success_rate = page.properties?.success_rate?.number || 0;
         const date = page.properties?.date?.date?.start || 'Unknown';
-        const time =
-          page.properties?.time?.rich_text?.[0]?.text?.content || 'Unknown';
+        const time = page.properties?.time?.number || 'Unknown';
 
         return {
           id,

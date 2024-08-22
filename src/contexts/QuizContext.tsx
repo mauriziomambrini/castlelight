@@ -31,7 +31,7 @@ const DEFAULT_QUIZ_STATE: QuizStateType = {
   userAnswers: [],
   startTime: undefined,
   endTime: undefined,
-  totalDuration: undefined,
+  totalTime: 0,
 };
 
 // Create the Quiz context
@@ -134,10 +134,10 @@ const QuizProvider = ({ children }: IQuizProvider) => {
 
     if (currentQuestion >= questions.length - 1) {
       const endTime = new Date().getTime();
-      const totalDuration = (endTime - quizState.startTime!) / 1000;
+      const totalTime = (endTime - quizState.startTime!) / 1000;
       fillQuizState('quizStarted', false);
       fillQuizState('endTime', endTime);
-      fillQuizState('totalDuration', totalDuration);
+      fillQuizState('totalTime', totalTime);
       return;
     }
 

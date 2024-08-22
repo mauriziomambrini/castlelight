@@ -11,7 +11,7 @@ import { useNotion } from '@/hooks/useNotion.ts';
 import { useQuizContext } from '@/hooks/useQuizContext.ts';
 import useRecap from '@/hooks/useRecap.ts';
 import type { ScoreTypes } from '@/types/quizTypes.ts';
-import { useState } from 'react';
+import { type FormEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import s from './Recap.module.scss';
@@ -25,14 +25,14 @@ const Recap = () => {
     calculateScore,
   } = useQuizContext();
   const { score, successRate } = calculateScore();
-  const { difficulty, totalDuration } = quizState;
+  const { difficulty, totalTime } = quizState;
   const { pathRef, pathLength, dashOffset, animatedSuccessRate, resultData } =
     useRecap();
   const { submitScore } = useNotion();
   const [playerName, setPlayerName] = useState('');
-  const formattedTime = useFormat(totalDuration || 0, true);
+  const formattedTime = useFormat(totalTime || 0, true);
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
     const scoreData: ScoreTypes = {
@@ -41,7 +41,7 @@ const Recap = () => {
       score: score,
       success_rate: successRate,
       date: new Date().toISOString().split('T')[0],
-      time: 'Unknown',
+      time: totalTime || 0,
     };
 
     try {
@@ -117,7 +117,7 @@ const Recap = () => {
           {
             key: 'duration',
             label: t('label.duration'),
-            value: totalDuration ? formattedTime : '-',
+            value: totalTime ? formattedTime : '-',
           },
         ]}
         size={['md']}

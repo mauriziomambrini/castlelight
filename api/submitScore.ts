@@ -56,7 +56,7 @@ export default async function handler(
                 date: { start: date },
               },
               time: {
-                rich_text: [{ text: { content: time } }],
+                number: time,
               },
             },
           }),
