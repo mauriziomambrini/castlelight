@@ -11,7 +11,7 @@
   --lp-icon: 0rem;
   --lp-left: calc(var(--lp) + var(--lp-before) + var(--lw-before));
   --lp-right: calc(var(--lp) + var(--lp-icon) + var(--lw-icon));
-  --lh-input: 3.5rem;
+  --lh-input: 4.5rem;
 
   width: 100%;
   position: relative;
@@ -19,10 +19,10 @@
 
 // Input
 .input {
-  --lw-border-input: 1px;
+  --lw-border-input: -2px;
   --lc-border-input: var(--c-input-default);
-  --lc-bg-input: var(--c-input-bg);
-  --lsw-input: inset 0 0 0 var(--lw-border-input) var(--lc-border-input);
+  --lc-bg-input: var(--c-body);
+  --lsw-input: inset 0 var(--lw-border-input) 0  var(--lc-border-input);
 
   appearance: none;
   width: 100%;
@@ -32,13 +32,15 @@
   padding-block: var(--s-xxs);
   outline: none !important;
   border: none;
-  border-radius: var(--s-us);
+
+  //border-radius: var(--s-us);
   background: var(--lc-bg-input);
   box-shadow: var(--lsw-input);
   font-family: var(--ff-main);
   font-weight: var(--fw-regular);
-  font-size: var(--fs-df);
+  font-size: var(--fs-xxl);
   line-height: 1.5;
+  text-align: center;
   color: var(--c-grey);
   transition: var(--transition-025);
 }
@@ -53,12 +55,12 @@
 }
 
 .input:hover {
-  --lw-border-input: 2px;
+  --lw-border-input: -4px;
   --lc-border-input: var(--c-input-hover);
 }
 
 .input:focus {
-  --lw-border-input: 2px;
+  --lw-border-input: -4px;
   --lc-border-input: var(--c-accent);
 }
 

@@ -9,6 +9,7 @@ import { useNotion } from '@/hooks/useNotion.ts';
 import type { DifficultyTypes } from '@/types/quizTypes.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
 import s from './Scores.module.scss';
 
 // const MOCKSCORES = [
@@ -26,18 +27,36 @@ import s from './Scores.module.scss';
 //   },
 // ];
 
+const VALID_DIFFICULTIES: DifficultyTypes[] = ['hard', 'medium', 'easy'];
+
 const Scores = () => {
   const { t } = useTranslation();
   const { error, loading, fetchScores, getTopScores } = useNotion();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [difficulty, setDifficulty] = useState<DifficultyTypes>('hard');
   const scores = getTopScores(difficulty);
+  const searchParams = new URLSearchParams(location.search);
 
   useEffect(() => {
     fetchScores();
   }, []);
 
+  // Set difficulty based on query string
+  useEffect(() => {
+    const queryDifficulty = searchParams.get('dfy') as DifficultyTypes;
+    if (!queryDifficulty) return;
+    if (!VALID_DIFFICULTIES.includes(queryDifficulty)) return;
+    setDifficulty(queryDifficulty);
+  }, [location.search]);
+
   const handleTab = (tab: ITab<DifficultyTypes>) => {
     setDifficulty(tab.value);
+    searchParams.set('dfy', tab.value);
+    navigate({
+      pathname: location.pathname,
+      search: searchParams.toString(),
+    });
   };
 
   const renderTitle = (type: 'scores' | 'loading' | 'error') => {
@@ -67,7 +86,7 @@ const Scores = () => {
     return (
       <Tabs
         classNames={{ wrapper: s.tabs }}
-        tabs={['hard', 'medium', 'easy'].map((tab) => ({
+        tabs={VALID_DIFFICULTIES.map((tab) => ({
           key: tab,
           label: t(`label.difficulty_${tab}`),
           value: tab as DifficultyTypes,

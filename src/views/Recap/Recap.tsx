@@ -50,7 +50,7 @@ const Recap = () => {
       await submitScore(scoreData);
       // Reset quiz and navigate after successful submission
       resetQuiz();
-      navigate('/game');
+      navigate('/scores');
     } catch (error) {
       // Handle error if needed
       console.error('Failed to submit score:', error);
@@ -157,12 +157,17 @@ const Recap = () => {
 
   const renderForm = () => {
     return (
-      <form onSubmit={handleSubmit}>
-        <Input value={playerName} onChange={handleNameChange} maxLength={20} />
+      <form className={s.form} onSubmit={handleSubmit}>
+        <Input
+          placeholder={t('input.placeholder.name_annals')}
+          value={playerName}
+          onChange={handleNameChange}
+          maxLength={20}
+        />
         <Button
-          classNames={{ button: s.btn }}
+          classNames={{ button: s.btnForm }}
           type={'submit'}
-          label={t('action.submit')}
+          label={t('action.submit_score')}
           theme={'outline'}
         />
       </form>
