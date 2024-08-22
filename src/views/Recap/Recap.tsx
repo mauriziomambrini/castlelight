@@ -31,7 +31,7 @@ const Recap = () => {
     useRecap();
   const { submitScore } = useNotion();
   const [playerName, setPlayerName] = useState('');
-  const timeFormdatted = useTimeFormat(totalTime || 0, true);
+  const timeFormatted = useTimeFormat(totalTime || 0, true);
   const isoDate = new Date().toISOString().split('.')[0];
 
   const handleSubmit = async (event: FormEvent) => {
@@ -117,7 +117,7 @@ const Recap = () => {
       {
         key: 'time',
         label: t('label.time'),
-        value: totalTime ? timeFormdatted : '-',
+        value: totalTime ? timeFormatted : '-',
       },
     ];
 
