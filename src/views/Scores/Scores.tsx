@@ -51,6 +51,13 @@ const Scores = () => {
     setDifficulty(queryDifficulty);
   }, [location.search]);
 
+  const formattedScores = scores.map((score, index) => ({
+    ...score,
+    rank: index + 1,
+    successRate: `${score.success_rate}%`,
+    formattedTime: useTimeFormat(score.time, true),
+  }));
+
   const handleTab = (tab: ITab<DifficultyTypes>) => {
     setDifficulty(tab.value);
     searchParams.set('dfy', tab.value);
@@ -118,17 +125,13 @@ const Scores = () => {
   };
 
   const renderRowsTable = () => {
-    return scores.map((score, index) => {
-      const RANK = index + 1;
-      const SUCCESS_RATE = `${score.success_rate}%`;
-      const TIME_FORMATED = useTimeFormat(score.time, true);
-
+    return formattedScores.map((score) => {
       return (
         <div className={s.rowTable} key={score.id}>
-          <Typo text={RANK} size={'df'} weight={'bold'} />
+          <Typo text={score.rank} size={'df'} weight={'bold'} />
           <Typo text={score.name} size={'df'} weight={'bold'} />
-          <Typo text={SUCCESS_RATE} size={'df'} weight={'bold'} />
-          <Typo text={TIME_FORMATED} size={'df'} weight={'bold'} />
+          <Typo text={score.successRate} size={'df'} weight={'bold'} />
+          <Typo text={score.formattedTime} size={'df'} weight={'bold'} />
         </div>
       );
     });
