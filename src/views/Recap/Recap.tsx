@@ -29,7 +29,7 @@ const Recap = () => {
   const { difficulty, totalTime } = quizState;
   const { pathRef, pathLength, dashOffset, animatedSuccessRate, resultData } =
     useRecap();
-  const { submitScore } = useNotion();
+  const { submitScore, loading } = useNotion();
   const [playerName, setPlayerName] = useState('');
   const timeFormatted = useTimeFormat(totalTime || 0, true);
   const isoDate = new Date().toISOString().split('.')[0];
@@ -169,6 +169,7 @@ const Recap = () => {
           type={'submit'}
           label={t('action.submit_score')}
           theme={'outline'}
+          loading={loading}
         />
       </form>
     );
