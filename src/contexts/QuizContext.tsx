@@ -160,7 +160,7 @@ const QuizProvider = ({ children }: IQuizProvider) => {
     const score = quizState.userAnswers.filter(
       (answer, index) => answer === correctAnswers[index],
     ).length;
-    const successRate = (score / questions.length) * 100;
+    const successRate = Math.floor((score / questions.length) * 100); // Apply Math.floor to round down
     return { score, successRate };
   };
 
