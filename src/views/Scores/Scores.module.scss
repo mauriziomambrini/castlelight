@@ -15,11 +15,14 @@
   text-align: center;
   text-transform: uppercase;
   
-  //@include flicker-animation;
+  @include flicker-animation;
 }
 
 .tabs {
+  --lh-tab: 2rem;
+
   max-width: 20rem;
+  
 }
 
 
