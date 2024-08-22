@@ -162,7 +162,7 @@ const Recap = () => {
           placeholder={t('input.placeholder.name_annals')}
           value={playerName}
           onChange={handleNameChange}
-          maxLength={20}
+          maxLength={15}
         />
         <Button
           classNames={{ button: s.btnForm }}
