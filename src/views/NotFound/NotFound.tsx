@@ -19,6 +19,7 @@ const NotFound = () => {
       <Typo
         className={s.title}
         text={t('not_found.title')}
+        tag={'h1'}
         size={'db'}
         weight={'bold'}
         balancer={true}

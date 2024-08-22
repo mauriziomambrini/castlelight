@@ -8,7 +8,7 @@ const InfoQuiz = () => {
   const { currentImage, difficulty, level } = quizState;
   const { t } = useTranslation();
 
-  const infos = [
+  const INFOS = [
     {
       key: 'difficulty',
       label: t('label.difficulty'),
@@ -29,7 +29,7 @@ const InfoQuiz = () => {
   return (
     <TinyTable
       classNames={{ wrapper: s.tinyTable }}
-      data={infos}
+      data={INFOS}
       size={['md']}
       col={['auto', '1fr']}
       gap={[0.25]}

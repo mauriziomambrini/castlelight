@@ -1,0 +1,144 @@
+@import "@/styles/mixins/media";
+@import "@/styles/mixins/typography";
+
+.wrapper {
+  width: 100%;
+  max-width: var(--w-max-df);
+  height: 100%;
+  padding-top: var(--s-qr);
+  padding-inline:var(--s-inset);
+}
+
+
+.title {
+  font-size: clamp(var(--fs-xxl), 3.25cqw, var(--fs-tr));
+  text-align: center;
+  text-transform: uppercase;
+  
+  @include flicker-animation;
+}
+
+.text {
+  --lfs: clamp(var(--fs-df), 3.25cqw, var(--fs-lg)) !important;
+}
+
+.tabs {
+  --lh-tab: 2rem;
+
+  max-width: 20rem;
+  
+}
+
+
+.table {
+  width: 100%;
+  max-width: var(--w-max-xs);
+  display: grid;
+  grid-template-columns: 1fr;
+  
+  @include media(xxl) {
+    max-width: var(--w-max-df);
+  }
+}
+
+.headerTable,
+.rowTable{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3rem 1fr 4rem 6rem;
+  
+  @include media(sm) {
+    grid-template-columns: 5rem 1fr 6rem 8rem;
+  }
+  
+  @include media(xxl) {
+    grid-template-columns: 5rem 1fr 8rem 10rem;
+  }
+}
+
+.headerTable > *,
+.rowTable > * {
+  padding-block: var(--s-sm);
+  padding-inline: var(--s-uxs);
+}
+
+.headerTable > * {
+  font-size: clamp(var(--fs-md), 3.25cqw, var(--fs-df));
+}
+
+
+.headerTable > *:first-child,
+.rowTable > *:first-child {
+  justify-self: center;
+}
+
+.headerTable > *:nth-last-child(-n+2),
+.rowTable > *:nth-last-child(-n+2) {
+  justify-self: end;
+}
+
+.headerTable {
+  box-shadow: var(--sw-inset-bottom);
+}
+
+.rowTable > * {
+  font-size: clamp(var(--fs-df), 3.25cqw, var(--fs-xxl));
+}
+
+// Loading and error
+.wrapperLoading {
+  width: 100%;
+  max-width: var(--w-max-sm);
+  height: 100%;
+  padding-inline:var(--s-inset);
+  text-align: center;
+}
+
+
+.barLoading {
+  width: 6rem;
+  position:relative;
+  padding: 2px;
+  outline: 2px solid var(--c-accent);
+  border: 2px solid transparent;
+  border-radius: var(--s-df);
+  
+  @include media(lg) {
+    width: 10rem;
+  }
+}
+
+.barLoading > * {
+  width: 0;
+  position: absolute;
+  inset: 0 100% 0 0;
+  border-radius: var(--s-df);
+  background: var(--c-accent);
+  animation: bar-animation 1.5s linear infinite;
+}
+
+@keyframes bar-animation {
+  0% {
+    width: 0;
+    right: 100%;
+    left: 0;
+  }
+
+  10% {
+    width: 25%;
+    right: 75%;
+    left: 0;
+  }
+
+  90% {
+    width: 25%;
+    right: 0;
+    left: 75%;
+  }
+
+  100% {
+    width: 0;
+    right: 0;
+    left: 100%;
+  }
+}

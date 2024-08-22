@@ -1,12 +1,18 @@
 import Button from '@/components/buttons/Button';
+import Input from '@/components/inputs/Input';
 import Layout from '@/components/layouts/Layout';
 import MarkdownText from '@/components/typography/MarkdownText';
 import Typo from '@/components/typography/Typo';
 import Flex from '@/components/utils/Flex';
 import Icon from '@/components/utils/Icon';
 import TinyTable from '@/components/utils/TinyTable';
+import { useNotion } from '@/hooks/useNotion.ts';
 import { useQuizContext } from '@/hooks/useQuizContext.ts';
 import useRecap from '@/hooks/useRecap.ts';
+import useTimeFormat from '@/hooks/useTimeFormat.ts';
+import type { ScoreTypes } from '@/types/quizTypes.ts';
+import type { ChangeEvent, FormEvent } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import s from './Recap.module.scss';
@@ -14,14 +20,46 @@ import s from './Recap.module.scss';
 const Recap = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { resetQuiz, quizState } = useQuizContext();
-  const { difficulty } = quizState;
+  const {
+    resetQuiz, // Ensure this is available
+    quizState,
+    calculateScore,
+  } = useQuizContext();
+  const { score, successRate } = calculateScore();
+  const { difficulty, totalTime } = quizState;
   const { pathRef, pathLength, dashOffset, animatedSuccessRate, resultData } =
     useRecap();
+  const { submitScore, loading } = useNotion();
+  const [playerName, setPlayerName] = useState('');
+  const timeFormatted = useTimeFormat(totalTime || 0, true);
+  const isoDate = new Date().toISOString().split('.')[0];
 
-  const handleReset = () => {
-    resetQuiz();
-    navigate('/game'); // Redirect to the quiz start page
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+
+    const scoreData: ScoreTypes = {
+      name: playerName,
+      difficulty: difficulty || 'Unknown',
+      score: score,
+      success_rate: successRate,
+      date: isoDate,
+      time: totalTime || 0,
+    };
+
+    try {
+      await submitScore(scoreData);
+      // Reset quiz and navigate after successful submission
+      resetQuiz();
+      navigate('/scores');
+    } catch (error) {
+      // Handle error if needed
+      console.error('Failed to submit score:', error);
+    }
+  };
+
+  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value;
+    setPlayerName(inputValue);
   };
 
   const renderProgressBar = () => {
@@ -69,16 +107,24 @@ const Recap = () => {
     );
   };
 
-  const renderDifficulty = () => {
+  const renderInfo = () => {
+    const INFOS = [
+      {
+        key: 'difficulty',
+        label: t('label.difficulty'),
+        value: difficulty ? t(`label.difficulty_${difficulty}`) : '-',
+      },
+      {
+        key: 'time',
+        label: t('label.time'),
+        value: totalTime ? timeFormatted : '-',
+      },
+    ];
+
     return (
       <TinyTable
-        data={[
-          {
-            key: 'difficulty',
-            label: t('label.difficulty'),
-            value: difficulty ? t(`label.difficulty_${difficulty}`) : '-',
-          },
-        ]}
+        classNames={{ wrapper: s.tinyTable }}
+        data={INFOS}
         size={['md']}
         col={['auto', '1fr']}
         gap={[0.25]}
@@ -91,6 +137,7 @@ const Recap = () => {
       <Typo
         className={s.title}
         text={t(`recap.${resultData.text}.title`)}
+        tag={'h1'}
         size={'db'}
         weight={'bold'}
         balancer={true}
@@ -108,14 +155,23 @@ const Recap = () => {
     );
   };
 
-  const renderCta = () => {
+  const renderForm = () => {
     return (
-      <Button
-        classNames={{ button: s.btn }}
-        label={t('action.restart')}
-        onClick={handleReset}
-        theme={'outline'}
-      />
+      <form className={s.form} onSubmit={handleSubmit}>
+        <Input
+          placeholder={t('input.placeholder.name_annals')}
+          value={playerName}
+          onChange={handleNameChange}
+          maxLength={15}
+        />
+        <Button
+          classNames={{ button: s.btnForm }}
+          type={'submit'}
+          label={t('action.submit_score')}
+          theme={'outline'}
+          loading={loading}
+        />
+      </form>
     );
   };
 
@@ -132,7 +188,7 @@ const Recap = () => {
           {renderProgressBar()}
           {renderIcon()}
           {renderScore()}
-          {renderDifficulty()}
+          {renderInfo()}
         </div>
 
         <Flex
@@ -144,7 +200,7 @@ const Recap = () => {
           {renderTitle()}
           {renderText()}
         </Flex>
-        {renderCta()}
+        {renderForm()}
       </Flex>
     </Layout>
   );

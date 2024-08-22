@@ -27,6 +27,7 @@ const QuestionsList = () => {
       <Typo
         className={s.title}
         text={t('questions_list.title')}
+        tag={'h1'}
         size={'db'}
         weight={'bold'}
         balancer={true}

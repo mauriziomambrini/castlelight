@@ -1,4 +1,6 @@
 @import "@/styles/mixins/media";
+@import "@/styles/mixins/typography";
+
 
 .wrapper {
   width: 100%;
@@ -13,10 +15,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
-  @include media(sm) {
-    width: 20rem;
-  }
 }
 
 .img {
@@ -36,52 +34,38 @@
   text-align: center;
 }
 
+.tinyTable {
+  flex-direction: row;
+}
+
 .wrapText {
   max-width: var(--w-max-df);
   text-align: center;
 }
 
 .title {
-  font-size: clamp(var(--fs-xxl), 3.25cqw, var(--fs-tr));
+  font-size: clamp(var(--fs-lg), 3.25cqw, var(--fs-db));
   text-transform: uppercase;
-  animation: 0.5s linear 0.5s infinite flicker;
-}
 
-@keyframes flicker {
-  0% {
-    font-variation-settings: 'INFM' 0, 'BNCE' -10;
-  }
-
-  33.33% {
-    font-variation-settings: 'INFM' 0, 'BNCE' -10;
-  }
-
-  33.34% {
-    font-variation-settings: 'INFM' 100, 'BNCE' 20;
-  }
-
-  66.66% {
-    font-variation-settings: 'INFM' 100, 'BNCE' 20;
-  }
-
-  66.67% {
-    font-variation-settings: 'INFM' 50, 'BNCE' 10;
-  }
-
-  100% {
-    font-variation-settings: 'INFM' 50, 'BNCE' 10;
-  }
+  @include flicker-animation;
 }
 
 .text {
-  --lfs: clamp(var(--fs-lg), 3.25cqw, var(--fs-xxl)) !important;
+  --lfs: clamp(var(--fs-df), 3.25cqw, var(--fs-lg)) !important;
 }
 
-.btn {
+
+.form {
+  width: 100%;
+  max-width: var(--w-max-xs);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--s-df);
+}
+
+.btnForm {
   min-width: 100%;
-  
-  @include media(sm) {
-    min-width: 10rem;
-  }
 }
 
