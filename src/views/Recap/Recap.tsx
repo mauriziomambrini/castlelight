@@ -11,7 +11,8 @@ import { useNotion } from '@/hooks/useNotion.ts';
 import { useQuizContext } from '@/hooks/useQuizContext.ts';
 import useRecap from '@/hooks/useRecap.ts';
 import type { ScoreTypes } from '@/types/quizTypes.ts';
-import { type FormEvent, useState } from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import s from './Recap.module.scss';
@@ -31,6 +32,7 @@ const Recap = () => {
   const { submitScore } = useNotion();
   const [playerName, setPlayerName] = useState('');
   const formattedTime = useFormat(totalTime || 0, true);
+  const isoDate = new Date().toISOString().split('.')[0];
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -40,7 +42,7 @@ const Recap = () => {
       difficulty: difficulty || 'Unknown',
       score: score,
       success_rate: successRate,
-      date: new Date().toISOString().split('T')[0],
+      date: isoDate,
       time: totalTime || 0,
     };
 
@@ -55,9 +57,9 @@ const Recap = () => {
     }
   };
 
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = event.target.value.toUpperCase();
-    setPlayerName(inputValue); // Aggiorna lo stato con il valore dell'input
+  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const inputValue = event.target.value;
+    setPlayerName(inputValue);
   };
 
   const renderProgressBar = () => {
