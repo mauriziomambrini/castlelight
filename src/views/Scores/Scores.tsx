@@ -195,12 +195,7 @@ const Scores = () => {
         align={'center'}
         gap={[2]}
       >
-        <Flex
-          className={s.wrapText}
-          direction={'column'}
-          align={'center'}
-          gap={[0.5]}
-        >
+        <Flex direction={'column'} align={'center'} gap={[0.5]}>
           {renderTitle('scores')}
           {renderText()}
         </Flex>
