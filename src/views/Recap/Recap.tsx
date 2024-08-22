@@ -101,8 +101,8 @@ const Recap = () => {
       <Typo
         className={s.score}
         text={`${animatedSuccessRate}%`}
-        size='db'
-        weight='semi'
+        size={'lg'}
+        weight={'semi'}
       />
     );
   };
