@@ -8,13 +8,13 @@ const useTimeFormat = (seconds: number, includeTenths = false) => {
     return String(num).padStart(2, '0');
   };
 
-  const format = (input: string, replacements: any[]) => {
-    return input.replace(/{(\d+)}/g, (_, i) => replacements[i]);
-  };
+  // const format = (input: string, replacements: any[]) => {
+  //   return input.replace(/{(\d+)}/g, (_, i) => replacements[i]);
+  // };
 
   if (includeTenths) {
-    return format(`{0}'{1}"{2}`, [minutes, remainingSeconds, tenths]);
-    // return [toStr(minutes), `'`, toStr(remainingSeconds), `"`, toStr(tenths)].join('');
+    // return format(`{0}'{1}"{2}`, [minutes, remainingSeconds, tenths]);
+    return [toStr(minutes), `'`, toStr(remainingSeconds), `"`, toStr(tenths)].join('');
   }
 
   return [toStr(minutes), toStr(remainingSeconds)].join(':');
