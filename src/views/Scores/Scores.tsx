@@ -32,12 +32,16 @@ const VALID_DIFFICULTIES: DifficultyTypes[] = ['hard', 'medium', 'easy'];
 
 const Scores = () => {
   const { t } = useTranslation();
-  const { error, loading, getTopScores } = useNotion();
+  const { error, loading, fetchScores, getTopScores } = useNotion();
   const navigate = useNavigate();
   const location = useLocation();
   const [difficulty, setDifficulty] = useState<DifficultyTypes>('hard');
   const searchParams = new URLSearchParams(location.search);
   const [topScores, setTopScores] = useState<ScoreTypes[]>([]);
+
+  useEffect(() => {
+    fetchScores();
+  }, []);
 
   useEffect(() => {
     getTopScores(difficulty).then(setTopScores);
