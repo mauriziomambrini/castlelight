@@ -2,12 +2,23 @@
 @import "@/styles/mixins/overflow";
 @import "@/styles/mixins/typography";
 
+.content {
+  @include overflow-y;
+}
+
 .wrapper {
   width: 100%;
   max-width: var(--w-max-df);
   height: 100%;
-  padding-top: var(--s-qr);
   padding-inline:var(--s-inset);
+  
+  @include media(sm) {
+    padding-top: var(--s-db);
+  }
+  
+  @include media(xl) {
+    padding-top: var(--s-qr);
+  }
 }
 
 
@@ -34,8 +45,6 @@
 
 
 .table {
-  @include overflow-y;
-
   width: 100%;
   max-width: var(--w-max-xs);
   display: grid;

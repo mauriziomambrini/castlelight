@@ -78,8 +78,8 @@ export const useNotion = () => {
   };
 
   // Get top 10 scores for difficulty
-  const getTopScores = async (difficulty: DifficultyTypes): Promise<ScoreTypes[]> => {
-    const scores_list = await fetchScores();
+  const getTopScores = (difficulty: DifficultyTypes) => {
+    const scores_list = notionState.scores;
 
     // Filter scores by difficulty
     const filteredScores = scores_list.filter((score) => score.difficulty === difficulty);
