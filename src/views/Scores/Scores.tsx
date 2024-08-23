@@ -39,16 +39,13 @@ const Scores = () => {
   const searchParams = new URLSearchParams(location.search);
   const [topScores, setTopScores] = useState<ScoreTypes[]>([]);
 
-  console.log('AAA', topScores);
-
   useEffect(() => {
-    fetchScores().then(() => {
-      getTopScores(difficulty).then(setTopScores);
-    });
+    fetchScores();
   }, []);
 
   useEffect(() => {
-    getTopScores(difficulty).then(setTopScores);
+    const TOP_LIST = getTopScores(difficulty);
+    setTopScores(TOP_LIST);
   }, [difficulty]);
 
   // Set difficulty based on query string
