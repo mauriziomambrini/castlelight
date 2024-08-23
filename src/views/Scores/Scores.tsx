@@ -7,7 +7,7 @@ import Tabs from '@/components/utils/Tabs';
 import type { ITab } from '@/components/utils/Tabs/Tabs.tsx';
 import { useNotion } from '@/hooks/useNotion.ts';
 import useTimeFormat from '@/hooks/useTimeFormat.ts';
-import type { DifficultyTypes } from '@/types/quizTypes.ts';
+import type { DifficultyTypes, ScoreTypes } from '@/types/quizTypes.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -32,16 +32,16 @@ const VALID_DIFFICULTIES: DifficultyTypes[] = ['hard', 'medium', 'easy'];
 
 const Scores = () => {
   const { t } = useTranslation();
-  const { error, loading, fetchScores, getTopScores } = useNotion();
+  const { error, loading, getTopScores } = useNotion();
   const navigate = useNavigate();
   const location = useLocation();
   const [difficulty, setDifficulty] = useState<DifficultyTypes>('hard');
-  const scores = getTopScores(difficulty);
   const searchParams = new URLSearchParams(location.search);
+  const [topScores, setTopScores] = useState<ScoreTypes[]>([]);
 
   useEffect(() => {
-    fetchScores();
-  }, []);
+    getTopScores(difficulty).then(setTopScores);
+  }, [difficulty]);
 
   // Set difficulty based on query string
   useEffect(() => {
@@ -51,7 +51,7 @@ const Scores = () => {
     setDifficulty(queryDifficulty);
   }, [location.search]);
 
-  const formattedScores = scores.map((score, index) => ({
+  const formattedScores = topScores.map((score, index) => ({
     ...score,
     rank: index + 1,
     successRate: `${score.success_rate}%`,
@@ -68,26 +68,11 @@ const Scores = () => {
   };
 
   const renderTitle = (type: 'scores' | 'loading' | 'error') => {
-    return (
-      <Typo
-        className={s.title}
-        text={t(`${type}.title`)}
-        size={'db'}
-        weight={'bold'}
-        balancer={true}
-      />
-    );
+    return <Typo className={s.title} text={t(`${type}.title`)} size={'db'} weight={'bold'} balancer={true} />;
   };
 
   const renderText = () => {
-    return (
-      <MarkdownText
-        classNames={{ text: s.text }}
-        text={t('scores.text')}
-        baseSize={'df'}
-        linkTarget={'_self'}
-      />
-    );
+    return <MarkdownText classNames={{ text: s.text }} text={t('scores.text')} baseSize={'df'} linkTarget={'_self'} />;
   };
 
   const renderTabs = () => {
@@ -111,14 +96,7 @@ const Scores = () => {
     return (
       <div className={s.headerTable}>
         {COLUMNS.map((col) => {
-          return (
-            <Typo
-              key={col}
-              text={t(`label.${col}`)}
-              size={'md'}
-              weight={'regular'}
-            />
-          );
+          return <Typo key={col} text={t(`label.${col}`)} size={'md'} weight={'regular'} />;
         })}
       </div>
     );
@@ -149,13 +127,7 @@ const Scores = () => {
   const renderLoading = () => {
     if (!loading) return null;
     return (
-      <Flex
-        className={s.wrapperLoading}
-        direction={'column'}
-        justify={'center'}
-        align={'center'}
-        gap={[1]}
-      >
+      <Flex className={s.wrapperLoading} direction={'column'} justify={'center'} align={'center'} gap={[1]}>
         {renderTitle('loading')}
         <div className={s.barLoading}>
           <div />
@@ -167,20 +139,10 @@ const Scores = () => {
   const renderError = () => {
     if (!error) return null;
     return (
-      <Flex
-        className={s.wrapperLoading}
-        direction={'column'}
-        justify={'center'}
-        align={'center'}
-        gap={[1]}
-      >
+      <Flex className={s.wrapperLoading} direction={'column'} justify={'center'} align={'center'} gap={[1]}>
         {renderTitle('error')}
         <Typo text={error} size={'df'} weight={'regular'} balancer={true} />
-        <Button
-          label={t('action.reload_page')}
-          onClick={() => window.location.reload()}
-          theme={'outline'}
-        />
+        <Button label={t('action.reload_page')} onClick={() => window.location.reload()} theme={'outline'} />
       </Flex>
     );
   };
@@ -189,12 +151,7 @@ const Scores = () => {
     if (loading) return null;
     if (error) return null;
     return (
-      <Flex
-        className={s.wrapper}
-        direction={'column'}
-        align={'center'}
-        gap={[2]}
-      >
+      <Flex className={s.wrapper} direction={'column'} align={'center'} gap={[2]}>
         <Flex direction={'column'} align={'center'} gap={[0.5]}>
           {renderTitle('scores')}
           {renderText()}

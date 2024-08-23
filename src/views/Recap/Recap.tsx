@@ -27,8 +27,7 @@ const Recap = () => {
   } = useQuizContext();
   const { score, successRate } = calculateScore();
   const { difficulty, totalTime } = quizState;
-  const { pathRef, pathLength, dashOffset, animatedSuccessRate, resultData } =
-    useRecap();
+  const { pathRef, pathLength, dashOffset, animatedSuccessRate, resultData } = useRecap();
   const { submitScore, loading } = useNotion();
   const [playerName, setPlayerName] = useState('');
   const timeFormatted = useTimeFormat(totalTime || 0, true);
@@ -39,7 +38,7 @@ const Recap = () => {
 
     const scoreData: ScoreTypes = {
       name: playerName,
-      difficulty: difficulty || 'Unknown',
+      difficulty: difficulty || 'unknown',
       score: score,
       success_rate: successRate,
       date: isoDate,
@@ -50,7 +49,7 @@ const Recap = () => {
       await submitScore(scoreData);
       // Reset quiz and navigate after successful submission
       resetQuiz();
-      navigate('/scores');
+      navigate(`/scores?dfy=${difficulty}`);
     } catch (error) {
       // Handle error if needed
       console.error('Failed to submit score:', error);
@@ -97,14 +96,7 @@ const Recap = () => {
   };
 
   const renderScore = () => {
-    return (
-      <Typo
-        className={s.score}
-        text={`${animatedSuccessRate}%`}
-        size={'lg'}
-        weight={'semi'}
-      />
-    );
+    return <Typo className={s.score} text={`${animatedSuccessRate}%`} size={'lg'} weight={'semi'} />;
   };
 
   const renderInfo = () => {
@@ -122,13 +114,7 @@ const Recap = () => {
     ];
 
     return (
-      <TinyTable
-        classNames={{ wrapper: s.tinyTable }}
-        data={INFOS}
-        size={['md']}
-        col={['auto', '1fr']}
-        gap={[0.25]}
-      />
+      <TinyTable classNames={{ wrapper: s.tinyTable }} data={INFOS} size={['md']} col={['auto', '1fr']} gap={[0.25]} />
     );
   };
 
@@ -146,13 +132,7 @@ const Recap = () => {
   };
 
   const renderText = () => {
-    return (
-      <MarkdownText
-        classNames={{ text: s.text }}
-        text={t(`recap.${resultData.text}.text`)}
-        baseSize={'lg'}
-      />
-    );
+    return <MarkdownText classNames={{ text: s.text }} text={t(`recap.${resultData.text}.text`)} baseSize={'lg'} />;
   };
 
   const renderForm = () => {
@@ -177,13 +157,7 @@ const Recap = () => {
 
   return (
     <Layout>
-      <Flex
-        className={s.wrapper}
-        direction={'column'}
-        justify={'center'}
-        align={'center'}
-        gap={[2]}
-      >
+      <Flex className={s.wrapper} direction={'column'} justify={'center'} align={'center'} gap={[2]}>
         <div className={s.wrapProgress}>
           {renderProgressBar()}
           {renderIcon()}
@@ -191,12 +165,7 @@ const Recap = () => {
           {renderInfo()}
         </div>
 
-        <Flex
-          className={s.wrapText}
-          direction={'column'}
-          align={'center'}
-          gap={[1]}
-        >
+        <Flex className={s.wrapText} direction={'column'} align={'center'} gap={[1]}>
           {renderTitle()}
           {renderText()}
         </Flex>
