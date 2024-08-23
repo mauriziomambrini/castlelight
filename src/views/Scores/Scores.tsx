@@ -39,6 +39,8 @@ const Scores = () => {
   const searchParams = new URLSearchParams(location.search);
   const [topScores, setTopScores] = useState<ScoreTypes[]>([]);
 
+  console.log('AAA', topScores);
+
   useEffect(() => {
     fetchScores().then(() => {
       getTopScores(difficulty).then(setTopScores);
