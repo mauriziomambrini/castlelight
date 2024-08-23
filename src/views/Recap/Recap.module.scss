@@ -9,12 +9,16 @@
 }
 
 .wrapProgress {
-  width: 15rem;
+  width: 10rem;
   display: flex;
   position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
+  @include media(sm) {
+    width: 15rem;
+  }
 }
 
 .img {
@@ -32,6 +36,10 @@
   bottom: 15%;
   left: 0;
   text-align: center;
+  
+  @include media(sm) {
+    font-size: var(--fs-db);
+  }
 }
 
 .tinyTable {
