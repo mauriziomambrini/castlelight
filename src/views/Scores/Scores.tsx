@@ -7,7 +7,7 @@ import Tabs from '@/components/utils/Tabs';
 import type { ITab } from '@/components/utils/Tabs/Tabs.tsx';
 import { useNotion } from '@/hooks/useNotion.ts';
 import useTimeFormat from '@/hooks/useTimeFormat.ts';
-import type { DifficultyTypes } from '@/types/quizTypes.ts';
+import type { DifficultyTypes, ScoreTypes } from '@/types/quizTypes.ts';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -17,17 +17,18 @@ const VALID_DIFFICULTIES: DifficultyTypes[] = ['hard', 'medium', 'easy'];
 
 const Scores = () => {
   const { t } = useTranslation();
-  const { error, loading, fetchScores, getTopScores } = useNotion();
+  const { error, loading, getTopScores } = useNotion();
   const navigate = useNavigate();
   const location = useLocation();
   const [difficulty, setDifficulty] = useState<DifficultyTypes>('hard');
   const searchParams = new URLSearchParams(location.search);
+  const [topScores, setTopScores] = useState<ScoreTypes[]>([]);
 
   const topScores = getTopScores(difficulty);
 
   useEffect(() => {
-    fetchScores();
-  }, []);
+    getTopScores(difficulty).then(setTopScores);
+  }, [difficulty]);
 
   // Set difficulty based on query string
   useEffect(() => {
