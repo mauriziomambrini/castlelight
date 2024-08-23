@@ -2,6 +2,10 @@
 @import "@/styles/mixins/overflow";
 @import "@/styles/mixins/typography";
 
+.content {
+  @include overflow-y;
+}
+
 .wrapper {
   width: 100%;
   max-width: var(--w-max-df);
@@ -34,8 +38,6 @@
 
 
 .table {
-  @include overflow-y;
-
   width: 100%;
   max-width: var(--w-max-xs);
   display: grid;
