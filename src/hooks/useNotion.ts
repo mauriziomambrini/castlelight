@@ -27,29 +27,32 @@ export const useNotion = () => {
   };
 
   // Fetch scores
-  const fetchScores = async () => {
-    startLoading();
+  const fetchScores = async (): Promise<ScoreTypes[]> => {
+    const ERROR_MSG = 'Failed to fetch scores';
 
     try {
+      startLoading();
       const response = await fetch('/api/getScores');
 
       // Handle non-OK responses
       if (!response.ok) {
-        fillNotionState('error', 'Failed to fetch scores');
-        return;
+        throw new Error(ERROR_MSG);
       }
 
       const data: ScoreTypes[] = await response.json();
-      fillNotionState('scores', data); // Process data if response is OK
+      fillNotionState('scores', data);
+      return data;
     } catch (err: any) {
-      fillNotionState('error', err.message); // Set error message if an exception occurs
+      fillNotionState('error', err?.message || ERROR_MSG); // Set error message if an exception occurs
+      return [];
     } finally {
       fillNotionState('loading', false); // Stop loading, whether successful or not
     }
   };
 
   // Submit new score
-  const submitScore = async (scoreData: ScoreTypes) => {
+  const submitScore = async (scoreData: ScoreTypes): Promise<void> => {
+    const ERROR_MSG = 'Failed to submit score';
     startLoading();
 
     try {
@@ -65,20 +68,21 @@ export const useNotion = () => {
 
       // Handle non-OK responses
       if (!response.ok) {
-        fillNotionState('error', 'Failed to submit score');
-        return;
+        throw new Error(ERROR_MSG);
       }
     } catch (err: any) {
-      fillNotionState('error', err.message); // Set error message if an exception occurs
+      fillNotionState('error', err?.message || ERROR_MSG); // Set error message if an exception occurs
     } finally {
       fillNotionState('loading', false); // Stop loading, whether successful or not
     }
   };
 
   // Get top 10 scores for difficulty
-  const getTopScores = (difficulty: DifficultyTypes) => {
+  const getTopScores = async (difficulty: DifficultyTypes): Promise<ScoreTypes[]> => {
+    const scores_list = await fetchScores();
+
     // Filter scores by difficulty
-    const filteredScores = notionState.scores.filter((score) => score.difficulty === difficulty);
+    const filteredScores = scores_list.filter((score) => score.difficulty === difficulty);
 
     // Sort scores based on success_rate, time, date
     const sortedScores = filteredScores.sort((a, b) => {

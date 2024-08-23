@@ -1,5 +1,4 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
-import fetch from 'node-fetch';
 import type { ScoreTypes } from '../src/types/quizTypes';
 
 export default async function handler(req: IncomingMessage, res: ServerResponse) {
