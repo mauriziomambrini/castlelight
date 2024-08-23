@@ -40,7 +40,9 @@ const Scores = () => {
   const [topScores, setTopScores] = useState<ScoreTypes[]>([]);
 
   useEffect(() => {
-    fetchScores();
+    fetchScores().then(() => {
+      getTopScores(difficulty).then(setTopScores);
+    });
   }, []);
 
   useEffect(() => {
