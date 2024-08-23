@@ -46,7 +46,6 @@
   "credits.text": "_Special thanks_:\n\n**Misha Mambrini** and **Sasha Patapava** for inspiration and moral support.\n\n**Luca Raffo** for code review and advice.\n\n**Nicolò Benigni** for beta testing and suggestions.",
   "credits.title": "Castel light is designed and developed by **Maurizio Mambrini**",
   "error.title": "Oops... something went wrong!",
-  "footer.label.github": "View on {{link}}",
   "footer.label.powered_by": "©{{year}} Hand-sewn by {{link}}",
   "input.placeholder.name_annals": "Your name for the annals",
   "intro_subtitle": "Dissolve the darkness!",

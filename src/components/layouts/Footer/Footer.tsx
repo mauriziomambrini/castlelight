@@ -1,6 +1,6 @@
-import type { FC, ReactElement } from 'react';
-
+import * as ICONS from '@/assets/icons';
 import cx from 'classnames';
+import type { FC, ReactElement } from 'react';
 import s from './Footer.module.scss';
 
 import Button from '@/components/buttons/Button';
@@ -24,12 +24,7 @@ const Footer: FC<IFooter> = (props: IFooter): ReactElement => {
         {main.map((item) => {
           return (
             <li key={item.key}>
-              <Button
-                classNames={{ button: s.itemMenu }}
-                label={item.label}
-                to={item.href}
-                theme={'text'}
-              />
+              <Button classNames={{ button: s.itemMenu }} label={item.label} to={item.href} theme={'text'} />
             </li>
           );
         })}
@@ -41,22 +36,20 @@ const Footer: FC<IFooter> = (props: IFooter): ReactElement => {
     const year = new Date().getFullYear();
     const link = '[Pixelcutter.io](https://www.pixelcutter.io/)';
     return (
-      <MarkdownText
-        text={t('footer.label.powered_by', { year: year, link: link })}
-        baseSize={'sm'}
-        color={'grey-2'}
-      />
+      <MarkdownText text={t('footer.label.powered_by', { year: year, link: link })} baseSize={'sm'} color={'grey-2'} />
     );
   };
 
   const renderGithub = () => {
-    const link =
-      '[GitHub](https://github.com/mauriziomambrini/castlelight.git)';
+    const LINK = 'https://github.com/mauriziomambrini/castlelight.git';
     return (
-      <MarkdownText
-        text={t('footer.label.github', { link: link })}
-        baseSize={'sm'}
-        color={'grey-2'}
+      <Button
+        classNames={{ button: s.itemMenu }}
+        label={'GitHub'}
+        icon={ICONS.github}
+        iconPosition={'before'}
+        href={LINK}
+        theme={'text'}
       />
     );
   };
@@ -64,13 +57,9 @@ const Footer: FC<IFooter> = (props: IFooter): ReactElement => {
   const renderCopyrightMenu = () => {
     return (
       <div className={s.copyrightMenu}>
-        {renderGithub()}
-        <Divider
-          classNames={{ wrapper: s.divider }}
-          theme={'vertical'}
-          spacing={[0.5]}
-        />
         {renderPoweredBy()}
+        <Divider classNames={{ wrapper: s.divider }} theme={'vertical'} spacing={[0.5]} />
+        {renderGithub()}
       </div>
     );
   };

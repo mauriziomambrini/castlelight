@@ -25,19 +25,18 @@
 
 .itemMenu {
   --lfs-label: var(--fs-sm) !important;
+  --ls-icon: var(--s-sm)  !important;
 }
+
+
 
 // Copyright and GitHub
 .copyrightMenu {
   width: fit-content;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   gap: var(--s-uxs);
-  
-  @include media(sm) {
-    flex-direction: row-reverse;
-  }
 }
 
 .divider {

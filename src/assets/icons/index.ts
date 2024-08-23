@@ -1,3 +1,4 @@
-import pressMove from './svg/icon_press_move.svg';
+import github from './svg/github.svg';
+import pressMove from './svg/press_move.svg';
 
-export { pressMove };
+export { github, pressMove };
